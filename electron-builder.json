@@ -1,0 +1,32 @@
+{
+  "appId": "local.oxfordcards.desktop",
+  "productName": "Oxford Cards",
+  "directories": {
+    "output": "release",
+    "buildResources": "desktop/resources"
+  },
+  "files": [
+    "dist/**/*",
+    "desktop/**/*.cjs",
+    "desktop/resources/icon.ico",
+    "desktop/resources/*LICENSE*.txt",
+    "DATA-SOURCES.md",
+    "src/data/oxford3000.json",
+    "src/data/sources/en-ru-LICENSE.txt",
+    "package.json",
+    "!node_modules/**/*"
+  ],
+  "extraResources": [{ "from": "desktop/speech-worker.ps1", "to": "speech-worker.ps1" }],
+  "extraMetadata": { "dependencies": {} },
+  "asar": true,
+  "compression": "normal",
+  "win": {
+    "target": [{ "target": "portable", "arch": ["x64"] }],
+    "icon": "desktop/resources/icon.ico",
+    "requestedExecutionLevel": "asInvoker"
+  },
+  "portable": {
+    "artifactName": "Oxford Cards.exe",
+    "requestExecutionLevel": "user"
+  }
+}

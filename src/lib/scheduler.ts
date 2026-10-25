@@ -1,0 +1,140 @@
+import type { AppState, CardProgress, Level, Rating, StudyStats, Word } from './types.ts';
+import { MAX_COUNTER, MAX_INTERVAL, MAX_TIMESTAMP, timestamp, validCard } from './validation.ts';
+
+export const DAY_MS = 86_400_000;
+export const MINUTE_MS = 60_000;
+export const MAX_DAILY_EXTRA = 10_000;
+export const ALL_LEVELS: Level[] = ['A1', 'A2', 'B1', 'B2'];
+
+export function defaultState(): AppState {
+  return {
+    version: 1,
+    cards: {},
+    reviews: [],
+    settings: {
+      dailyNewLimit: 20,
+      levels: [...ALL_LEVELS],
+      direction: 'en-ru',
+      autoSpeak: false,
+    },
+  };
+}
+
+/** Four-button adaptation of SM-2, with a one-minute retry and hard/easy bonuses.
+ * All scheduling uses elapsed time; the daily quota uses the device's local date.
+ * Source: https://www.super-memory.com/english/ol/sm2.htm
+ */
+export function scheduleCard(previous: CardProgress | undefined, rating: Rating, now: number): CardProgress {
+  if (!timestamp(now)) throw new Error('Некорректное время повторения.');
+  if (!['again', 'hard', 'good', 'easy'].includes(rating)) throw new Error('Неизвестная оценка ответа.');
+  if (previous && !validCard(previous)) throw new Error('Некорректный прогресс карточки.');
+  if (previous && now < previous.lastReviewed) throw new Error('Проверьте дату и время на устройстве.');
+
+  const oldEase = previous?.ease ?? 2.5;
+  const quality = { again: 1, hard: 3, good: 4, easy: 5 }[rating];
+  const ease = Math.max(1.3, Math.min(5, Math.round(
+    (oldEase + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)) * 100,
+  ) / 100));
+  const startedAt = previous?.startedAt ?? now;
+
+  if (rating === 'again') {
+    if (now > MAX_TIMESTAMP - MINUTE_MS) throw new Error('Дата повторения выходит за допустимый диапазон.');
+    return {
+      due: now + MINUTE_MS,
+      interval: 1 / 1440,
+      ease,
+      repetitions: 0,
+      lapses: Math.min(MAX_COUNTER, (previous?.lapses ?? 0) + (previous?.state === 'review' ? 1 : 0)),
+      lastReviewed: now,
+      startedAt,
+      state: previous && previous.state !== 'learning' ? 'relearning' : 'learning',
+    };
+  }
+
+  const repetitions = Math.min(MAX_COUNTER, (previous?.repetitions ?? 0) + 1);
+  const oldInterval = previous?.interval ?? 0;
+  let interval: number;
+  if (rating === 'hard') interval = Math.max(1, Math.ceil(oldInterval * 1.2));
+  else if (rating === 'easy') interval = Math.max(4, Math.ceil(oldInterval * oldEase * 1.3));
+  else if (repetitions === 1) interval = 1;
+  else if (repetitions === 2) interval = 6;
+  else interval = Math.max(1, Math.ceil(oldInterval * oldEase));
+  interval = Math.min(MAX_INTERVAL, interval);
+
+  if (now > MAX_TIMESTAMP - interval * DAY_MS) throw new Error('Дата повторения выходит за допустимый диапазон.');
+  return {
+    due: now + interval * DAY_MS,
+    interval,
+    ease,
+    repetitions,
+    lapses: previous?.lapses ?? 0,
+    lastReviewed: now,
+    startedAt,
+    state: 'review',
+  };
+}
+
+export function localDayKey(at: number): string {
+  const date = new Date(at);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+export function getDailyNewLimit(state: AppState, now: number): number {
+  const extra = state.dailyExtra?.day === localDayKey(now) ? state.dailyExtra.count : 0;
+  return state.settings.dailyNewLimit + extra;
+}
+
+/** Extend today's allowance without changing the recurring daily setting. */
+export function addExtraNewWords(state: AppState, count: number, now: number): AppState {
+  if (!timestamp(now)) throw new Error('Некорректная дата занятия.');
+  const day = localDayKey(now);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) throw new Error('Некорректная дата занятия.');
+  if (!Number.isInteger(count) || count <= 0 || count > MAX_DAILY_EXTRA) {
+    throw new Error('Некорректное количество дополнительных слов.');
+  }
+  const previous = state.dailyExtra?.day === day ? state.dailyExtra.count : 0;
+  const total = previous + count;
+  if (total > MAX_DAILY_EXTRA) throw new Error('Достигнут предел дополнительных слов на сегодня.');
+  return { ...state, dailyExtra: { day, count: total } };
+}
+
+export function getStudyQueue(words: Word[], state: AppState, now: number): Word[] {
+  const levels = new Set(state.settings.levels);
+  const available = words.filter((word) => levels.has(word.level));
+  const due = available.filter((word) => state.cards[word.id]?.due <= now)
+    .sort((a, b) => state.cards[a.id]!.due - state.cards[b.id]!.due || a.id.localeCompare(b.id));
+  const today = localDayKey(now);
+  const newToday = new Set(state.reviews.filter((review) => review.isNew && review.at <= now && localDayKey(review.at) === today)
+    .map((review) => review.wordId));
+  const remaining = Math.max(0, getDailyNewLimit(state, now) - newToday.size);
+  const newWords = available.filter((word) => !state.cards[word.id]).slice(0, remaining);
+  return [...due, ...newWords];
+}
+
+export function getStats(words: Word[], state: AppState, now: number): StudyStats {
+  const queue = getStudyQueue(words, state, now);
+  const knownIds = new Set(words.map((word) => word.id));
+  const cards = Object.entries(state.cards).filter(([id]) => knownIds.has(id)).map(([, card]) => card);
+  const learned = cards.filter((card) => card.state === 'review' && card.interval >= 21).length;
+  const reviews = state.reviews.filter((review) => knownIds.has(review.wordId) && review.at <= now);
+  const today = localDayKey(now);
+  const days = new Set(reviews.map((review) => localDayKey(review.at)));
+  const cursor = new Date(now);
+  cursor.setHours(12, 0, 0, 0);
+  if (!days.has(today)) cursor.setDate(cursor.getDate() - 1);
+  let streak = 0;
+  while (days.has(localDayKey(cursor.getTime()))) {
+    streak++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return {
+    due: queue.filter((word) => Boolean(state.cards[word.id])).length,
+    newAvailable: queue.filter((word) => !state.cards[word.id]).length,
+    learning: cards.length - learned,
+    learned,
+    reviewedToday: new Set(reviews.filter((review) => localDayKey(review.at) === today).map((review) => review.wordId)).size,
+    streak,
+    started: cards.length,
+    total: words.length,
+  };
+}

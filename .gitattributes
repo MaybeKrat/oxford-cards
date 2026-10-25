@@ -1,0 +1,6 @@
+* text=auto
+*.pdf binary
+*.png binary
+*.ico binary
+# Preserve the downloaded source bytes used by DATA-SOURCES.md checksums.
+/src/data/sources/oxford3000-en-ru.csv -text whitespace=cr-at-eol

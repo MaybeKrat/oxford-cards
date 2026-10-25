@@ -1,0 +1,22 @@
+{
+  "title": "Oxford 3000 · English–Russian",
+  "edition": "Oxford 3000 — закреплённая редакция британского списка по CEFR",
+  "cardCount": 3000,
+  "uniqueSpellings": 2979,
+  "levels": {
+    "A1": 900,
+    "A2": 800,
+    "B1": 700,
+    "B2": 600
+  },
+  "translationOverrides": 419,
+  "examples": 2581,
+  "translationNotice": "Переводы и примеры — независимые материалы с использованием ИИ; это не официальный перевод Oxford. Полная редакторская проверка не проводилась.",
+  "officialListUrl": "https://www.oxfordlearnersdictionaries.com/about/wordlists/oxford3000-5000",
+  "sourcePdfUrl": "https://www.oxfordlearnersdictionaries.com/external/pdf/wordlists/oxford-3000-5000/The_Oxford_3000_by_CEFR_level.pdf",
+  "pinnedPdfUrl": "https://raw.githubusercontent.com/ittuann/The-Oxford-5000-Word-Lists/7dc22b8ff8e5cb3410e962b0511d22cdf74b120c/The_Oxford_3000_by_CEFR_level.pdf",
+  "pdfSha256": "b81e3f65c976fc93eb342ba34c40f0ff8c3a59646312d09ac50f9c648e461cd3",
+  "editionNotice": "Закреплённая опубликованная редакция Oxford; текущий список на сайте Oxford содержит небольшие изменения.",
+  "translationSourceUrl": "https://github.com/ascat41/Oxford3000_en-ru",
+  "sourceDate": "2026-10-25"
+}

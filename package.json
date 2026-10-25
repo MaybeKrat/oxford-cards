@@ -1,0 +1,34 @@
+{
+  "name": "oxford-cards",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "check:data": "node scripts/check-data.mjs",
+    "desktop": "electron .",
+    "build:exe": "npm run build && electron-builder --win portable --x64 --config electron-builder.json"
+  },
+  "dependencies": {
+    "@fontsource-variable/golos-text": "^5.3.0",
+    "lucide-react": "1.61.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  },
+  "main": "desktop/main.cjs",
+  "description": "Oxford Cards — английские карточки с интервальным повторением",
+  "author": "Oxford Cards"
+}
