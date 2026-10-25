@@ -56,6 +56,10 @@ function validateState(raw: string, validWordIds?: Set<string>): AppState {
     || typeof settings.direction !== 'string' || !['en-ru', 'ru-en'].includes(settings.direction) || typeof settings.autoSpeak !== 'boolean') {
     invalid('некорректные настройки обучения.');
   }
+  if (settings.theme !== undefined
+    && (typeof settings.theme !== 'string' || !['system', 'light', 'dark'].includes(settings.theme))) {
+    invalid('некорректная тема оформления.');
+  }
   let dailyExtra: AppState['dailyExtra'];
   if (parsed.dailyExtra !== undefined) {
     const extra = parsed.dailyExtra;
@@ -73,6 +77,8 @@ function validateState(raw: string, validWordIds?: Set<string>): AppState {
       levels: [...settings.levels] as Level[],
       direction: settings.direction as Settings['direction'],
       autoSpeak: settings.autoSpeak,
+      // Older version-1 backups follow the operating system without losing progress.
+      theme: (settings.theme ?? 'system') as Settings['theme'],
     },
   };
 }

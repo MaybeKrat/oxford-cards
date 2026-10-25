@@ -1,5 +1,6 @@
 export type Level = 'A1' | 'A2' | 'B1' | 'B2';
 export type Rating = 'again' | 'hard' | 'good' | 'easy';
+export type ThemePreference = 'system' | 'light' | 'dark';
 
 export interface Word {
   id: string;
@@ -30,6 +31,7 @@ export interface Settings {
   levels: Level[];
   direction: 'en-ru' | 'ru-en';
   autoSpeak: boolean;
+  theme: ThemePreference;
 }
 
 export interface ReviewLog {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDownToLine,
   ArrowLeft,
@@ -36,6 +36,7 @@ import {
 import { parseBackup, readState, writeState, STORAGE_KEY } from "./lib/storage";
 import { createSpeechController } from "./lib/speech";
 import { createBufferedSpeechController } from "./lib/buffered-speech";
+import { applyTheme, SYSTEM_THEME_QUERY } from "./lib/theme";
 import type { SpeechController, SpeechStatus } from "./lib/speech";
 import type { AppState, Level, Rating, Settings, Word } from "./lib/types";
 
@@ -164,6 +165,22 @@ export default function App() {
           100,
           Math.round((todayNew / dailyNewLimit) * 100),
         );
+
+  useLayoutEffect(() => {
+    const media = window.matchMedia(SYSTEM_THEME_QUERY);
+    const refreshTheme = () => applyTheme(state.settings.theme, media.matches);
+    let disposed = false;
+    refreshTheme();
+    media.addEventListener("change", refreshTheme);
+    // Electron also needs the preference for its native window buttons and menus.
+    window.oxfordTheme?.setSource(state.settings.theme).catch(() => {
+      if (!disposed) setToast("Не удалось обновить тему окна. Перезапустите приложение.");
+    });
+    return () => {
+      disposed = true;
+      media.removeEventListener("change", refreshTheme);
+    };
+  }, [state.settings.theme]);
 
   useEffect(() => {
     const callbacks = {
@@ -1358,6 +1375,29 @@ export default function App() {
                 </div>
               </section>
               <div className="settings-side">
+                <section className="panel appearance-panel">
+                  <h2>Внешний вид</h2>
+                  <div className="setting-row theme-setting">
+                    <div>
+                      <label htmlFor="theme-preference">Тема оформления</label>
+                      <p>
+                        {isDesktop
+                          ? "Режим «Как в Windows» меняет тему автоматически."
+                          : "Системный режим следует теме вашего устройства."}
+                      </p>
+                    </div>
+                    <select
+                      id="theme-preference"
+                      value={state.settings.theme}
+                      disabled={saving}
+                      onChange={(event) => updateSettings({ theme: event.target.value as Settings["theme"] })}
+                    >
+                      <option value="system">{isDesktop ? "Как в Windows" : "Как в системе"}</option>
+                      <option value="light">Светлая</option>
+                      <option value="dark">Тёмная</option>
+                    </select>
+                  </div>
+                </section>
                 <section className="panel">
                   <span className="stat-icon sage">
                     <ArrowDownToLine size={21} />

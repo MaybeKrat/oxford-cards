@@ -22,6 +22,7 @@ const {
 } = require("./security.cjs");
 const { getInitialWindowLayout } = require("./window-options.cjs");
 const { createNativeSpeechService } = require("./native-speech.cjs");
+const { getWindowThemeOptions, createWindowThemeController } = require("./theme.cjs");
 
 app.setName("Oxford Cards");
 // Portable launchers unpack into a new temporary directory. Keep progress elsewhere.
@@ -45,6 +46,7 @@ app.enableSandbox();
 
 let mainWindow;
 let nativeSpeech;
+let windowTheme;
 const hasLock = app.requestSingleInstanceLock();
 if (!hasLock) {
   app.quit();
@@ -65,7 +67,7 @@ if (!hasLock) {
         throw new Error(
           "Сборка приложения не найдена. Выполните npm run build.",
         );
-      nativeTheme.themeSource = "light";
+      nativeTheme.themeSource = "system";
       Menu.setApplicationMenu(null);
       session.defaultSession.setPermissionRequestHandler(
         (_contents, _permission, callback) => callback(false),
@@ -110,13 +112,8 @@ if (!hasLock) {
       mainWindow = new BrowserWindow({
         ...initialLayout.options,
         title: "Oxford Cards",
-        backgroundColor: "#f8f9f6",
+        ...getWindowThemeOptions(nativeTheme),
         titleBarStyle: "hidden",
-        titleBarOverlay: {
-          color: "#f8f9f6",
-          symbolColor: "#255648",
-          height: 42,
-        },
         icon: path.join(app.getAppPath(), "desktop", "resources", "icon.ico"),
         show: false,
         autoHideMenuBar: true,
@@ -130,6 +127,12 @@ if (!hasLock) {
           webviewTag: false,
           spellcheck: false,
         },
+      });
+
+      windowTheme = createWindowThemeController({
+        nativeTheme,
+        ipcMain,
+        getWindow: () => mainWindow,
       });
 
       const openDictionary = (url) => {
@@ -158,10 +161,12 @@ if (!hasLock) {
         event.preventDefault(),
       );
       mainWindow.once("ready-to-show", () => {
+        windowTheme.update();
         if (initialLayout.maximize) mainWindow.maximize();
         mainWindow.show();
       });
       mainWindow.on("closed", () => {
+        windowTheme.dispose();
         mainWindow = undefined;
       });
       await mainWindow.loadURL(`${APP_ORIGIN}/index.html`);
@@ -171,5 +176,8 @@ if (!hasLock) {
       app.quit();
     });
   app.on("window-all-closed", () => app.quit());
-  app.on("before-quit", () => nativeSpeech?.dispose());
+  app.on("before-quit", () => {
+    windowTheme?.dispose();
+    nativeSpeech?.dispose();
+  });
 }

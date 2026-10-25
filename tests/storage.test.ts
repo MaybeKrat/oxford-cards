@@ -41,6 +41,35 @@ test('Today-only allowance survives saving, reopening and backup import', () => 
   assert.equal(reopened.settings.dailyNewLimit, 20);
 });
 
+test('Legacy settings adopt the system theme while preserving all learning data', () => {
+  const original = addExtraNewWords(fixture(), 10, NOW);
+  const legacy = JSON.parse(JSON.stringify(original));
+  delete legacy.settings.theme;
+  const raw = JSON.stringify(legacy);
+  const storage = memoryStorage();
+  storage.setItem(STORAGE_KEY, raw);
+  assert.deepEqual(readState(storage, IDS), original);
+  assert.deepEqual(parseBackup(raw, IDS), original);
+  assert.equal(storage.getItem(STORAGE_KEY), raw, 'Reading old data must not rewrite it');
+});
+
+test('Theme choices survive backups and invalid themes never overwrite progress', () => {
+  const storage = memoryStorage();
+  const state = fixture();
+  for (const theme of ['system', 'light', 'dark'] as const) {
+    state.settings.theme = theme;
+    writeState(state, storage);
+    assert.deepEqual(readState(storage, IDS), state);
+    assert.deepEqual(parseBackup(storage.getItem(STORAGE_KEY)!, IDS), state);
+  }
+  const saved = storage.getItem(STORAGE_KEY);
+  for (const theme of [null, '', 'auto', 'DARK', true, 1, ['dark'], {}]) {
+    const broken = { ...state, settings: { ...state.settings, theme } };
+    assert.throws(() => parseBackup(JSON.stringify(broken), IDS), /тема оформления/);
+    assert.equal(storage.getItem(STORAGE_KEY), saved);
+  }
+});
+
 test('Version 1 backups without an extra allowance remain unchanged and usable', () => {
   const original = fixture();
   const imported = parseBackup(JSON.stringify(original), IDS);

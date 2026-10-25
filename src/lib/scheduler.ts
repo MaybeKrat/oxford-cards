@@ -16,6 +16,7 @@ export function defaultState(): AppState {
       levels: [...ALL_LEVELS],
       direction: 'en-ru',
       autoSpeak: false,
+      theme: 'system',
     },
   };
 }
