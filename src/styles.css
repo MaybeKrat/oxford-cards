@@ -2695,6 +2695,18 @@ h1 > span {
   padding-top: 20px;
 }
 
+.card-topic {
+  min-width: 0;
+  max-width: calc(100% - 48px);
+  line-height: 1.4;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.card-topic .tiny-dot {
+  flex-shrink: 0;
+}
+
 .theme-setting select {
   width: 100%;
   max-width: none;

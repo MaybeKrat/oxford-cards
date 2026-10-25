@@ -25,6 +25,7 @@ import {
   X,
 } from "lucide-react";
 import vocabulary from "./data/oxford3000.json";
+import topicAssignments from "./data/word-topics.json";
 import {
   addExtraNewWords,
   defaultState,
@@ -37,16 +38,18 @@ import { parseBackup, readState, writeState, STORAGE_KEY } from "./lib/storage";
 import { createSpeechController } from "./lib/speech";
 import { createBufferedSpeechController } from "./lib/buffered-speech";
 import { applyTheme, SYSTEM_THEME_QUERY } from "./lib/theme";
+import { getTopicName, orderWordsForStudy } from "./lib/topics";
 import type { SpeechController, SpeechStatus } from "./lib/speech";
 import type { AppState, Level, Rating, Settings, Word } from "./lib/types";
 
-const words = vocabulary as Word[];
+const words: Word[] = (vocabulary as Word[]).map((word) => ({
+  ...word,
+  topic: (topicAssignments as Record<string, string>)[word.id],
+}));
 const isDesktop = window.location.protocol === "oxford:";
 const validIds = new Set(words.map((word) => word.id));
 const levels: Level[] = ["A1", "A2", "B1", "B2"];
-const studyWords = [...words].sort(
-  (a, b) => levels.indexOf(a.level) - levels.indexOf(b.level),
-);
+const studyWords = orderWordsForStudy(words);
 const levelNames = {
   A1: "Первые шаги",
   A2: "Уверенная база",
@@ -693,9 +696,9 @@ export default function App() {
                       key={current.id}
                     >
                       <div className="card-top">
-                        <span className="card-collection">
+                        <span className="card-collection card-topic" title={`Тема: ${getTopicName(current.topic)}`}>
                           <span className="tiny-dot" />
-                          OXFORD 3000
+                          {getTopicName(current.topic)}
                         </span>
                         <span className="level-badge">{current.level}</span>
                       </div>
@@ -1287,6 +1290,7 @@ export default function App() {
                       Можно выбрать несколько. Прогресс других уровней
                       сохранится.
                     </p>
+                    <p>Новые слова идут по темам внутри каждого уровня. Следующая тема начинается автоматически.</p>
                   </div>
                   <div className="settings-levels">
                     {levels.map((level) => (
@@ -1542,6 +1546,7 @@ export default function App() {
               <p className="example-translation">{detail.exampleTranslation}</p>
             )}
             <div className="detail-progress">
+              <span className="detail-topic">Тема: {getTopicName(detail.topic)}</span>
               <span>{statusOf(detail)}</span>
               {state.cards[detail.id] && (
                 <span>Повторить: {dateLabel(state.cards[detail.id].due)}</span>

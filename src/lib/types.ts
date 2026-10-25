@@ -11,6 +11,8 @@ export interface Word {
   phonetic?: string;
   example?: string;
   exampleTranslation?: string;
+  /** Independent thematic grouping; does not change the Oxford card id or level. */
+  topic?: string;
 }
 
 export interface CardProgress {

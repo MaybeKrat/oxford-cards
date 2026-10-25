@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { TOPICS } from '../src/lib/topics.ts';
 
 const expectedLevels = { A1: 900, A2: 800, B1: 700, B2: 600 };
 const requiredFields = ['id', 'word', 'translation', 'level', 'pos'];
@@ -52,10 +53,31 @@ export function validateVocabulary(data) {
   return { errors, report: { cards: data.length, uniqueIds: ids.size, uniqueSpellings: spellings.size, levels: counts, examples } };
 }
 
+/** Themes cover exact card ids so different senses can belong to different groups. */
+export function validateTopicAssignments(words, assignments) {
+  const errors = [];
+  const counts = Object.fromEntries(TOPICS.map((topic) => [topic.id, 0]));
+  if (!assignments || typeof assignments !== 'object' || Array.isArray(assignments)) {
+    return { errors: ['Тематическая разметка должна быть объектом id → тема.'], report: null };
+  }
+  const ids = new Set(words.map((word) => word.id));
+  for (const word of words) {
+    if (!Object.hasOwn(assignments, word.id)) errors.push(`Не назначена тема: ${word.word} (${word.id}).`);
+  }
+  for (const [id, topic] of Object.entries(assignments)) {
+    if (!ids.has(id)) errors.push(`Неизвестная карточка в тематической разметке: ${id}.`);
+    if (typeof topic !== 'string' || !Object.hasOwn(counts, topic)) {
+      errors.push(`Неизвестная тема у карточки ${id}.`);
+    } else counts[topic]++;
+  }
+  return { errors, report: { assigned: Object.keys(assignments).length, topics: counts } };
+}
+
 async function main() {
   const path = process.argv[2] ? resolve(process.argv[2]) : fileURLToPath(new URL('../src/data/oxford3000.json', import.meta.url));
   try {
-    const { errors, report } = validateVocabulary(JSON.parse(await readFile(path, 'utf8')));
+    const words = JSON.parse(await readFile(path, 'utf8'));
+    const { errors, report } = validateVocabulary(words);
     if (errors.length) {
       console.error(`Проверка словаря не пройдена: ${errors.length} ${errors.length === 1 ? 'ошибка' : 'ошибок'}.`);
       errors.slice(0, 25).forEach(error => console.error(`- ${error}`));
@@ -63,10 +85,14 @@ async function main() {
       process.exitCode = 1;
       return;
     }
+    const assignments = JSON.parse(await readFile(new URL('../src/data/word-topics.json', import.meta.url), 'utf8'));
+    const topics = validateTopicAssignments(words, assignments);
+    if (topics.errors.length) throw new Error(topics.errors.slice(0, 25).join('\n'));
     console.log(`Словарь проверен: ${report.cards} карточек, ${report.uniqueIds} уникальных id.`);
     console.log(`CEFR: ${Object.entries(report.levels).map(([level, count]) => `${level} — ${count}`).join('; ')}.`);
     console.log(`Различных написаний: ${report.uniqueSpellings}. Повторяющиеся написания допустимы для отдельных значений.`);
     console.log(`Карточек с примерами: ${report.examples}. Все переводы непустые и содержат кириллицу.`);
+    console.log(`Темы: ${topics.report.assigned} назначений, ${TOPICS.length} тематических групп.`);
     console.log('Структура данных проверена. Лингвистическая точность переводов этой проверкой не оценивается.');
   } catch (error) {
     console.error(`Не удалось проверить словарь: ${error instanceof Error ? error.message : String(error)}`);
