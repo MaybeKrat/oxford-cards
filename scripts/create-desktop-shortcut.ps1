@@ -24,4 +24,17 @@ $shortcut.WindowStyle = 1
 $shortcut.Save()
 Copy-Item -LiteralPath $scratchShortcut -Destination $shortcutPath -Force
 Remove-Item -LiteralPath $scratchShortcut
+# Refresh this shortcut and executable after a new icon is embedded in the EXE.
+if (-not ('OxfordCardsShellNotification' -as [type])) {
+    Add-Type @'
+using System;
+using System.Runtime.InteropServices;
+public static class OxfordCardsShellNotification {
+    [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
+    public static extern void SHChangeNotify(uint eventId, uint flags, string item1, IntPtr item2);
+}
+'@
+}
+[OxfordCardsShellNotification]::SHChangeNotify(0x2000, 0x3005, $exePath, [IntPtr]::Zero)
+[OxfordCardsShellNotification]::SHChangeNotify(0x2000, 0x3005, $shortcutPath, [IntPtr]::Zero)
 Write-Output $shortcutPath

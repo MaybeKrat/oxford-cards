@@ -1,7 +1,7 @@
 {
   "name": "oxford-cards",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
@@ -10,7 +10,8 @@
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "check:data": "node scripts/check-data.mjs",
     "desktop": "electron .",
-    "build:exe": "npm run build && electron-builder --win portable --x64 --config electron-builder.json"
+    "build:icons": "node scripts/create-desktop-icon.mjs",
+    "build:exe": "npm run build:icons && npm run build && electron-builder --win portable --x64 --config electron-builder.json"
   },
   "dependencies": {
     "@fontsource-variable/golos-text": "^5.3.0",
@@ -19,6 +20,7 @@
     "react-dom": "19.3.1"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
