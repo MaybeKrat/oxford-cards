@@ -23,11 +23,14 @@ import {
   Sparkles,
   Sprout,
   TrendingUp,
+  Volume2,
+  VolumeX,
   X,
 } from "lucide-react";
 import vocabulary from "./data/oxford3000.json";
 import topicAssignments from "./data/word-topics.json";
 import duneFilm from "./data/films/dune.json";
+import dunePoster from "./assets/films/dune.webp";
 import {
   addExtraNewWords,
   defaultState,
@@ -57,6 +60,7 @@ const films: Film[] = [loadFilm(duneFilm as Parameters<typeof loadFilm>[0])];
 const validIds = new Set([...words, ...films.flatMap((film) => film.cards)].map((word) => word.id));
 const filmTitles = new Map(films.map((film) => [film.id, film.title]));
 const filmTermLabels: Record<string, string> = { dune: "Термин Дюны" };
+const filmPosters: Record<string, string> = { dune: dunePoster };
 const levels: Level[] = ["A1", "A2", "B1", "B2"];
 const studyWords = orderWordsForStudy(words);
 const levelNames = {
@@ -153,6 +157,7 @@ export default function App() {
   const [libraryPage, setLibraryPage] = useState(0);
   const [detail, setDetail] = useState<Word | null>(null);
   const [pendingImport, setPendingImport] = useState<AppState | null>(null);
+  const [filmPicker, setFilmPicker] = useState(false);
   const [saving, setSaving] = useState(false);
   const [resetting, setResetting] = useState(false);
   const storedRaw = useRef(initial.raw);
@@ -268,9 +273,9 @@ export default function App() {
     return () => clearTimeout(id);
   }, [toast]);
   useEffect(() => {
-    if (detail || pendingImport) dialogRef.current?.showModal();
+    if (detail || pendingImport || filmPicker) dialogRef.current?.showModal();
     else dialogRef.current?.close();
-  }, [detail, pendingImport]);
+  }, [detail, pendingImport, filmPicker]);
   useEffect(() => {
     setLibraryPage(0);
   }, [query, libraryLevel, libraryStatus]);
@@ -421,12 +426,18 @@ export default function App() {
   function updateSettings(update: Partial<Settings>) {
     save({ ...state, settings: { ...state.settings, ...update } });
   }
+  function selectFilm(film: string) {
+    setActiveId(null);
+    setRevealed(false);
+    updateSettings({ film: film || null });
+  }
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       if (
         page !== "study" ||
         detail ||
         pendingImport ||
+        filmPicker ||
         event.ctrlKey ||
         event.metaKey ||
         event.altKey ||
@@ -710,28 +721,52 @@ export default function App() {
                 </div>
               </div>
             </section>
-            {activeFilm && filmProgress && (
-              <section className="film-strip" aria-label={`Мод «${activeFilm.title}»`}>
-                <span className="film-strip-title">
-                  <Clapperboard size={16} />
-                  {activeFilm.title}
+            <section className={`film-strip${activeFilm ? "" : " is-off"}`} aria-label="Мод фильма">
+              {activeFilm ? (
+                <img className="film-strip-poster" src={filmPosters[activeFilm.id]} alt="" />
+              ) : (
+                <span className="film-strip-poster">
+                  <Clapperboard size={17} />
                 </span>
-                <span className="film-strip-values">
-                  {percent(filmProgress.words)}% слов
-                  <span className="middle-dot">·</span>
-                  {percent(filmProgress.speech)}% речи
-                </span>
-                <div className="progress-track" title={`Изучено ${filmProgress.words.learned} из ${filmProgress.words.total} слов`}>
-                  <div style={{ width: `${percent(filmProgress.words)}%` }} />
-                </div>
-              </section>
-            )}
+              )}
+              <span className="film-strip-name">
+                <strong>{activeFilm ? activeFilm.title : "Мод фильма"}</strong>
+                <small>{activeFilm ? activeFilm.titleEn : "Выберите фильм — его слова пойдут первыми"}</small>
+              </span>
+              {activeFilm && filmProgress && (
+                <>
+                  <span className="film-strip-values">
+                    {percent(filmProgress.words)}% слов
+                    <span className="middle-dot">·</span>
+                    {percent(filmProgress.speech)}% речи
+                  </span>
+                  <div className="progress-track" title={`Изучено ${filmProgress.words.learned} из ${filmProgress.words.total} слов`}>
+                    <div style={{ width: `${percent(filmProgress.words)}%` }} />
+                  </div>
+                </>
+              )}
+              <button className="film-strip-change" onClick={() => setFilmPicker(true)}>
+                {activeFilm ? "Сменить" : "Выбрать фильм"}
+              </button>
+            </section>
             <div className="study-layout">
               <section className="practice-section">
                 <div className="section-title">
                   <h2>Время для практики</h2>
-                  <span className="subtle">
-                    {current ? `${queue.length} в очереди` : "Всё на сегодня"}
+                  <span className="practice-tools">
+                    <span className="subtle">
+                      {current ? `${queue.length} в очереди` : "Всё на сегодня"}
+                    </span>
+                    <button
+                      className={`auto-speak-toggle${state.settings.autoSpeak ? " on" : ""}`}
+                      aria-pressed={state.settings.autoSpeak}
+                      aria-label="Произносить автоматически"
+                      title={state.settings.autoSpeak ? "Автоозвучка включена" : "Автоозвучка выключена"}
+                      disabled={saving}
+                      onClick={() => updateSettings({ autoSpeak: !state.settings.autoSpeak })}
+                    >
+                      {state.settings.autoSpeak ? <Volume2 size={16} /> : <VolumeX size={16} />}
+                    </button>
                   </span>
                 </div>
                 {current ? (
@@ -1443,11 +1478,7 @@ export default function App() {
                     id="film-mode"
                     value={state.settings.film ?? ""}
                     disabled={saving}
-                    onChange={(event) => {
-                      setActiveId(null);
-                      setRevealed(false);
-                      updateSettings({ film: event.target.value || null });
-                    }}
+                    onChange={(event) => selectFilm(event.target.value)}
                   >
                     <option value="">Без мода</option>
                     {films.map((film) => (
@@ -1634,11 +1665,13 @@ export default function App() {
         onCancel={() => {
           setDetail(null);
           setPendingImport(null);
+          setFilmPicker(false);
         }}
         onClick={(event) => {
           if (event.target === event.currentTarget) {
             setDetail(null);
             setPendingImport(null);
+            setFilmPicker(false);
           }
         }}
       >
@@ -1648,6 +1681,7 @@ export default function App() {
           onClick={() => {
             setDetail(null);
             setPendingImport(null);
+            setFilmPicker(false);
           }}
         >
           <X size={20} />
@@ -1695,6 +1729,65 @@ export default function App() {
                 ? "Перевод и пример подготовлены для мода фильма. При сомнениях сверьтесь со словарём."
                 : "Перевод из стороннего набора. При сомнениях сверьтесь со словарём."}
             </p>
+          </>
+        )}
+        {filmPicker && !detail && !pendingImport && (
+          <>
+            <h2 className="import-title">Мод фильма</h2>
+            <p>
+              Слова выбранного фильма идут первыми среди новых. При смене
+              фильма прогресс по словам сохраняется.
+            </p>
+            <div className="film-options">
+              <button
+                className={`film-option${activeFilm ? "" : " selected"}`}
+                aria-pressed={!activeFilm}
+                disabled={saving}
+                onClick={() => {
+                  selectFilm("");
+                  setFilmPicker(false);
+                }}
+              >
+                <span className="film-option-poster">
+                  <Layers size={24} />
+                </span>
+                <span className="film-option-text">
+                  <strong>Без мода</strong>
+                  <small>Oxford 3000 по уровням и темам</small>
+                </span>
+                {!activeFilm && <Check className="film-option-check" size={18} />}
+              </button>
+              {films.map((film) => {
+                const progress = getFilmProgress(film, state);
+                const selected = activeFilm?.id === film.id;
+                return (
+                  <button
+                    key={film.id}
+                    className={`film-option${selected ? " selected" : ""}`}
+                    aria-pressed={selected}
+                    disabled={saving}
+                    onClick={() => {
+                      selectFilm(film.id);
+                      setFilmPicker(false);
+                    }}
+                  >
+                    <img className="film-option-poster" src={filmPosters[film.id]} alt="" />
+                    <span className="film-option-text">
+                      <strong>{film.title}</strong>
+                      <small>{film.parts.map((part) => part.film).join(" · ")}</small>
+                      <span>
+                        {film.entries.length.toLocaleString("ru-RU")} слов, из них{" "}
+                        {film.cards.length} новых слов и терминов
+                      </span>
+                      <span>
+                        Изучено {percent(progress.words)}% слов · {percent(progress.speech)}% речи
+                      </span>
+                    </span>
+                    {selected && <Check className="film-option-check" size={18} />}
+                  </button>
+                );
+              })}
+            </div>
           </>
         )}
         {pendingImport && (

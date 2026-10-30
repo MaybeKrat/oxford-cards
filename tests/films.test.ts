@@ -39,7 +39,7 @@ const oxford: Word[] = [
   { id: 'throne', word: 'throne', translation: 'трон', pos: 'сущ.', level: 'B2' },
 ];
 const film = loadFilm({
-  id: 'dune', title: 'Дюна',
+  id: 'dune', title: 'Дюна', titleEn: 'Dune',
   parts: [{ id: 'part1', title: 'Часть 1', film: 'Dune' }, { id: 'part2', title: 'Часть 2', film: 'Dune 2' }],
   cards: [
     { id: 'dune-spice', word: 'spice', translation: 'пряность', pos: 'сущ.', kind: 'term', note: 'Вещество Арракиса.' },

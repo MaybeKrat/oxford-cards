@@ -81,7 +81,7 @@ export function validateFilm(film, words) {
   const errors = [];
   if (!film || typeof film !== 'object' || Array.isArray(film)) return { errors: ['Набор фильма должен быть объектом.'], report: null };
   const label = `Фильм ${film.id}`;
-  if (!isText(film.id) || !isText(film.title)) errors.push(`${label}: нужны id и title.`);
+  if (!isText(film.id) || !isText(film.title) || !isText(film.titleEn)) errors.push(`${label}: нужны id, title и titleEn.`);
   const parts = Array.isArray(film.parts) ? film.parts.length : 0;
   if (!parts || !film.parts.every(part => isText(part?.id) && isText(part?.title))) errors.push(`${label}: части должны иметь id и title.`);
   const oxford = new Set(words.map(word => word.id));

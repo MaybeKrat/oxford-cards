@@ -3286,6 +3286,128 @@ h1 > span {
   flex: 1;
   min-width: 80px;
 }
+.film-strip-poster {
+  width: 34px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  object-fit: cover;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0edf8;
+  color: #9583b1;
+}
+.film-strip-name {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.film-strip-name strong {
+  font-weight: 550;
+  color: #627e50;
+}
+.film-strip-name small {
+  font-size: 10px;
+  color: #8b977f;
+}
+.film-strip-change {
+  margin-left: auto;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: #e8efdf;
+  color: #627e50;
+  font-size: 11px;
+  font-weight: 550;
+  white-space: nowrap;
+}
+.film-strip-change:hover {
+  background: #dde8d1;
+}
+.practice-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.auto-speak-toggle {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: none;
+  border: 1px solid var(--border);
+  color: #a0ab96;
+}
+.auto-speak-toggle:hover {
+  background: #f2f5ee;
+}
+.auto-speak-toggle.on {
+  background: #e8efdf;
+  border-color: #d6e2ca;
+  color: #627e50;
+}
+.film-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 22px;
+}
+.film-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.film-option:hover {
+  background: #f6f8f2;
+}
+.film-option.selected {
+  border-color: #93af7c;
+  background: #f0f4e9;
+}
+.film-option-poster {
+  width: 76px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: cover;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0edf8;
+  color: #9583b1;
+}
+.film-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  font-size: 11px;
+  color: #7e8f70;
+}
+.film-option-text strong {
+  font-size: 16px;
+  font-weight: 550;
+  color: #344f2d;
+}
+.film-option-text small {
+  font-size: 11px;
+  color: #8b977f;
+  margin-bottom: 4px;
+}
+.film-option-check {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: #627e50;
+}
 .desktop-app .film-strip {
   margin-top: -8px;
 }
@@ -3369,6 +3491,17 @@ h1 > span {
   }
   .film-strip .progress-track {
     flex-basis: 100%;
+    order: 5;
+  }
+  .film-strip-values {
+    order: 4;
+  }
+  .film-strip-change {
+    order: 3;
+  }
+  .film-option-poster {
+    width: 60px;
+    height: 72px;
   }
   .film-parts {
     grid-template-columns: 1fr;
@@ -3390,7 +3523,44 @@ h1 > span {
 :root[data-theme="dark"] .film-metric b {
   color: var(--sage-ink);
 }
-:root[data-theme="dark"] :is(.film-strip-values, .film-metric, .film-part > small, .film-panel h2 svg) {
+:root[data-theme="dark"] :is(.film-strip-name strong, .film-option-text strong, .film-option-check) {
+  color: var(--sage-ink);
+}
+:root[data-theme="dark"] .film-strip-change {
+  background: var(--surface-selected);
+  color: var(--sage-ink);
+}
+:root[data-theme="dark"] .film-strip-change:hover {
+  background: var(--surface-hover);
+}
+:root[data-theme="dark"] .auto-speak-toggle {
+  border-color: var(--border);
+  color: var(--muted);
+}
+:root[data-theme="dark"] .auto-speak-toggle:hover {
+  background: var(--surface-hover);
+}
+:root[data-theme="dark"] .auto-speak-toggle.on {
+  background: var(--surface-selected);
+  border-color: var(--sage-border);
+  color: var(--sage-ink);
+}
+:root[data-theme="dark"] .film-option {
+  background: var(--surface-muted);
+  border-color: var(--border);
+}
+:root[data-theme="dark"] .film-option:hover {
+  background: var(--surface-hover);
+}
+:root[data-theme="dark"] .film-option.selected {
+  background: var(--sage);
+  border-color: var(--sage-border);
+}
+:root[data-theme="dark"] :is(.film-strip-poster, .film-option-poster):not(img) {
+  background: var(--lavender-surface);
+  color: var(--lavender-ink);
+}
+:root[data-theme="dark"] :is(.film-strip-values, .film-strip-name small, .film-option-text, .film-option-text small, .film-metric, .film-part > small, .film-panel h2 svg) {
   color: var(--sage-muted);
 }
 :root[data-theme="dark"] .film-part {

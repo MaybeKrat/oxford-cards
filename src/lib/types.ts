@@ -33,6 +33,8 @@ export interface FilmEntry {
 export interface Film {
   id: string;
   title: string;
+  /** Original English title. */
+  titleEn: string;
   parts: { id: string; title: string; film: string }[];
   /** Cards outside Oxford 3000. */
   cards: Word[];

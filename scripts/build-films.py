@@ -22,6 +22,7 @@ SOURCES = DATA / "sources" / "films"
 FILMS = {
     "dune": {
         "title": "Дюна",
+        "titleEn": "Dune",
         "parts": [
             {"id": "part1", "title": "Часть 1", "film": "Dune (2021)"},
             {"id": "part2", "title": "Часть 2", "film": "Dune: Part Two (2024)"},
