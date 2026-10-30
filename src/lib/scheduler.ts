@@ -55,7 +55,7 @@ export function scheduleCard(previous: CardProgress | undefined, rating: Rating,
   const repetitions = Math.min(MAX_COUNTER, (previous?.repetitions ?? 0) + 1);
   const oldInterval = previous?.interval ?? 0;
   let interval: number;
-  if (rating === 'hard') interval = Math.max(1, Math.ceil(oldInterval * 1.2));
+  if (rating === 'hard') interval = previous ? Math.max(1, Math.ceil(oldInterval * 1.2)) : 1 / 24;
   else if (rating === 'easy') interval = Math.max(4, Math.ceil(oldInterval * oldEase * 1.3));
   else if (repetitions === 1) interval = 1;
   else if (repetitions === 2) interval = 6;

@@ -56,8 +56,21 @@ test('A failed mature card relearns and resumes from day one', () => {
   assert.equal(recovered.lapses, 1);
 });
 
-test('Hard/Easy have one-day/four-day minima and diverge for mature cards', () => {
-  assert.equal(scheduleCard(undefined, 'hard', NOW).interval, 1);
+test('Hard retries a new card in one hour and keeps existing-card scheduling', () => {
+  const first = scheduleCard(undefined, 'hard', NOW);
+  assert.equal(first.interval, 1 / 24);
+  assert.equal(first.due, NOW + 60 * MINUTE_MS);
+  const state = defaultState();
+  state.settings.dailyNewLimit = 0;
+  state.cards.a = first;
+  assert.deepEqual(getStudyQueue(words, state, first.due - 1), []);
+  assert.deepEqual(getStudyQueue(words, state, first.due).map(word => word.id), ['a']);
+  assert.equal(scheduleCard(first, 'hard', first.due).interval, 1);
+  const failed = scheduleCard(undefined, 'again', NOW);
+  assert.equal(scheduleCard(failed, 'hard', failed.due).interval, 1);
+});
+
+test('Easy starts at four days; Hard/Easy retain their mature-card intervals', () => {
   assert.equal(scheduleCard(undefined, 'easy', NOW).interval, 4);
   assert.equal(scheduleCard(matureCard(), 'hard', NOW).interval, 36);
   assert.equal(scheduleCard(matureCard(), 'easy', NOW).interval, 98);
