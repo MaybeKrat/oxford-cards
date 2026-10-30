@@ -1,21 +1,35 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
-import { validateFilm } from '../scripts/check-data.mjs';
+import { validateFilm, validateSharedCards } from '../scripts/check-data.mjs';
 import { getFilmProgress, loadFilm, percent } from '../src/lib/films.ts';
 import { defaultState, getNewWords, getStudyQueue, scheduleCard } from '../src/lib/scheduler.ts';
 import { parseBackup } from '../src/lib/storage.ts';
 import type { AppState, Rating, Word } from '../src/lib/types.ts';
 
 const words = JSON.parse(readFileSync(new URL('../src/data/oxford3000.json', import.meta.url), 'utf8'));
-const dune = JSON.parse(readFileSync(new URL('../src/data/films/dune.json', import.meta.url), 'utf8'));
+const bundled = (id: string) => JSON.parse(readFileSync(new URL(`../src/data/films/${id}.json`, import.meta.url), 'utf8'));
+const dune = bundled('dune');
+const zootopia = bundled('zootopia');
 
-test('Bundled Dune mode passes validation and links every new card to the mode', () => {
-  const { errors, report } = validateFilm(dune, words);
-  assert.deepEqual(errors, []);
-  assert.equal(report.entries, report.oxford + report.word + report.term);
-  assert.ok(dune.entries.slice(0, -1).every((entry, i) => entry.uses[0] + entry.uses[1] >= dune.entries[i + 1].uses[0] + dune.entries[i + 1].uses[1]),
-    'Mode queue goes from the most used words to the rarest');
+test('Bundled film modes pass validation and link every new card to the mode', () => {
+  for (const film of [dune, zootopia]) {
+    const { errors, report } = validateFilm(film, words);
+    assert.deepEqual(errors, [], film.id);
+    assert.equal(report.entries, report.oxford + report.word + report.term);
+    assert.ok(film.entries.slice(0, -1).every((entry, i) => entry.uses[0] + entry.uses[1] >= film.entries[i + 1].uses[0] + film.entries[i + 1].uses[1]),
+      `${film.id}: mode queue goes from the most used words to the rarest`);
+  }
+});
+
+test('A new word of two films is one card with shared progress', () => {
+  const duneIds = new Set(dune.cards.map((card) => card.id));
+  const shared = zootopia.cards.filter((card) => duneIds.has(card.id));
+  assert.ok(shared.some((card) => card.word === 'weird'));
+  assert.deepEqual(validateSharedCards([dune, zootopia]), []);
+  const changed = structuredClone(zootopia);
+  changed.cards.find((card) => card.id === shared[0].id).translation = 'другое';
+  assert.equal(validateSharedCards([dune, changed]).length, 1);
 });
 
 test('Film validation rejects broken cards and entries', () => {

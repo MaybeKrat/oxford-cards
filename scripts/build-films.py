@@ -7,6 +7,9 @@ Sources per film in src/data/sources/films/:
 - <film>-selection.json — Oxford cards and new words of the film with counts per part
   (generated from the transcripts outside the repository, see DATA-SOURCES.md);
 - <film>-cards.json — translations, examples and term notes for the new words (edited by hand).
+
+A new word that an earlier film already has (same key) is not translated again: the later film reuses
+that card with its id, so progress on the word is shared between the modes.
 """
 
 from __future__ import annotations
@@ -28,6 +31,14 @@ FILMS = {
             {"id": "part2", "title": "Часть 2", "film": "Dune: Part Two (2024)"},
         ],
     },
+    "zootopia": {
+        "title": "Зверополис",
+        "titleEn": "Zootopia",
+        "parts": [
+            {"id": "part1", "title": "Часть 1", "film": "Zootopia (2016)"},
+            {"id": "part2", "title": "Часть 2", "film": "Zootopia 2 (2025)"},
+        ],
+    },
 }
 CARD_FIELDS = ("word", "pos", "translation", "example", "note")
 
@@ -45,25 +56,39 @@ def card_id(film: str, key: str) -> str:
     return f"{film}-" + hashlib.sha256(f"{film}\0{key}".encode("utf-8")).hexdigest()[:16]
 
 
+def shared_cards(film: str) -> dict:
+    """Cards of the films listed before this one, by key: (card id, texts)."""
+    shared = {}
+    for earlier in FILMS:
+        if earlier == film:
+            break
+        for key, text in json.loads((SOURCES / f"{earlier}-cards.json").read_text(encoding="utf-8")).items():
+            shared.setdefault(key, (card_id(earlier, key), text))
+    return shared
+
+
 def build(film: str) -> dict:
     selection = json.loads((SOURCES / f"{film}-selection.json").read_text(encoding="utf-8"))
     texts = json.loads((SOURCES / f"{film}-cards.json").read_text(encoding="utf-8"))
+    shared = shared_cards(film)
     oxford = {card["id"] for card in json.loads((DATA / "oxford3000.json").read_text(encoding="utf-8"))}
     parts = len(FILMS[film]["parts"])
 
     keys = [entry["key"] for entry in selection["new"]]
     assert len(set(keys)) == len(keys), "Duplicate new word in selection"
-    assert set(keys) == set(texts), f"Selection and cards differ: {sorted(set(keys) ^ set(texts))}"
+    assert not set(texts) & set(shared), f"Translated again: {sorted(set(texts) & set(shared))}"
+    assert set(keys) == set(texts) | (set(keys) & set(shared)),         f"Selection and cards differ: {sorted(set(keys) ^ (set(texts) | (set(keys) & set(shared))))}"
     entries = []
     for entry in selection["oxford"]:
         assert entry["id"] in oxford, f"Unknown Oxford card {entry['id']}"
         entries.append({"id": entry["id"], "uses": entry["uses"], "weight": entry["uses"]})
     cards = []
     for entry in selection["new"]:
-        text = texts[entry["key"]]
+        own = entry["key"] in texts
+        cid, text = (card_id(film, entry["key"]), texts[entry["key"]]) if own else shared[entry["key"]]
         assert entry["kind"] in ("word", "term"), entry
         assert ("note" in text) == (entry["kind"] == "term"), f"Term note mismatch: {entry['key']}"
-        card = {"id": card_id(film, entry["key"]), **{k: text[k] for k in CARD_FIELDS if k in text}, "kind": entry["kind"]}
+        card = {"id": cid, **{k: text[k] for k in CARD_FIELDS if k in text}, "kind": entry["kind"]}
         cards.append(card)
         entries.append({"id": card["id"], "uses": entry["uses"], "weight": entry["weight"]})
     for entry in entries:

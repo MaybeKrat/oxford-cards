@@ -1,0 +1,1728 @@
+{
+  "bunny": {
+    "word": "bunny",
+    "pos": "сущ.",
+    "translation": "зайчик, кролик (ласково)",
+    "example": "The little bunny dreamed of joining the police."
+  },
+  "fox": {
+    "word": "fox",
+    "pos": "сущ.",
+    "translation": "лиса, лис",
+    "example": "Nobody trusts a fox who sells ice cream on the street."
+  },
+  "predator": {
+    "word": "predator",
+    "pos": "сущ.",
+    "translation": "хищник",
+    "example": "In this city, a predator and its prey can work side by side."
+  },
+  "cop": {
+    "word": "cop",
+    "pos": "сущ.",
+    "translation": "полицейский, коп",
+    "example": "She was the first rabbit to become a cop."
+  },
+  "savage": {
+    "word": "savage",
+    "pos": "прил., сущ.",
+    "translation": "одичавший, озверевший; дикий",
+    "note": "В фильме так говорят о зверях, которые потеряли разум и ведут себя как дикие звери; «to go savage» — озвереть. Обычное значение — дикий, свирепый.",
+    "example": "The officer was afraid the jaguar would go savage again."
+  },
+  "mayor": {
+    "word": "mayor",
+    "pos": "сущ.",
+    "translation": "мэр",
+    "example": "The mayor gave a speech in front of city hall."
+  },
+  "reptile": {
+    "word": "reptile",
+    "pos": "сущ.",
+    "translation": "рептилия, пресмыкающееся",
+    "example": "The reptile warmed itself on a sunny rock."
+  },
+  "zpd": {
+    "word": "ZPD",
+    "pos": "сущ.",
+    "translation": "ПДЗ, полиция Зверополиса",
+    "note": "Zootopia Police Department — полицейское управление Зверополиса, где служат Джуди и Ник.",
+    "example": "Every new officer at the ZPD starts with parking duty."
+  },
+  "mammal": {
+    "word": "mammal",
+    "pos": "сущ.",
+    "translation": "млекопитающее",
+    "note": "В Зверополисе живут только млекопитающие; слово часто стоит там, где люди сказали бы «человек», а рептилии в городе — чужаки.",
+    "example": "Any mammal can be anything it wants in this city."
+  },
+  "dumb": {
+    "word": "dumb",
+    "pos": "прил.",
+    "translation": "глупый, тупой",
+    "example": "That was a dumb plan, but it worked."
+  },
+  "meter maid": {
+    "word": "meter maid",
+    "pos": "сущ.",
+    "translation": "контролёр парковки",
+    "note": "Сотрудница, которая выписывает штрафы за неправильную парковку; первое задание Джуди в полиции.",
+    "example": "Instead of chasing criminals, she was told to work as a meter maid."
+  },
+  "otter": {
+    "word": "otter",
+    "pos": "сущ.",
+    "translation": "выдра",
+    "example": "The otter floated on its back in the river."
+  },
+  "rabbit": {
+    "word": "rabbit",
+    "pos": "сущ.",
+    "translation": "кролик, заяц",
+    "example": "A rabbit can hear a whisper from far away."
+  },
+  "night howler": {
+    "word": "night howler",
+    "pos": "сущ.",
+    "translation": "ночной вой (цветок)",
+    "note": "Синий цветок; вещество из него заставляет зверей озвереть. Буквально — «ночной ревун».",
+    "example": "The farmer kept the night howlers away from his crops."
+  },
+  "patent": {
+    "word": "patent",
+    "pos": "сущ.",
+    "translation": "патент",
+    "example": "Her grandfather owned the patent for the invention."
+  },
+  "pawpsicle": {
+    "word": "Pawpsicle",
+    "pos": "сущ.",
+    "translation": "лапсикл, эскимо в форме лапы",
+    "note": "Фруктовый лёд на палочке в форме лапы; Ник продаёт их в своей афере. Игра слов paw (лапа) и popsicle (эскимо).",
+    "example": "The kids lined up to buy a red Pawpsicle."
+  },
+  "bye-bye": {
+    "word": "bye-bye",
+    "pos": "междометие",
+    "translation": "пока-пока",
+    "example": "Say bye-bye to your old life, partner."
+  },
+  "gala": {
+    "word": "gala",
+    "pos": "сущ.",
+    "translation": "торжественный вечер, гала",
+    "example": "Everyone important was invited to the gala."
+  },
+  "hustle": {
+    "word": "hustle",
+    "pos": "сущ., гл.",
+    "translation": "афера, жульничество; проворачивать аферу",
+    "example": "It's called a hustle, and he has done it for years."
+  },
+  "buddy": {
+    "word": "buddy",
+    "pos": "сущ.",
+    "translation": "приятель, дружище",
+    "example": "Hey, buddy, can you help me with this box?"
+  },
+  "prey": {
+    "word": "prey",
+    "pos": "сущ.",
+    "translation": "добыча; травоядные (в фильме)",
+    "example": "Long ago, prey animals were afraid of hunters."
+  },
+  "coconut": {
+    "word": "coconut",
+    "pos": "сущ.",
+    "translation": "кокос",
+    "example": "He cracked the coconut with one strong hit."
+  },
+  "lynx": {
+    "word": "lynx",
+    "pos": "сущ.",
+    "translation": "рысь",
+    "example": "The lynx family lived in a huge house on the hill."
+  },
+  "wolf": {
+    "word": "wolf",
+    "pos": "сущ.",
+    "translation": "волк",
+    "example": "One wolf howled, and the others joined him."
+  },
+  "badge": {
+    "word": "badge",
+    "pos": "сущ.",
+    "translation": "значок, жетон",
+    "example": "She polished her new police badge every morning."
+  },
+  "crack": {
+    "word": "crack",
+    "pos": "гл., сущ.",
+    "translation": "раскрыть (дело); трещина",
+    "example": "Give me two days and I will crack this case."
+  },
+  "cute": {
+    "word": "cute",
+    "pos": "прил.",
+    "translation": "милый, симпатичный",
+    "example": "Please don't call me cute, I'm a police officer."
+  },
+  "daddy": {
+    "word": "daddy",
+    "pos": "сущ.",
+    "translation": "папа, папочка",
+    "example": "Daddy, can I have one more ice cream?"
+  },
+  "hop": {
+    "word": "hop",
+    "pos": "гл., сущ.",
+    "translation": "прыгать, скакать; прыжок",
+    "example": "Hop in the car, we're late."
+  },
+  "kinda": {
+    "word": "kinda",
+    "pos": "нареч.",
+    "translation": "вроде, как бы (разг. kind of)",
+    "example": "I'm kinda tired after that chase."
+  },
+  "ma'am": {
+    "word": "ma'am",
+    "pos": "сущ.",
+    "translation": "мэм, мадам (вежливое обращение)",
+    "example": "Excuse me, ma'am, you can't park here."
+  },
+  "outta": {
+    "word": "outta",
+    "pos": "предлог",
+    "translation": "из, вон из (разг. out of)",
+    "example": "Get outta here before the boss sees you."
+  },
+  "rug": {
+    "word": "rug",
+    "pos": "сущ.",
+    "translation": "коврик, ковёр",
+    "example": "The secret door was hidden under the rug."
+  },
+  "sweetheart": {
+    "word": "sweetheart",
+    "pos": "сущ.",
+    "translation": "милая, дорогуша (обращение)",
+    "example": "Relax, sweetheart, I know what I'm doing."
+  },
+  "zootennial": {
+    "word": "Zootennial",
+    "pos": "сущ.",
+    "translation": "Зоотенниал, столетие Зверополиса",
+    "note": "Праздник столетия города во второй части. Игра слов zoo и centennial (столетие).",
+    "example": "The whole city prepared for the Zootennial party."
+  },
+  "anti-venom": {
+    "word": "anti-venom",
+    "pos": "сущ.",
+    "translation": "противоядие (от яда змей)",
+    "example": "The doctor gave him anti-venom just in time."
+  },
+  "discomfort": {
+    "word": "discomfort",
+    "pos": "сущ.",
+    "translation": "неудобство, дискомфорт",
+    "example": "She smiled to hide her discomfort."
+  },
+  "expansion": {
+    "word": "expansion",
+    "pos": "сущ.",
+    "translation": "расширение",
+    "example": "The city plans a big expansion to the north."
+  },
+  "gazelle": {
+    "word": "gazelle",
+    "pos": "сущ.",
+    "translation": "газель",
+    "example": "The gazelle sang to a crowd of thousands."
+  },
+  "inspector": {
+    "word": "inspector",
+    "pos": "сущ.",
+    "translation": "инспектор",
+    "example": "A health inspector came to check the café."
+  },
+  "jerk": {
+    "word": "jerk",
+    "pos": "сущ.",
+    "translation": "придурок, грубиян",
+    "example": "Don't be a jerk, say sorry to her."
+  },
+  "viper": {
+    "word": "viper",
+    "pos": "сущ.",
+    "translation": "гадюка, змея",
+    "example": "The viper slid quietly between the rocks."
+  },
+  "weasel": {
+    "word": "weasel",
+    "pos": "сущ.",
+    "translation": "ласка; хитрец, проныра",
+    "example": "That weasel sold fake movies on the corner."
+  },
+  "beaver": {
+    "word": "beaver",
+    "pos": "сущ.",
+    "translation": "бобр",
+    "example": "The beaver built a dam across the stream."
+  },
+  "biological": {
+    "word": "biological",
+    "pos": "прил.",
+    "translation": "биологический",
+    "example": "Is it a biological reason, or just fear?"
+  },
+  "camel": {
+    "word": "camel",
+    "pos": "сущ.",
+    "translation": "верблюд",
+    "example": "A camel can walk for days without water."
+  },
+  "dart": {
+    "word": "dart",
+    "pos": "сущ., гл.",
+    "translation": "дротик; метнуться",
+    "example": "Someone shot a dart at the panther from the roof."
+  },
+  "dude": {
+    "word": "dude",
+    "pos": "сущ.",
+    "translation": "чувак, парень",
+    "example": "Dude, you have to see this!"
+  },
+  "herd": {
+    "word": "herd",
+    "pos": "сущ.",
+    "translation": "стадо",
+    "example": "A herd of elephants crossed the street."
+  },
+  "howl": {
+    "word": "howl",
+    "pos": "гл., сущ.",
+    "translation": "выть; вой",
+    "example": "The wolves began to howl at the moon."
+  },
+  "hug": {
+    "word": "hug",
+    "pos": "сущ., гл.",
+    "translation": "объятие; обнимать",
+    "example": "Come here and give me a hug."
+  },
+  "jaguar": {
+    "word": "jaguar",
+    "pos": "сущ.",
+    "translation": "ягуар",
+    "example": "The jaguar ran faster than the police car."
+  },
+  "jumbo-pop": {
+    "word": "Jumbo-pop",
+    "pos": "сущ.",
+    "translation": "Джамбо-поп, огромное фруктовое мороженое",
+    "note": "Гигантское эскимо для слонов из кафе; из него Ник делает маленькие лапсиклы.",
+    "example": "The tiny fox asked for one Jumbo-pop to go."
+  },
+  "mime": {
+    "word": "mime",
+    "pos": "сущ.",
+    "translation": "мим",
+    "example": "The mime pretended to be stuck in a glass box."
+  },
+  "paw": {
+    "word": "paw",
+    "pos": "сущ.",
+    "translation": "лапа",
+    "example": "The puppy gave me its paw."
+  },
+  "polar": {
+    "word": "polar",
+    "pos": "прил.",
+    "translation": "полярный",
+    "example": "Two polar bears guarded the door."
+  },
+  "pursuit": {
+    "word": "pursuit",
+    "pos": "сущ.",
+    "translation": "погоня; стремление",
+    "example": "The police were in pursuit of a stolen van."
+  },
+  "rainforest": {
+    "word": "rainforest",
+    "pos": "сущ.",
+    "translation": "тропический лес",
+    "example": "It rains every ten minutes in the rainforest."
+  },
+  "scare": {
+    "word": "scare",
+    "pos": "гл., сущ.",
+    "translation": "пугать; испуг",
+    "example": "Sorry, I didn't mean to scare you."
+  },
+  "smuggle": {
+    "word": "smuggle",
+    "pos": "гл.",
+    "translation": "провозить контрабандой",
+    "example": "They tried to smuggle the boxes into the city at night."
+  },
+  "academy": {
+    "word": "academy",
+    "pos": "сущ.",
+    "translation": "академия, училище",
+    "example": "Training at the police academy was very hard."
+  },
+  "aside": {
+    "word": "aside",
+    "pos": "нареч.",
+    "translation": "в сторону; кроме",
+    "example": "Jokes aside, we need a plan."
+  },
+  "assign": {
+    "word": "assign",
+    "pos": "гл.",
+    "translation": "назначать, поручать",
+    "example": "The chief assigned her to parking duty."
+  },
+  "claw": {
+    "word": "claw",
+    "pos": "сущ.",
+    "translation": "коготь",
+    "example": "The cat scratched the door with its claw."
+  },
+  "dash": {
+    "word": "dash",
+    "pos": "гл., сущ.",
+    "translation": "мчаться; рывок",
+    "example": "She made a dash for the train."
+  },
+  "disrespect": {
+    "word": "disrespect",
+    "pos": "сущ., гл.",
+    "translation": "неуважение; не уважать",
+    "example": "I mean no disrespect, sir."
+  },
+  "dna": {
+    "word": "DNA",
+    "pos": "сущ.",
+    "translation": "ДНК",
+    "example": "Fear is not written in our DNA."
+  },
+  "donut": {
+    "word": "donut",
+    "pos": "сущ.",
+    "translation": "пончик",
+    "example": "The officer at the front desk loved a fresh donut."
+  },
+  "fluff": {
+    "word": "fluff",
+    "pos": "сущ.",
+    "translation": "пух; пушистик (шутл.)",
+    "example": "Hey, Fluff, wait for me!"
+  },
+  "hideout": {
+    "word": "hideout",
+    "pos": "сущ.",
+    "translation": "укрытие, логово",
+    "example": "The gang's hideout was under the bridge."
+  },
+  "koala": {
+    "word": "koala",
+    "pos": "сущ.",
+    "translation": "коала",
+    "example": "The koala slept in the tree all day."
+  },
+  "limo": {
+    "word": "limo",
+    "pos": "сущ.",
+    "translation": "лимузин",
+    "example": "A black limo stopped in front of the hotel."
+  },
+  "nope": {
+    "word": "nope",
+    "pos": "междометие",
+    "translation": "не-а, нет (разг.)",
+    "example": "Did you find the keys? Nope."
+  },
+  "overseas": {
+    "word": "overseas",
+    "pos": "нареч., прил.",
+    "translation": "за границей, за морем; заморский",
+    "example": "The ship carried goods overseas."
+  },
+  "pal": {
+    "word": "pal",
+    "pos": "сущ.",
+    "translation": "приятель, дружок",
+    "example": "Listen, pal, I don't want any trouble."
+  },
+  "partnership": {
+    "word": "partnership",
+    "pos": "сущ.",
+    "translation": "партнёрство",
+    "example": "Their partnership surprised the whole department."
+  },
+  "primitive": {
+    "word": "primitive",
+    "pos": "прил.",
+    "translation": "первобытный, примитивный",
+    "example": "Animals once lived by primitive rules."
+  },
+  "recruit": {
+    "word": "recruit",
+    "pos": "сущ., гл.",
+    "translation": "новобранец; набирать",
+    "example": "The new recruit was the smallest in her class."
+  },
+  "repellent": {
+    "word": "repellent",
+    "pos": "сущ.",
+    "translation": "отпугивающее средство, репеллент",
+    "example": "She carried fox repellent in her bag."
+  },
+  "shifty": {
+    "word": "shifty",
+    "pos": "прил.",
+    "translation": "подозрительный, скользкий",
+    "example": "That guy looks a little shifty to me."
+  },
+  "sloth": {
+    "word": "sloth",
+    "pos": "сущ.",
+    "translation": "ленивец",
+    "example": "The sloth needed ten minutes to say hello."
+  },
+  "snoop": {
+    "word": "snoop",
+    "pos": "гл.",
+    "translation": "вынюхивать, совать нос",
+    "example": "Stop snooping around in my office."
+  },
+  "super": {
+    "word": "super",
+    "pos": "нареч., прил.",
+    "translation": "очень, супер",
+    "example": "I'm super excited about my first day."
+  },
+  "thumb": {
+    "word": "thumb",
+    "pos": "сущ.",
+    "translation": "большой палец",
+    "example": "He gave us a thumbs-up from the car."
+  },
+  "tortoise": {
+    "word": "tortoise",
+    "pos": "сущ.",
+    "translation": "черепаха (сухопутная)",
+    "example": "The old tortoise moved slowly across the road."
+  },
+  "trunk": {
+    "word": "trunk",
+    "pos": "сущ.",
+    "translation": "хобот; багажник; ствол",
+    "example": "The elephant picked up the cup with its trunk."
+  },
+  "venomous": {
+    "word": "venomous",
+    "pos": "прил.",
+    "translation": "ядовитый",
+    "example": "Not every snake is venomous."
+  },
+  "warrant": {
+    "word": "warrant",
+    "pos": "сущ.",
+    "translation": "ордер",
+    "example": "You can't search the house without a warrant."
+  },
+  "yup": {
+    "word": "yup",
+    "pos": "междометие",
+    "translation": "ага, да (разг.)",
+    "example": "Ready to go? Yup."
+  },
+  "aggression": {
+    "word": "aggression",
+    "pos": "сущ.",
+    "translation": "агрессия",
+    "example": "The doctors could not explain the sudden aggression."
+  },
+  "aggressive": {
+    "word": "aggressive",
+    "pos": "прил.",
+    "translation": "агрессивный",
+    "example": "The animal became aggressive for no reason."
+  },
+  "awesome": {
+    "word": "awesome",
+    "pos": "прил.",
+    "translation": "потрясающий, классный",
+    "example": "That was an awesome concert!"
+  },
+  "bail": {
+    "word": "bail",
+    "pos": "сущ., гл.",
+    "translation": "залог (за освобождение); смыться (разг.)",
+    "example": "His friends paid his bail the next morning."
+  },
+  "beautifully": {
+    "word": "beautifully",
+    "pos": "нареч.",
+    "translation": "прекрасно, красиво",
+    "example": "You explained it beautifully."
+  },
+  "blueberry": {
+    "word": "blueberry",
+    "pos": "сущ.",
+    "translation": "голубика, черника",
+    "example": "Her family grows the best blueberries in the valley."
+  },
+  "buck": {
+    "word": "buck",
+    "pos": "сущ.",
+    "translation": "бакс, доллар (разг.)",
+    "example": "He sold each one for two bucks."
+  },
+  "buffalo": {
+    "word": "buffalo",
+    "pos": "сущ.",
+    "translation": "буйвол, бизон",
+    "example": "The buffalo boss did not like jokes."
+  },
+  "bust": {
+    "word": "bust",
+    "pos": "гл., сущ.",
+    "translation": "арестовать, накрыть; облава",
+    "example": "The police busted the gang at the docks."
+  },
+  "cargo": {
+    "word": "cargo",
+    "pos": "сущ.",
+    "translation": "груз",
+    "example": "The ship's cargo was full of strange boxes."
+  },
+  "catering": {
+    "word": "catering",
+    "pos": "сущ.",
+    "translation": "кейтеринг, обслуживание банкетов",
+    "example": "They sneaked into the party as catering staff."
+  },
+  "cement": {
+    "word": "cement",
+    "pos": "сущ.",
+    "translation": "цемент",
+    "example": "His feet got stuck in wet cement."
+  },
+  "chew": {
+    "word": "chew",
+    "pos": "гл.",
+    "translation": "жевать",
+    "example": "Chew your food slowly."
+  },
+  "conspiracy": {
+    "word": "conspiracy",
+    "pos": "сущ.",
+    "translation": "заговор",
+    "example": "They uncovered a conspiracy at city hall."
+  },
+  "crate": {
+    "word": "crate",
+    "pos": "сущ.",
+    "translation": "ящик (деревянный)",
+    "example": "A crate fell off the truck and broke open."
+  },
+  "devil": {
+    "word": "devil",
+    "pos": "сущ.",
+    "translation": "дьявол, чёрт",
+    "example": "You clever little devil!"
+  },
+  "duo": {
+    "word": "duo",
+    "pos": "сущ.",
+    "translation": "дуэт, пара",
+    "example": "The fox and the rabbit made an unlikely duo."
+  },
+  "erase": {
+    "word": "erase",
+    "pos": "гл.",
+    "translation": "стирать, удалять",
+    "example": "Someone erased the history of the town."
+  },
+  "florist": {
+    "word": "florist",
+    "pos": "сущ.",
+    "translation": "флорист, продавец цветов",
+    "example": "The florist sold flowers that could be dangerous."
+  },
+  "fluffy": {
+    "word": "fluffy",
+    "pos": "прил.",
+    "translation": "пушистый",
+    "example": "The fluffy tail gave him away."
+  },
+  "fugitive": {
+    "word": "fugitive",
+    "pos": "сущ.",
+    "translation": "беглец, беглый преступник",
+    "example": "Overnight, the two cops became fugitives."
+  },
+  "fuzz": {
+    "word": "fuzz",
+    "pos": "сущ.",
+    "translation": "пушок; копы (сленг)",
+    "example": "Watch out, the fuzz is coming!"
+  },
+  "fuzzy": {
+    "word": "fuzzy",
+    "pos": "прил.",
+    "translation": "пушистый; нечёткий",
+    "example": "My memory of that night is a bit fuzzy."
+  },
+  "gene": {
+    "word": "gene",
+    "pos": "сущ.",
+    "translation": "ген",
+    "example": "It isn't in your genes to be afraid."
+  },
+  "goodness": {
+    "word": "goodness",
+    "pos": "сущ.",
+    "translation": "доброта; (my goodness) боже мой",
+    "example": "Oh my goodness, look at the size of that cake!"
+  },
+  "grandma": {
+    "word": "grandma",
+    "pos": "сущ.",
+    "translation": "бабушка",
+    "example": "Grandma baked a pie for the whole family."
+  },
+  "grin": {
+    "word": "grin",
+    "pos": "сущ., гл.",
+    "translation": "широкая улыбка, ухмылка; ухмыляться",
+    "example": "He answered with a lazy grin."
+  },
+  "harmony": {
+    "word": "harmony",
+    "pos": "сущ.",
+    "translation": "гармония, согласие",
+    "example": "All animals were supposed to live in harmony."
+  },
+  "honey": {
+    "word": "honey",
+    "pos": "сущ.",
+    "translation": "мёд; милый, милая (обращение)",
+    "example": "Honey, we're so proud of you."
+  },
+  "honeymoon": {
+    "word": "honeymoon",
+    "pos": "сущ.",
+    "translation": "медовый месяц",
+    "example": "Their honeymoon was on a quiet island."
+  },
+  "horn": {
+    "word": "horn",
+    "pos": "сущ.",
+    "translation": "рог; гудок",
+    "example": "The rhino lowered his horn and ran."
+  },
+  "instinct": {
+    "word": "instinct",
+    "pos": "сущ.",
+    "translation": "инстинкт, чутьё",
+    "example": "Trust your instincts, they are usually right."
+  },
+  "inventor": {
+    "word": "inventor",
+    "pos": "сущ.",
+    "translation": "изобретатель",
+    "example": "The town was founded by a famous inventor."
+  },
+  "irresponsible": {
+    "word": "irresponsible",
+    "pos": "прил.",
+    "translation": "безответственный",
+    "example": "Leaving the gate open was irresponsible."
+  },
+  "jail": {
+    "word": "jail",
+    "pos": "сущ.",
+    "translation": "тюрьма",
+    "example": "If we're caught, we'll go to jail."
+  },
+  "killer": {
+    "word": "killer",
+    "pos": "сущ.",
+    "translation": "убийца",
+    "example": "Nobody believed the snake was a killer."
+  },
+  "kitty": {
+    "word": "kitty",
+    "pos": "сущ.",
+    "translation": "котик, киса",
+    "example": "Here, kitty, come and get your dinner."
+  },
+  "knot": {
+    "word": "knot",
+    "pos": "сущ.",
+    "translation": "узел",
+    "example": "He tied the rope in a tight knot."
+  },
+  "liar": {
+    "word": "liar",
+    "pos": "сущ.",
+    "translation": "лжец, врун",
+    "example": "You're a liar and everyone knows it."
+  },
+  "lodge": {
+    "word": "lodge",
+    "pos": "сущ.",
+    "translation": "домик, сторожка; ложа",
+    "example": "They hid in an old lodge in the mountains."
+  },
+  "loser": {
+    "word": "loser",
+    "pos": "сущ.",
+    "translation": "неудачник",
+    "example": "He felt like a loser after the test."
+  },
+  "marsh": {
+    "word": "marsh",
+    "pos": "сущ.",
+    "translation": "болото",
+    "example": "The market was built on a marsh."
+  },
+  "maul": {
+    "word": "maul",
+    "pos": "гл.",
+    "translation": "растерзать, изувечить",
+    "example": "People were afraid the tiger would maul someone."
+  },
+  "misunderstanding": {
+    "word": "misunderstanding",
+    "pos": "сущ.",
+    "translation": "недоразумение",
+    "example": "It was all a big misunderstanding."
+  },
+  "mom": {
+    "word": "mom",
+    "pos": "сущ.",
+    "translation": "мама",
+    "example": "Mom called three times this morning."
+  },
+  "muzzle": {
+    "word": "muzzle",
+    "pos": "сущ.",
+    "translation": "морда; намордник",
+    "example": "They forced him to wear a muzzle as a child."
+  },
+  "naked": {
+    "word": "naked",
+    "pos": "прил.",
+    "translation": "голый",
+    "example": "In the naturalist club, everyone walks around naked."
+  },
+  "noon": {
+    "word": "noon",
+    "pos": "сущ.",
+    "translation": "полдень",
+    "example": "Meet me at the station at noon."
+  },
+  "oath": {
+    "word": "oath",
+    "pos": "сущ.",
+    "translation": "клятва, присяга",
+    "example": "She took an oath to protect the city."
+  },
+  "officially": {
+    "word": "officially",
+    "pos": "нареч.",
+    "translation": "официально",
+    "example": "You are now officially a police officer."
+  },
+  "organic": {
+    "word": "organic",
+    "pos": "прил.",
+    "translation": "органический, натуральный",
+    "example": "They only sell organic carrots."
+  },
+  "pit": {
+    "word": "pit",
+    "pos": "сущ.",
+    "translation": "яма",
+    "example": "The car fell into a deep pit."
+  },
+  "revert": {
+    "word": "revert",
+    "pos": "гл.",
+    "translation": "вернуться (к прежнему состоянию)",
+    "example": "Under stress, some animals revert to old habits."
+  },
+  "rookie": {
+    "word": "rookie",
+    "pos": "сущ.",
+    "translation": "новичок",
+    "example": "Not bad for a rookie!"
+  },
+  "ruin": {
+    "word": "ruin",
+    "pos": "гл., сущ.",
+    "translation": "губить, портить; руины",
+    "example": "One mistake can ruin everything."
+  },
+  "savannah": {
+    "word": "savannah",
+    "pos": "сущ.",
+    "translation": "саванна",
+    "example": "The lion grew up on the savannah."
+  },
+  "shipyard": {
+    "word": "shipyard",
+    "pos": "сущ.",
+    "translation": "верфь",
+    "example": "The clue led them to an empty shipyard."
+  },
+  "sip": {
+    "word": "sip",
+    "pos": "сущ., гл.",
+    "translation": "глоток; потягивать",
+    "example": "She took a sip of her coffee."
+  },
+  "skunk": {
+    "word": "skunk",
+    "pos": "сущ.",
+    "translation": "скунс",
+    "example": "The skunk walked in and everyone left the room."
+  },
+  "spike": {
+    "word": "spike",
+    "pos": "сущ.",
+    "translation": "шип, колючка",
+    "example": "The fence had sharp spikes on top."
+  },
+  "stab": {
+    "word": "stab",
+    "pos": "гл., сущ.",
+    "translation": "ударить ножом, уколоть; удар",
+    "example": "He felt a stab of guilt."
+  },
+  "taser": {
+    "word": "taser",
+    "pos": "сущ.",
+    "translation": "электрошокер",
+    "example": "Officers carry a taser, not a gun."
+  },
+  "teeth": {
+    "word": "teeth",
+    "pos": "сущ.",
+    "translation": "зубы (мн. ч. от tooth)",
+    "example": "The fox showed his teeth in a big smile."
+  },
+  "traumatic": {
+    "word": "traumatic",
+    "pos": "прил.",
+    "translation": "травмирующий, тяжёлый",
+    "example": "It was a traumatic day for everyone."
+  },
+  "uncover": {
+    "word": "uncover",
+    "pos": "гл.",
+    "translation": "раскрыть, обнаружить",
+    "example": "The reporter uncovered the truth."
+  },
+  "undercover": {
+    "word": "undercover",
+    "pos": "нареч., прил.",
+    "translation": "под прикрытием; тайный",
+    "example": "The two partners went undercover at the party."
+  },
+  "vest": {
+    "word": "vest",
+    "pos": "сущ.",
+    "translation": "жилет",
+    "example": "Put on your safety vest before you go out."
+  },
+  "vine": {
+    "word": "vine",
+    "pos": "сущ.",
+    "translation": "лиана; виноградная лоза",
+    "example": "He swung across the river on a vine."
+  },
+  "waterfolk": {
+    "word": "waterfolk",
+    "pos": "сущ.",
+    "translation": "водный народ, водоплавающие",
+    "note": "Во второй части — звери, которые живут у воды и в болотах (бобры, выдры и другие); жители района Марш-маркет.",
+    "example": "The waterfolk welcomed the strangers to the market."
+  },
+  "yoga": {
+    "word": "yoga",
+    "pos": "сущ.",
+    "translation": "йога",
+    "example": "The old elephant teaches yoga in the park."
+  },
+  "zebra": {
+    "word": "zebra",
+    "pos": "сущ.",
+    "translation": "зебра",
+    "example": "A zebra in a suit ran for the bus."
+  },
+  "accomplish": {
+    "word": "accomplish",
+    "pos": "гл.",
+    "translation": "достичь, выполнить",
+    "example": "Together we can accomplish anything."
+  },
+  "accusation": {
+    "word": "accusation",
+    "pos": "сущ.",
+    "translation": "обвинение",
+    "example": "That's a serious accusation."
+  },
+  "adorable": {
+    "word": "adorable",
+    "pos": "прил.",
+    "translation": "очаровательный, прелестный",
+    "example": "The baby elephant was adorable."
+  },
+  "alert": {
+    "word": "alert",
+    "pos": "сущ., прил.",
+    "translation": "тревога, оповещение; бдительный",
+    "example": "The police sent an alert to every phone."
+  },
+  "ancestor": {
+    "word": "ancestor",
+    "pos": "сущ.",
+    "translation": "предок",
+    "example": "Our ancestors lived very different lives."
+  },
+  "angel": {
+    "word": "angel",
+    "pos": "сущ.",
+    "translation": "ангел",
+    "example": "Thank you, you're an angel."
+  },
+  "antidote": {
+    "word": "antidote",
+    "pos": "сущ.",
+    "translation": "противоядие",
+    "example": "They need an antidote before it's too late."
+  },
+  "astonish": {
+    "word": "astonish",
+    "pos": "гл.",
+    "translation": "поражать, изумлять",
+    "example": "The results astonished the scientists."
+  },
+  "backup": {
+    "word": "backup",
+    "pos": "сущ.",
+    "translation": "подкрепление; резервная копия",
+    "example": "Officer down, I need backup!"
+  },
+  "backward": {
+    "word": "backward",
+    "pos": "нареч., прил.",
+    "translation": "назад; отсталый",
+    "example": "She took one step backward."
+  },
+  "behalf": {
+    "word": "behalf",
+    "pos": "сущ.",
+    "translation": "(on behalf of) от имени",
+    "example": "I'm here on behalf of the mayor."
+  },
+  "beloved": {
+    "word": "beloved",
+    "pos": "прил.",
+    "translation": "любимый",
+    "example": "The beloved singer came back to the city."
+  },
+  "bias": {
+    "word": "bias",
+    "pos": "сущ.",
+    "translation": "предвзятость, предубеждение",
+    "example": "Everyone has some bias, even good people."
+  },
+  "blend": {
+    "word": "blend",
+    "pos": "гл.",
+    "translation": "смешивать; (blend in) слиться с толпой",
+    "example": "Try to blend in with the guests."
+  },
+  "bucket": {
+    "word": "bucket",
+    "pos": "сущ.",
+    "translation": "ведро",
+    "example": "He carried a bucket of water to the garden."
+  },
+  "buzz": {
+    "word": "buzz",
+    "pos": "гл., сущ.",
+    "translation": "жужжать; гул",
+    "example": "The phone buzzed in her pocket."
+  },
+  "cafeteria": {
+    "word": "cafeteria",
+    "pos": "сущ.",
+    "translation": "столовая, кафетерий",
+    "example": "They met for lunch in the station cafeteria."
+  },
+  "candy": {
+    "word": "candy",
+    "pos": "сущ.",
+    "translation": "конфеты, сладости",
+    "example": "The kids bought candy with their pocket money."
+  },
+  "casual": {
+    "word": "casual",
+    "pos": "прил.",
+    "translation": "непринуждённый; повседневный",
+    "example": "Just act casual and nobody will notice."
+  },
+  "charm": {
+    "word": "charm",
+    "pos": "сущ., гл.",
+    "translation": "обаяние; очаровывать",
+    "example": "He used his charm to get past the guard."
+  },
+  "cheetah": {
+    "word": "cheetah",
+    "pos": "сущ.",
+    "translation": "гепард",
+    "example": "The cheetah at the desk loved pop music."
+  },
+  "choke": {
+    "word": "choke",
+    "pos": "гл.",
+    "translation": "давиться, задыхаться; душить",
+    "example": "He nearly choked on his blueberry."
+  },
+  "clown": {
+    "word": "clown",
+    "pos": "сущ.",
+    "translation": "клоун",
+    "example": "Stop acting like a clown and listen."
+  },
+  "compliment": {
+    "word": "compliment",
+    "pos": "сущ., гл.",
+    "translation": "комплимент; хвалить",
+    "example": "I'll take that as a compliment."
+  },
+  "crook": {
+    "word": "crook",
+    "pos": "сущ.",
+    "translation": "жулик, мошенник",
+    "example": "Everyone in town knew he was a crook."
+  },
+  "darkness": {
+    "word": "darkness",
+    "pos": "сущ.",
+    "translation": "темнота, тьма",
+    "example": "Something moved in the darkness."
+  },
+  "database": {
+    "word": "database",
+    "pos": "сущ.",
+    "translation": "база данных",
+    "example": "She searched the police database for the plate number."
+  },
+  "dawn": {
+    "word": "dawn",
+    "pos": "сущ.",
+    "translation": "рассвет",
+    "example": "We leave at dawn."
+  },
+  "daylight": {
+    "word": "daylight",
+    "pos": "сущ.",
+    "translation": "дневной свет",
+    "example": "They robbed the bank in broad daylight."
+  },
+  "denial": {
+    "word": "denial",
+    "pos": "сущ.",
+    "translation": "отрицание; (in denial) не признавать очевидного",
+    "example": "You're in denial, admit you were wrong."
+  },
+  "disobey": {
+    "word": "disobey",
+    "pos": "гл.",
+    "translation": "ослушаться, не подчиниться",
+    "example": "She disobeyed a direct order."
+  },
+  "eager": {
+    "word": "eager",
+    "pos": "прил.",
+    "translation": "полный желания, жаждущий",
+    "example": "The new officer was eager to help."
+  },
+  "ecosystem": {
+    "word": "ecosystem",
+    "pos": "сущ.",
+    "translation": "экосистема",
+    "example": "Each district has its own ecosystem."
+  },
+  "embrace": {
+    "word": "embrace",
+    "pos": "гл., сущ.",
+    "translation": "принять (идею); обнимать; объятие",
+    "example": "We should embrace our differences."
+  },
+  "escape": {
+    "word": "escape",
+    "pos": "гл., сущ.",
+    "translation": "сбежать; побег",
+    "example": "The prisoner escaped through a hole in the wall."
+  },
+  "exceptional": {
+    "word": "exceptional",
+    "pos": "прил.",
+    "translation": "исключительный",
+    "example": "She showed exceptional courage."
+  },
+  "fake": {
+    "word": "fake",
+    "pos": "прил., сущ.",
+    "translation": "поддельный, фальшивый; подделка",
+    "example": "He sold fake watches to tourists."
+  },
+  "fang": {
+    "word": "fang",
+    "pos": "сущ.",
+    "translation": "клык; ядовитый зуб",
+    "example": "The snake showed its long fangs."
+  },
+  "farther": {
+    "word": "farther",
+    "pos": "нареч.",
+    "translation": "дальше",
+    "example": "The house is farther than I thought."
+  },
+  "federal": {
+    "word": "federal",
+    "pos": "прил.",
+    "translation": "федеральный",
+    "example": "Stealing city property is a federal crime."
+  },
+  "frankly": {
+    "word": "frankly",
+    "pos": "нареч.",
+    "translation": "откровенно говоря",
+    "example": "Frankly, I don't care what they think."
+  },
+  "frequent": {
+    "word": "frequent",
+    "pos": "прил.",
+    "translation": "частый",
+    "example": "He's a frequent visitor at the café."
+  },
+  "gentlemammals": {
+    "word": "gentlemammals",
+    "pos": "сущ.",
+    "translation": "дамы и господа (букв. «джентльмлекопитающие»)",
+    "note": "Шутливая замена gentlemen в обращении к зверям: gentle + mammals.",
+    "example": "Ladies and gentlemammals, welcome to the show!"
+  },
+  "glare": {
+    "word": "glare",
+    "pos": "сущ., гл.",
+    "translation": "свирепый взгляд; сердито смотреть",
+    "example": "The chief gave her a cold glare."
+  },
+  "glue": {
+    "word": "glue",
+    "pos": "сущ., гл.",
+    "translation": "клей; приклеивать",
+    "example": "Somebody put glue on my chair."
+  },
+  "goat": {
+    "word": "goat",
+    "pos": "сущ.",
+    "translation": "коза, козёл",
+    "example": "A goat was eating the flowers in the park."
+  },
+  "greasy": {
+    "word": "greasy",
+    "pos": "прил.",
+    "translation": "жирный, сальный",
+    "example": "His hands were greasy from the engine."
+  },
+  "gut": {
+    "word": "gut",
+    "pos": "сущ.",
+    "translation": "чутьё; живот, кишки",
+    "example": "My gut says he's telling the truth."
+  },
+  "hallway": {
+    "word": "hallway",
+    "pos": "сущ.",
+    "translation": "коридор",
+    "example": "She ran down the hallway to the exit."
+  },
+  "hazard": {
+    "word": "hazard",
+    "pos": "сущ.",
+    "translation": "опасность",
+    "example": "That broken step is a real hazard."
+  },
+  "hilarious": {
+    "word": "hilarious",
+    "pos": "прил.",
+    "translation": "уморительный",
+    "example": "His joke was hilarious."
+  },
+  "hog": {
+    "word": "hog",
+    "pos": "сущ.",
+    "translation": "боров, свинья",
+    "example": "A big hog ran the shop at the corner."
+  },
+  "hook": {
+    "word": "hook",
+    "pos": "сущ., гл.",
+    "translation": "крюк; (off the hook) снять подозрения",
+    "example": "Don't worry, you're off the hook."
+  },
+  "hunch": {
+    "word": "hunch",
+    "pos": "сущ.",
+    "translation": "предчувствие, догадка",
+    "example": "I have a hunch he's hiding something."
+  },
+  "importantly": {
+    "word": "importantly",
+    "pos": "нареч.",
+    "translation": "что важно",
+    "example": "More importantly, nobody got hurt."
+  },
+  "investor": {
+    "word": "investor",
+    "pos": "сущ.",
+    "translation": "инвестор",
+    "example": "The investors loved the new plan."
+  },
+  "irritate": {
+    "word": "irritate",
+    "pos": "гл.",
+    "translation": "раздражать",
+    "example": "His jokes started to irritate her."
+  },
+  "kindness": {
+    "word": "kindness",
+    "pos": "сущ.",
+    "translation": "доброта",
+    "example": "A little kindness can change a life."
+  },
+  "legally": {
+    "word": "legally",
+    "pos": "нареч.",
+    "translation": "законно; юридически",
+    "example": "Legally, he did nothing wrong."
+  },
+  "leopard": {
+    "word": "leopard",
+    "pos": "сущ.",
+    "translation": "леопард",
+    "example": "The leopard climbed onto the roof."
+  },
+  "lifetime": {
+    "word": "lifetime",
+    "pos": "сущ.",
+    "translation": "жизнь, вся жизнь",
+    "example": "It's the chance of a lifetime."
+  },
+  "limitation": {
+    "word": "limitation",
+    "pos": "сущ.",
+    "translation": "ограничение",
+    "example": "Don't let others set your limitations."
+  },
+  "luckily": {
+    "word": "luckily",
+    "pos": "нареч.",
+    "translation": "к счастью",
+    "example": "Luckily, the bridge was still there."
+  },
+  "magically": {
+    "word": "magically",
+    "pos": "нареч.",
+    "translation": "волшебным образом",
+    "example": "The door magically opened."
+  },
+  "maintenance": {
+    "word": "maintenance",
+    "pos": "сущ.",
+    "translation": "техобслуживание; ремонт",
+    "example": "They got in through the maintenance tunnel."
+  },
+  "mechanism": {
+    "word": "mechanism",
+    "pos": "сущ.",
+    "translation": "механизм",
+    "example": "A hidden mechanism moved the wall."
+  },
+  "messy": {
+    "word": "messy",
+    "pos": "прил.",
+    "translation": "грязный, неряшливый; запутанный",
+    "example": "His desk is always messy."
+  },
+  "miserable": {
+    "word": "miserable",
+    "pos": "прил.",
+    "translation": "несчастный, жалкий",
+    "example": "She felt miserable after the argument."
+  },
+  "misunderstand": {
+    "word": "misunderstand",
+    "pos": "гл.",
+    "translation": "неправильно понять",
+    "example": "Don't misunderstand me, I want to help."
+  },
+  "mug": {
+    "word": "mug",
+    "pos": "сущ.",
+    "translation": "кружка",
+    "example": "He drank coffee from a huge mug."
+  },
+  "pause": {
+    "word": "pause",
+    "pos": "сущ., гл.",
+    "translation": "пауза; приостановить",
+    "example": "She paused before answering."
+  },
+  "performer": {
+    "word": "performer",
+    "pos": "сущ.",
+    "translation": "исполнитель, артист",
+    "example": "The street performer drew a big crowd."
+  },
+  "pest": {
+    "word": "pest",
+    "pos": "сущ.",
+    "translation": "вредитель; надоеда",
+    "example": "Stop following me, you little pest."
+  },
+  "pie": {
+    "word": "pie",
+    "pos": "сущ.",
+    "translation": "пирог",
+    "example": "Mom made a carrot pie for the holidays."
+  },
+  "pizza": {
+    "word": "pizza",
+    "pos": "сущ.",
+    "translation": "пицца",
+    "example": "Let's order a pizza after work."
+  },
+  "playbook": {
+    "word": "playbook",
+    "pos": "сущ.",
+    "translation": "сборник приёмов; план действий",
+    "example": "That's the oldest trick in the playbook."
+  },
+  "rage": {
+    "word": "rage",
+    "pos": "сущ.",
+    "translation": "ярость",
+    "example": "His face turned red with rage."
+  },
+  "rally": {
+    "word": "rally",
+    "pos": "сущ.",
+    "translation": "митинг, собрание",
+    "example": "Thousands came to the rally in the square."
+  },
+  "ranger": {
+    "word": "ranger",
+    "pos": "сущ.",
+    "translation": "рейнджер, скаут; лесничий",
+    "example": "As a kid, he wanted to join the junior rangers."
+  },
+  "reckless": {
+    "word": "reckless",
+    "pos": "прил.",
+    "translation": "безрассудный",
+    "example": "That was a reckless thing to do."
+  },
+  "reckon": {
+    "word": "reckon",
+    "pos": "гл.",
+    "translation": "полагать, считать (разг.)",
+    "example": "I reckon we'll get there by noon."
+  },
+  "resign": {
+    "word": "resign",
+    "pos": "гл.",
+    "translation": "уйти в отставку, уволиться",
+    "example": "She decided to resign from the force."
+  },
+  "respectful": {
+    "word": "respectful",
+    "pos": "прил.",
+    "translation": "уважительный",
+    "example": "Please be respectful to our guests."
+  },
+  "rob": {
+    "word": "rob",
+    "pos": "гл.",
+    "translation": "грабить",
+    "example": "Two weasels tried to rob the shop."
+  },
+  "rod": {
+    "word": "rod",
+    "pos": "сущ.",
+    "translation": "стержень, прут; удочка",
+    "example": "He hit the lock with a metal rod."
+  },
+  "rodent": {
+    "word": "rodent",
+    "pos": "сущ.",
+    "translation": "грызун",
+    "example": "Tiny rodents live in their own small town."
+  },
+  "scenario": {
+    "word": "scenario",
+    "pos": "сущ.",
+    "translation": "сценарий, вариант развития событий",
+    "example": "In the worst scenario, we lose everything."
+  },
+  "setup": {
+    "word": "setup",
+    "pos": "сущ.",
+    "translation": "подстава; устройство, схема",
+    "example": "It's a setup, somebody wants us caught."
+  },
+  "shortcut": {
+    "word": "shortcut",
+    "pos": "сущ.",
+    "translation": "короткий путь",
+    "example": "Let's take a shortcut through the park."
+  },
+  "shrug": {
+    "word": "shrug",
+    "pos": "гл., сущ.",
+    "translation": "пожимать плечами",
+    "example": "He just shrugged and walked away."
+  },
+  "skip": {
+    "word": "skip",
+    "pos": "гл.",
+    "translation": "пропускать; подпрыгивать",
+    "example": "Let's skip the small talk."
+  },
+  "slippery": {
+    "word": "slippery",
+    "pos": "прил.",
+    "translation": "скользкий",
+    "example": "Careful, the floor is slippery."
+  },
+  "slogan": {
+    "word": "slogan",
+    "pos": "сущ.",
+    "translation": "лозунг, слоган",
+    "example": "The city's slogan was printed on every bus."
+  },
+  "snack": {
+    "word": "snack",
+    "pos": "сущ.",
+    "translation": "перекус, закуска",
+    "example": "Want a snack before we go?"
+  },
+  "sneaky": {
+    "word": "sneaky",
+    "pos": "прил.",
+    "translation": "хитрый, коварный",
+    "example": "That was a sneaky move."
+  },
+  "sore": {
+    "word": "sore",
+    "pos": "прил.",
+    "translation": "больной, ноющий; обиженный",
+    "example": "My legs are sore after the run."
+  },
+  "spill": {
+    "word": "spill",
+    "pos": "гл., сущ.",
+    "translation": "проливать; разлив",
+    "example": "He spilled juice on his shirt."
+  },
+  "stake": {
+    "word": "stake",
+    "pos": "сущ.",
+    "translation": "ставка; (at stake) на кону",
+    "example": "The future of the city is at stake."
+  },
+  "supervisor": {
+    "word": "supervisor",
+    "pos": "сущ.",
+    "translation": "начальник, руководитель",
+    "example": "Ask your supervisor for a day off."
+  },
+  "surveillance": {
+    "word": "surveillance",
+    "pos": "сущ.",
+    "translation": "наблюдение, слежка",
+    "example": "The surveillance cameras saw everything."
+  },
+  "tangle": {
+    "word": "tangle",
+    "pos": "гл., сущ.",
+    "translation": "запутывать; путаница",
+    "example": "Her ears got tangled in the wires."
+  },
+  "teammate": {
+    "word": "teammate",
+    "pos": "сущ.",
+    "translation": "товарищ по команде",
+    "example": "Good teammates trust each other."
+  },
+  "technically": {
+    "word": "technically",
+    "pos": "нареч.",
+    "translation": "формально, строго говоря",
+    "example": "Technically, you didn't break any rules."
+  },
+  "tense": {
+    "word": "tense",
+    "pos": "прил.",
+    "translation": "напряжённый",
+    "example": "The meeting was very tense."
+  },
+  "terrific": {
+    "word": "terrific",
+    "pos": "прил.",
+    "translation": "потрясающий, отличный",
+    "example": "You did a terrific job."
+  },
+  "thrill": {
+    "word": "thrill",
+    "pos": "сущ.",
+    "translation": "трепет, волнение, острые ощущения",
+    "example": "Catching a thief was a real thrill for her."
+  },
+  "toxic": {
+    "word": "toxic",
+    "pos": "прил.",
+    "translation": "ядовитый, токсичный",
+    "example": "The plant is toxic to most animals."
+  },
+  "trail": {
+    "word": "trail",
+    "pos": "сущ.",
+    "translation": "след; тропа",
+    "example": "The clues left a trail to the old factory."
+  },
+  "tranquilizer": {
+    "word": "tranquilizer",
+    "pos": "сущ.",
+    "translation": "успокоительное, транквилизатор",
+    "example": "The guard fired a tranquilizer dart."
+  },
+  "trauma": {
+    "word": "trauma",
+    "pos": "сущ.",
+    "translation": "травма (душевная)",
+    "example": "He still carries the trauma from his childhood."
+  },
+  "twist": {
+    "word": "twist",
+    "pos": "сущ., гл.",
+    "translation": "поворот, неожиданность; крутить",
+    "example": "Here's the twist: the snake was innocent."
+  },
+  "underdog": {
+    "word": "underdog",
+    "pos": "сущ.",
+    "translation": "аутсайдер, тот, на кого не ставят",
+    "example": "Everyone loves to cheer for the underdog."
+  },
+  "unfriendly": {
+    "word": "unfriendly",
+    "pos": "прил.",
+    "translation": "недружелюбный",
+    "example": "The guard at the gate was unfriendly."
+  },
+  "unhealthy": {
+    "word": "unhealthy",
+    "pos": "прил.",
+    "translation": "нездоровый, вредный",
+    "example": "Eating donuts every day is unhealthy."
+  },
+  "unstoppable": {
+    "word": "unstoppable",
+    "pos": "прил.",
+    "translation": "неудержимый",
+    "example": "Together, we're unstoppable."
+  },
+  "veteran": {
+    "word": "veteran",
+    "pos": "сущ.",
+    "translation": "ветеран, опытный сотрудник",
+    "example": "The veteran cop showed her how things work."
+  },
+  "vibe": {
+    "word": "vibe",
+    "pos": "сущ.",
+    "translation": "атмосфера, настроение (разг.)",
+    "example": "This place has a strange vibe."
+  },
+  "vicious": {
+    "word": "vicious",
+    "pos": "прил.",
+    "translation": "злобный, жестокий",
+    "example": "The rumours were vicious and untrue."
+  },
+  "violation": {
+    "word": "violation",
+    "pos": "сущ.",
+    "translation": "нарушение",
+    "example": "Parking here is a violation."
+  },
+  "voyage": {
+    "word": "voyage",
+    "pos": "сущ.",
+    "translation": "путешествие (морское)",
+    "example": "Have a safe voyage!"
+  },
+  "wallet": {
+    "word": "wallet",
+    "pos": "сущ.",
+    "translation": "бумажник, кошелёк",
+    "example": "Someone stole his wallet on the train."
+  },
+  "warehouse": {
+    "word": "warehouse",
+    "pos": "сущ.",
+    "translation": "склад",
+    "example": "The boxes were hidden in an old warehouse."
+  },
+  "warmth": {
+    "word": "warmth",
+    "pos": "сущ.",
+    "translation": "тепло",
+    "example": "Snakes need warmth to stay active."
+  },
+  "whichever": {
+    "word": "whichever",
+    "pos": "мест.",
+    "translation": "какой бы ни; любой",
+    "example": "Take whichever car you like."
+  },
+  "whoever": {
+    "word": "whoever",
+    "pos": "мест.",
+    "translation": "кто бы ни",
+    "example": "Whoever did this will be caught."
+  },
+  "yell": {
+    "word": "yell",
+    "pos": "гл., сущ.",
+    "translation": "кричать, орать; крик",
+    "example": "Don't yell at me!"
+  }
+}

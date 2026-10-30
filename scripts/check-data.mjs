@@ -77,6 +77,21 @@ const filmCardFields = new Set(['id', 'word', 'translation', 'pos', 'example', '
 const isCount = value => Number.isInteger(value) && value >= 0;
 
 /** A film mode: its new cards plus entries that point to Oxford or film cards with per-part counts. */
+/** A new word shared by several films is one card: the same id must carry the same texts everywhere. */
+export function validateSharedCards(films) {
+  const errors = [];
+  const seen = new Map();
+  for (const film of films) {
+    for (const card of film.cards ?? []) {
+      const text = JSON.stringify(card);
+      const first = seen.get(card.id);
+      if (first && first.text !== text) errors.push(`Карточка ${card.id} различается в фильмах ${first.film} и ${film.id}.`);
+      if (!first) seen.set(card.id, { film: film.id, text });
+    }
+  }
+  return errors;
+}
+
 export function validateFilm(film, words) {
   const errors = [];
   if (!film || typeof film !== 'object' || Array.isArray(film)) return { errors: ['Набор фильма должен быть объектом.'], report: null };
@@ -137,13 +152,17 @@ async function main() {
     console.log(`Карточек с примерами: ${report.examples}. Все переводы непустые и содержат кириллицу.`);
     console.log(`Темы: ${topics.report.assigned} назначений, ${TOPICS.length} тематических групп.`);
     const filmsDir = new URL('../src/data/films/', import.meta.url);
+    const films = [];
     for (const file of (await readdir(filmsDir)).filter(name => name.endsWith('.json')).sort()) {
       const film = JSON.parse(await readFile(new URL(file, filmsDir), 'utf8'));
+      films.push(film);
       const checked = validateFilm(film, words);
       if (checked.errors.length) throw new Error(checked.errors.slice(0, 25).join('\n'));
       const { entries, oxford, word, term } = checked.report;
       console.log(`Фильм «${film.title}»: ${entries} карточек в моде — Oxford ${oxford}, новых слов ${word}, терминов ${term}.`);
     }
+    const shared = validateSharedCards(films);
+    if (shared.length) throw new Error(shared.slice(0, 25).join('\n'));
     console.log('Структура данных проверена. Лингвистическая точность переводов этой проверкой не оценивается.');
   } catch (error) {
     console.error(`Не удалось проверить словарь: ${error instanceof Error ? error.message : String(error)}`);
