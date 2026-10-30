@@ -57,12 +57,12 @@ export function scheduleCard(previous: CardProgress | undefined, rating: Rating,
 
   const repetitions = Math.min(MAX_COUNTER, (previous?.repetitions ?? 0) + 1);
   const oldInterval = previous?.interval ?? 0;
+  const good = repetitions === 1 ? 1 : repetitions === 2 ? 6 : Math.max(1, Math.ceil(oldInterval * oldEase));
   let interval: number;
   if (rating === 'hard') interval = previous ? Math.max(1, Math.ceil(oldInterval * 1.2)) : 1 / 24;
-  else if (rating === 'easy') interval = Math.max(4, Math.ceil(oldInterval * oldEase * 1.3));
-  else if (repetitions === 1) interval = 1;
-  else if (repetitions === 2) interval = 6;
-  else interval = Math.max(1, Math.ceil(oldInterval * oldEase));
+  // Easy always beats Good, including the fixed six-day step of the second review.
+  else if (rating === 'easy') interval = Math.max(4, Math.ceil(oldInterval * oldEase * 1.3), good + 1);
+  else interval = good;
   interval = Math.min(MAX_INTERVAL, interval);
 
   if (now > MAX_TIMESTAMP - interval * DAY_MS) throw new Error('Дата повторения выходит за допустимый диапазон.');

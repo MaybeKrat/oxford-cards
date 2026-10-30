@@ -226,3 +226,16 @@ test('Default states are independent and scheduled future cards do not enter que
   state.cards.a = scheduleCard(undefined, 'good', NOW);
   assert.ok(!getStudyQueue(words, state, NOW).some((word) => word.id === 'a'));
 });
+
+test('Easy is always longer than Good, including the six-day second review', () => {
+  let card = scheduleCard(undefined, 'good', NOW);
+  for (let review = 0; review < 5; review++) {
+    const at = card.due;
+    const intervals = (['hard', 'good', 'easy'] as const).map((rating) => scheduleCard(card, rating, at).interval);
+    assert.ok(intervals[0] < intervals[1] && intervals[1] < intervals[2], `review ${review + 2}: ${intervals}`);
+    card = scheduleCard(card, 'good', at);
+  }
+  const second = scheduleCard(undefined, 'good', NOW);
+  assert.equal(scheduleCard(second, 'good', second.due).interval, 6);
+  assert.equal(scheduleCard(second, 'easy', second.due).interval, 7);
+});
