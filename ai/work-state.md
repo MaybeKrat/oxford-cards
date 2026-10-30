@@ -97,8 +97,8 @@ Kokoro, нейроголоса Microsoft через edge-tts) выбрал Micro
 
 Сделано (не закоммичено):
 - `scripts/build-voices.py` записывает все карточки обоими голосами в `public/voices/<голос>/<ключ>.mp3`
-  (ключ — SHA-256 слова, 16 hex; ~80 МБ; папка в `.gitignore`, права на записи не ясны). Запускать venv
-  `work/tts-compare/.venv` (там стоит edge-tts) перед `npm run build:exe`.
+  (ключ — SHA-256 слова, 16 hex; ~86 МБ). С 31.10.2026 по решению Ивана записи хранятся в git, чтобы были
+  не только в EXE; скрипт (venv `work/tts-compare/.venv`, там edge-tts) дописывает записи новых карточек.
 - `src/lib/voices.ts` — список голосов и загрузка записи; `buffered-speech.ts` сначала берёт запись,
   без неё — голос Windows; настройка `settings.voice` (`ryan`/`sonia`) в «Настройки → Голос», в копиях.
 - Проверка воспроизведения через протокол приложения — `work/voice-check/check.cjs`.

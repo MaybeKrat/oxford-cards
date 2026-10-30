@@ -1,7 +1,7 @@
 """Records every card word with the Microsoft neural voices into public/voices/<voice>/<key>.mp3.
 
-The recordings are not kept in git: run this script before `npm run build:exe`. Existing files are
-skipped, so a rerun only fills the gaps. Needs the `edge-tts` package and internet access.
+The recordings are kept in git; run this script after adding cards (for example, a new film) to record
+the missing words. Existing files are skipped. Needs the `edge-tts` package and internet access.
 
     python scripts/build-voices.py            # record missing words
     python scripts/build-voices.py --check    # report missing recordings only

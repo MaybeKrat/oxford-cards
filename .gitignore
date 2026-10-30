@@ -5,4 +5,3 @@ work/
 *.log
 .env*
 !.env.example
-public/voices/
