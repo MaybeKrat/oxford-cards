@@ -12,6 +12,8 @@ export interface BufferedSpeechController extends SpeechController {
 }
 
 export interface BufferedSpeechOptions {
+  /** A ready recording of the word (any format the audio context decodes), or null to synthesize it. */
+  load?: (text: string) => Promise<ArrayBuffer | null>;
   prepare: (text: string) => Promise<PreparedSpeech>;
   createContext?: () => AudioContext;
   onError?: (message: string) => void;
@@ -55,7 +57,7 @@ export function createBufferedSpeechController(options: BufferedSpeechOptions): 
     clear: (handle: unknown) => clearTimeout(handle as ReturnType<typeof setTimeout>),
   };
   const now = options.now ?? Date.now;
-  const recordings = new Map<string, Promise<PreparedSpeech>>();
+  const recordings = new Map<string, Promise<ArrayBuffer>>();
   const decoded = new Map<string, Promise<AudioBuffer>>();
   let context: AudioContext | undefined;
   let disposed = false;
@@ -73,12 +75,17 @@ export function createBufferedSpeechController(options: BufferedSpeechOptions): 
     const cached = recordings.get(text);
     if (cached) return remember(recordings, text, cached);
     // Promise.resolve also turns a synchronous bridge failure into a handled rejection.
-    const pending = Promise.resolve().then(() => options.prepare(text)).then((result) => {
+    const pending = Promise.resolve().then(() => options.load?.(text)).then(async (recorded) => {
+      if (recorded) {
+        if (!recorded.byteLength || recorded.byteLength > MAX_WAV_BYTES) throw new Error('Invalid recording');
+        return recorded;
+      }
+      const result = await options.prepare(text);
       if (!result || typeof result.audioBase64 !== 'string'
         || result.audioBase64.length > Math.ceil(MAX_WAV_BYTES / 3) * 4) {
         throw new Error('Invalid recording');
       }
-      return result;
+      return wavBytes(result);
     });
     remember(recordings, text, pending);
     void pending.catch(() => { if (recordings.get(text) === pending) recordings.delete(text); });
@@ -99,7 +106,8 @@ export function createBufferedSpeechController(options: BufferedSpeechOptions): 
     if (cached) return remember(decoded, text, cached);
     const pending = recording(text).then((result) => {
       if (disposed || context !== audio) throw new Error('Audio context was released');
-      return audio.decodeAudioData(wavBytes(result));
+      // Decoding detaches its input; the cached bytes must survive a new audio context.
+      return audio.decodeAudioData(result.slice(0));
     }).then((buffer) => {
       if (!buffer.length || !Number.isFinite(buffer.duration) || buffer.duration > 30
         || buffer.numberOfChannels < 1 || buffer.numberOfChannels > 2) {

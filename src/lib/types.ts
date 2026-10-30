@@ -55,6 +55,9 @@ export interface CardProgress {
   state: 'learning' | 'review' | 'relearning';
 }
 
+/** Recorded voice of the desktop app; see src/lib/voices.ts. */
+export type Voice = 'ryan' | 'sonia';
+
 export interface Settings {
   dailyNewLimit: number;
   levels: Level[];
@@ -63,6 +66,7 @@ export interface Settings {
   theme: ThemePreference;
   /** Active film mode id, or null without a mode. */
   film: string | null;
+  voice: Voice;
 }
 
 export interface ReviewLog {

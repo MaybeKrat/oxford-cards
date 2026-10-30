@@ -44,6 +44,7 @@ import {
 import { parseBackup, readState, writeState, STORAGE_KEY } from "./lib/storage";
 import { createSpeechController } from "./lib/speech";
 import { createBufferedSpeechController } from "./lib/buffered-speech";
+import { loadRecording, voices } from "./lib/voices";
 import { applyTheme, SYSTEM_THEME_QUERY } from "./lib/theme";
 import { getTopicName, orderWordsForStudy } from "./lib/topics";
 import { getActiveFilm, getFilmProgress, getVisibleFilmCards, loadFilm, percent } from "./lib/films";
@@ -219,6 +220,8 @@ export default function App() {
     if (!isDesktop && (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window))) return;
     const controller = isDesktop
       ? createBufferedSpeechController({
+          // Bundled recordings of the chosen voice; words without one use the Windows voice.
+          load: (text) => loadRecording(state.settings.voice, text),
           prepare: (text) => window.oxfordAudio!.prepare(text),
           ...callbacks,
         })
@@ -240,7 +243,7 @@ export default function App() {
       window.removeEventListener("pagehide", stop);
       controller.dispose();
     };
-  }, []);
+  }, [state.settings.voice]);
   useEffect(() => {
     const id = window.setInterval(() => setNow(Date.now()), 15000);
     return () => clearInterval(id);
@@ -1514,6 +1517,26 @@ export default function App() {
                     </button>
                   </div>
                 </div>
+                {isDesktop && (
+                  <div className="setting-row">
+                    <div>
+                      <label htmlFor="voice">Голос</label>
+                      <p>Записи нейроголосов Microsoft, встроены в приложение.</p>
+                    </div>
+                    <select
+                      id="voice"
+                      value={state.settings.voice}
+                      disabled={saving}
+                      onChange={(event) => updateSettings({ voice: event.target.value as Settings["voice"] })}
+                    >
+                      {voices.map((voice) => (
+                        <option key={voice.id} value={voice.id}>
+                          {voice.name} — {voice.note}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
                 <div className="setting-row">
                   <div>
                     <strong>Произносить автоматически</strong>

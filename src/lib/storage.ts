@@ -1,6 +1,7 @@
 import type { AppState, CardProgress, Level, Rating, ReviewLog, Settings } from './types.ts';
 import { defaultState, MAX_DAILY_EXTRA } from './scheduler.ts';
 import { finiteRange, isRecord, timestamp, validCard } from './validation.ts';
+import { isVoice } from './voices.ts';
 
 export const STORAGE_KEY = 'oxford-cards:v1';
 
@@ -65,6 +66,7 @@ function validateState(raw: string, validWordIds?: Set<string>): AppState {
     && (typeof settings.film !== 'string' || !/^[a-z0-9-]{1,64}$/.test(settings.film))) {
     invalid('некорректный мод фильма.');
   }
+  if (settings.voice !== undefined && !isVoice(settings.voice)) invalid('некорректный голос озвучки.');
   let dailyExtra: AppState['dailyExtra'];
   if (parsed.dailyExtra !== undefined) {
     const extra = parsed.dailyExtra;
@@ -86,6 +88,8 @@ function validateState(raw: string, validWordIds?: Set<string>): AppState {
       theme: (settings.theme ?? 'system') as Settings['theme'],
       // Backups made before film modes start without a mode.
       film: (settings.film ?? null) as Settings['film'],
+      // Backups made before recorded voices get the default voice.
+      voice: (settings.voice ?? 'ryan') as Settings['voice'],
     },
   };
 }

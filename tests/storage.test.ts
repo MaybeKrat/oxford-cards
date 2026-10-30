@@ -159,3 +159,15 @@ test('Storage access errors are visible to the UI and corrupted data is not over
   assert.throws(() => readState(storage), /JSON/);
   assert.equal(storage.getItem(STORAGE_KEY), 'corrupted original');
 });
+
+test('The chosen voice survives backups; older backups get Ryan and unknown voices are rejected', () => {
+  const state = fixture();
+  state.settings.voice = 'sonia';
+  assert.equal(parseBackup(JSON.stringify(state), IDS).settings.voice, 'sonia');
+  const legacy = structuredClone(state) as { settings: Record<string, unknown> };
+  delete legacy.settings.voice;
+  assert.equal(parseBackup(JSON.stringify(legacy), IDS).settings.voice, 'ryan');
+  for (const voice of [null, '', 'david', 'Ryan', 1]) {
+    assert.throws(() => parseBackup(JSON.stringify({ ...state, settings: { ...state.settings, voice } }), IDS), /голос озвучки/);
+  }
+});

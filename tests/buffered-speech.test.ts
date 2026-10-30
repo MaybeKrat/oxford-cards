@@ -63,7 +63,7 @@ class Source {
   end = () => { this.onended?.(); };
 }
 
-function fixture() {
+function fixture(load?: (text: string) => Promise<ArrayBuffer | null>) {
   const clock = new Clock();
   const statuses: [SpeechStatus, string][] = [];
   const errors: string[] = [];
@@ -92,6 +92,7 @@ function fixture() {
     },
   };
   const controller = createBufferedSpeechController({
+    load,
     prepare: (text) => { words.push(text); return prepare(text); },
     createContext: () => { context.creates++; return context as unknown as AudioContext; },
     onError: (message) => { errors.push(message); },
@@ -394,4 +395,16 @@ test('a malformed or oversized recording never reaches the decoder or output', a
     assert.equal(f.sources.length, 0);
     f.controller.dispose();
   }
+});
+
+test('bundled recordings play without synthesis; words without one fall back to the system voice', async () => {
+  const recorded = new Uint8Array([1, 2, 3]).buffer;
+  const f = fixture(async (text) => (text === 'apple' ? recorded : null));
+  await f.speak('apple');
+  assert.deepEqual(f.words, []);
+  assert.deepEqual([...new Uint8Array(f.context.decodes[0])], [1, 2, 3]);
+  await f.speak('spice');
+  assert.deepEqual(f.words, ['spice']);
+  assert.deepEqual(f.errors, []);
+  f.controller.dispose();
 });

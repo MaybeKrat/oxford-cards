@@ -19,6 +19,7 @@ export function defaultState(): AppState {
       autoSpeak: false,
       theme: 'system',
       film: null,
+      voice: 'ryan',
     },
   };
 }
