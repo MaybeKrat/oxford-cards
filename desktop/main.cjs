@@ -24,6 +24,16 @@ const { getInitialWindowLayout } = require("./window-options.cjs");
 const { createNativeSpeechService } = require("./native-speech.cjs");
 const { getWindowThemeOptions, createWindowThemeController } = require("./theme.cjs");
 
+// Only words shown on cards may be spoken: Oxford 3000 and the cards of every film mode.
+function speechVocabulary() {
+  const filmsDir = path.join(__dirname, "..", "src", "data", "films");
+  const filmCards = fs
+    .readdirSync(filmsDir)
+    .filter((name) => name.endsWith(".json"))
+    .flatMap((name) => JSON.parse(fs.readFileSync(path.join(filmsDir, name), "utf8")).cards);
+  return new Set([...require("../src/data/oxford3000.json"), ...filmCards].map((entry) => entry.word));
+}
+
 app.setName("Oxford Cards");
 // Portable launchers unpack into a new temporary directory. Keep progress elsewhere.
 const userDataPath = path.join(app.getPath("appData"), "Oxford Cards");
@@ -77,7 +87,7 @@ if (!hasLock) {
         workerPath: app.isPackaged
           ? path.join(process.resourcesPath, "speech-worker.ps1")
           : path.join(__dirname, "speech-worker.ps1"),
-        allowedTexts: new Set(require("../src/data/oxford3000.json").map((entry) => entry.word)),
+        allowedTexts: speechVocabulary(),
         cacheDir: path.join(userDataPath, "speech-cache"),
       });
       ipcMain.handle("oxford:speech:prepare", (event, text) => {

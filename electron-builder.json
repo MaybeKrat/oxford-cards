@@ -12,6 +12,7 @@
     "desktop/resources/*LICENSE*.txt",
     "DATA-SOURCES.md",
     "src/data/oxford3000.json",
+    "src/data/films/*.json",
     "src/data/sources/en-ru-LICENSE.txt",
     "package.json",
     "!node_modules/**/*"
