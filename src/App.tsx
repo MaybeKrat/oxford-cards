@@ -1364,26 +1364,26 @@ export default function App() {
                     </div>
                   );
                 })}
-                {films.map((film) => {
-                  // New words and terms of film modes, outside Oxford 3000.
-                  const total = film.cards.length;
-                  const started = film.cards.filter((card) => state.cards[card.id]).length;
-                  if (activeFilm?.id !== film.id && !started) return null;
+                {(() => {
+                  // New words and terms of every film mode, outside Oxford 3000.
+                  const filmCards = films.flatMap((film) => film.cards);
+                  const started = filmCards.filter((card) => state.cards[card.id]).length;
+                  if (!activeFilm && !started) return null;
                   return (
-                    <div className="level-progress" key={film.id}>
+                    <div className="level-progress">
                       <div>
-                        <span className="level-badge film-badge">{film.title}</span>
-                        <strong>Слова из фильма</strong>
+                        <span className="level-badge film-badge">Фильмы</span>
+                        <strong>Слова из фильмов</strong>
                         <small>
-                          {started} / {total}
+                          {started} / {filmCards.length}
                         </small>
                       </div>
                       <div className="progress-track">
-                        <div style={{ width: `${(started / total) * 100}%` }} />
+                        <div style={{ width: `${(started / filmCards.length) * 100}%` }} />
                       </div>
                     </div>
                   );
-                })}
+                })()}
                 <p className="small-note">
                   Закреплёнными считаем слова с интервалом повторения от 21 дня.
                 </p>
