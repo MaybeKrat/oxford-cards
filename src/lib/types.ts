@@ -6,13 +6,38 @@ export interface Word {
   id: string;
   word: string;
   translation: string;
-  level: Level;
+  /** Oxford CEFR level; film cards outside Oxford 3000 have none. */
+  level?: Level;
   pos: string;
   phonetic?: string;
   example?: string;
   exampleTranslation?: string;
   /** Independent thematic grouping; does not change the Oxford card id or level. */
   topic?: string;
+  /** Film mode that owns a card outside Oxford 3000. */
+  film?: string;
+  kind?: 'word' | 'term';
+  /** Explanation of a film term. */
+  note?: string;
+}
+
+export interface FilmEntry {
+  /** Oxford card or film card id. */
+  id: string;
+  /** Uses in each part of the film. */
+  uses: number[];
+  /** Words of speech in each part; larger than uses for multi-word terms. */
+  weight: number[];
+}
+
+export interface Film {
+  id: string;
+  title: string;
+  parts: { id: string; title: string; film: string }[];
+  /** Cards outside Oxford 3000. */
+  cards: Word[];
+  /** All cards of the mode, most used first. */
+  entries: FilmEntry[];
 }
 
 export interface CardProgress {
@@ -34,6 +59,8 @@ export interface Settings {
   direction: 'en-ru' | 'ru-en';
   autoSpeak: boolean;
   theme: ThemePreference;
+  /** Active film mode id, or null without a mode. */
+  film: string | null;
 }
 
 export interface ReviewLog {

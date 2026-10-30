@@ -60,6 +60,11 @@ function validateState(raw: string, validWordIds?: Set<string>): AppState {
     && (typeof settings.theme !== 'string' || !['system', 'light', 'dark'].includes(settings.theme))) {
     invalid('некорректная тема оформления.');
   }
+  // An unknown but well-formed film id keeps the backup usable: the app then works without a mode.
+  if (settings.film !== undefined && settings.film !== null
+    && (typeof settings.film !== 'string' || !/^[a-z0-9-]{1,64}$/.test(settings.film))) {
+    invalid('некорректный мод фильма.');
+  }
   let dailyExtra: AppState['dailyExtra'];
   if (parsed.dailyExtra !== undefined) {
     const extra = parsed.dailyExtra;
@@ -79,6 +84,8 @@ function validateState(raw: string, validWordIds?: Set<string>): AppState {
       autoSpeak: settings.autoSpeak,
       // Older version-1 backups follow the operating system without losing progress.
       theme: (settings.theme ?? 'system') as Settings['theme'],
+      // Backups made before film modes start without a mode.
+      film: (settings.film ?? null) as Settings['film'],
     },
   };
 }

@@ -1,0 +1,2089 @@
+{
+  "lisan al-gaib": {
+    "word": "Lisan al-Gaib",
+    "pos": "сущ.",
+    "translation": "Лисан аль-Гаиб («Голос из внешнего мира»)",
+    "note": "Пророк из легенды фрименов, который придёт извне и поведёт их в рай. Фримены видят его в Поле.",
+    "example": "The crowd believed the stranger was the Lisan al-Gaib."
+  },
+  "fremen": {
+    "word": "Fremen",
+    "pos": "сущ.",
+    "translation": "фримены",
+    "note": "Коренной народ пустыни Арракиса; живут в скрытых поселениях и берегут каждую каплю воды.",
+    "example": "The Fremen know how to survive in the deep desert."
+  },
+  "spice": {
+    "word": "spice",
+    "pos": "сущ.",
+    "translation": "пряность (меланж)",
+    "note": "Вещество, которое есть только на Арракисе: продлевает жизнь, расширяет сознание и нужно для космических перелётов. Обычное значение слова — специя, пряность.",
+    "example": "Whoever controls the spice controls the Imperium."
+  },
+  "emperor": {
+    "word": "emperor",
+    "pos": "сущ.",
+    "translation": "император",
+    "example": "The emperor rarely left his palace."
+  },
+  "bene gesserit": {
+    "word": "Bene Gesserit",
+    "pos": "сущ.",
+    "translation": "Бене Гессерит",
+    "note": "Древний женский орден, который веками тайно ведёт селекцию знатных родов и влияет на политику. Мать Пола — из этого ордена.",
+    "example": "The Bene Gesserit trained her to control every muscle."
+  },
+  "duke": {
+    "word": "duke",
+    "pos": "сущ.",
+    "translation": "герцог",
+    "example": "The duke arrived with his wife and son."
+  },
+  "worm": {
+    "word": "worm",
+    "pos": "сущ.",
+    "translation": "червь",
+    "example": "A worm can hear footsteps in the sand."
+  },
+  "reverend mother": {
+    "word": "Reverend Mother",
+    "pos": "сущ.",
+    "translation": "Преподобная Мать",
+    "note": "Титул высших сестёр Бене Гессерит и духовной наставницы у фрименов.",
+    "example": "The Reverend Mother came to test the boy."
+  },
+  "shield": {
+    "word": "shield",
+    "pos": "сущ., гл.",
+    "translation": "щит; защитное поле; защищать",
+    "example": "Only a slow attack can pass through a shield."
+  },
+  "sietch": {
+    "word": "sietch",
+    "pos": "сущ.",
+    "translation": "сиетч",
+    "note": "Скрытое поселение фрименов в скалах пустыни.",
+    "example": "They walked all night to reach the sietch before sunrise."
+  },
+  "kwisatz haderach": {
+    "word": "Kwisatz Haderach",
+    "pos": "сущ.",
+    "translation": "Квисатц Хадерах",
+    "note": "Мужчина, которого Бене Гессерит веками пытаются вывести: он должен видеть прошлое и будущее.",
+    "example": "They hoped her son would become the Kwisatz Haderach."
+  },
+  "sardaukar": {
+    "word": "Sardaukar",
+    "pos": "сущ.",
+    "translation": "сардаукары",
+    "note": "Элитные войска Императора, лучшие солдаты Империума.",
+    "example": "Even the Sardaukar feared the desert fighters."
+  },
+  "baron": {
+    "word": "baron",
+    "pos": "сущ.",
+    "translation": "барон",
+    "example": "The baron gave orders from his chair."
+  },
+  "sire": {
+    "word": "sire",
+    "pos": "сущ.",
+    "translation": "государь; ваша светлость (обращение)",
+    "example": "Forgive me, sire, I was late."
+  },
+  "blade": {
+    "word": "blade",
+    "pos": "сущ.",
+    "translation": "клинок; лезвие",
+    "example": "He cleaned his blade after the fight."
+  },
+  "imperium": {
+    "word": "Imperium",
+    "pos": "сущ.",
+    "translation": "Империум",
+    "note": "Межзвёздная империя, которой правит Император вместе с Великими домами.",
+    "example": "Every Great House in the Imperium wanted a share of the profit."
+  },
+  "prophecy": {
+    "word": "prophecy",
+    "pos": "сущ.",
+    "translation": "пророчество",
+    "example": "The prophecy speaks of a stranger from another world."
+  },
+  "bloodline": {
+    "word": "bloodline",
+    "pos": "сущ.",
+    "translation": "родословная; род",
+    "example": "Her family has protected the bloodline for centuries."
+  },
+  "carryall": {
+    "word": "carryall",
+    "pos": "сущ.",
+    "translation": "грузолёт",
+    "note": "Летающий транспорт, который поднимает тяжёлую технику, например комбайн, когда приближается червь.",
+    "example": "The carryall lifted the harvester just in time."
+  },
+  "imperial": {
+    "word": "imperial",
+    "pos": "прил.",
+    "translation": "императорский; имперский",
+    "example": "An imperial ship landed at dawn."
+  },
+  "prophet": {
+    "word": "prophet",
+    "pos": "сущ.",
+    "translation": "пророк",
+    "example": "Many people followed the new prophet."
+  },
+  "stillsuit": {
+    "word": "stillsuit",
+    "pos": "сущ.",
+    "translation": "дистикомб",
+    "note": "Костюм фрименов, который собирает влагу тела, очищает её и возвращает для питья.",
+    "example": "Without a stillsuit, you lose water with every breath."
+  },
+  "crawler": {
+    "word": "crawler",
+    "pos": "сущ.",
+    "translation": "гусеничная машина; комбайн",
+    "example": "The crawler moved slowly across the dunes."
+  },
+  "fighter": {
+    "word": "fighter",
+    "pos": "сущ.",
+    "translation": "боец",
+    "example": "She is the best fighter in the village."
+  },
+  "rat": {
+    "word": "rat",
+    "pos": "сущ.",
+    "translation": "крыса",
+    "example": "There was a rat under the table."
+  },
+  "shai-hulud": {
+    "word": "Shai-Hulud",
+    "pos": "сущ.",
+    "translation": "Шаи-Хулуд",
+    "note": "Имя, которым фримены называют гигантского песчаного червя и почитают его как божество.",
+    "example": "The Fremen pray to Shai-Hulud before a long journey."
+  },
+  "throne": {
+    "word": "throne",
+    "pos": "сущ.",
+    "translation": "трон, престол",
+    "example": "He wanted to take the throne for himself."
+  },
+  "dock": {
+    "word": "dock",
+    "pos": "гл., сущ.",
+    "translation": "стыковаться; причаливать; док, причал",
+    "example": "The small ship docked with the station."
+  },
+  "fedaykin": {
+    "word": "Fedaykin",
+    "pos": "сущ.",
+    "translation": "федайкины",
+    "note": "Отряд лучших бойцов фрименов, готовых отдать жизнь за своего вождя.",
+    "example": "The Fedaykin swore to protect their leader."
+  },
+  "juicy": {
+    "word": "juicy",
+    "pos": "прил.",
+    "translation": "сочный",
+    "example": "She gave me a juicy orange."
+  },
+  "messiah": {
+    "word": "messiah",
+    "pos": "сущ.",
+    "translation": "мессия, спаситель",
+    "example": "They waited for a messiah to save them."
+  },
+  "paradise": {
+    "word": "paradise",
+    "pos": "сущ.",
+    "translation": "рай",
+    "example": "This green valley looks like paradise."
+  },
+  "thumper": {
+    "word": "thumper",
+    "pos": "сущ.",
+    "translation": "колотушка (приманка для червя)",
+    "note": "Устройство, которое ритмично бьёт по песку и подзывает червя.",
+    "example": "He planted a thumper and waited for the worm."
+  },
+  "tribe": {
+    "word": "tribe",
+    "pos": "сущ.",
+    "translation": "племя",
+    "example": "Each tribe has its own leader."
+  },
+  "wormsign": {
+    "word": "wormsign",
+    "pos": "сущ.",
+    "translation": "знак червя",
+    "note": "Признаки приближающегося червя: волна песка, дрожь, пыль.",
+    "example": "The pilot reported wormsign to the east."
+  },
+  "atomic": {
+    "word": "atomic",
+    "pos": "прил., сущ.",
+    "translation": "атомный; атомное оружие (atomics)",
+    "example": "The family kept their atomics hidden."
+  },
+  "demon": {
+    "word": "demon",
+    "pos": "сущ.",
+    "translation": "демон",
+    "example": "In the old story, a demon lived in the cave."
+  },
+  "fundamentalist": {
+    "word": "fundamentalist",
+    "pos": "сущ., прил.",
+    "translation": "фундаменталист; фундаменталистский",
+    "example": "The fundamentalists believed every word of the old books."
+  },
+  "harvest": {
+    "word": "harvest",
+    "pos": "гл., сущ.",
+    "translation": "собирать урожай, добывать; урожай, сбор",
+    "example": "They harvest the crop before the storms come."
+  },
+  "majesty": {
+    "word": "majesty",
+    "pos": "сущ.",
+    "translation": "величество (Your Majesty — ваше величество)",
+    "example": "Your Majesty, the guests are waiting."
+  },
+  "sacred": {
+    "word": "sacred",
+    "pos": "прил.",
+    "translation": "священный",
+    "example": "This place is sacred to the local people."
+  },
+  "sandwalk": {
+    "word": "sandwalk",
+    "pos": "сущ., гл.",
+    "translation": "песчаная походка; идти по песку без ритма",
+    "note": "Неровный шаг без ритма, чтобы червь не услышал человека.",
+    "example": "Learn the sandwalk, or the desert will hear you."
+  },
+  "sandworm": {
+    "word": "sandworm",
+    "pos": "сущ.",
+    "translation": "песчаный червь",
+    "note": "Гигантский червь пустыни Арракиса, длиной в сотни метров.",
+    "example": "A sandworm can swallow a whole machine."
+  },
+  "territory": {
+    "word": "territory",
+    "pos": "сущ.",
+    "translation": "территория",
+    "example": "We are now in enemy territory."
+  },
+  "warrior": {
+    "word": "warrior",
+    "pos": "сущ.",
+    "translation": "воин",
+    "example": "Every warrior carried a knife."
+  },
+  "crysknife": {
+    "word": "crysknife",
+    "pos": "сущ.",
+    "translation": "крис-нож",
+    "note": "Священный нож фрименов из зуба песчаного червя.",
+    "example": "A crysknife is never drawn without a reason."
+  },
+  "dare": {
+    "word": "dare",
+    "pos": "гл.",
+    "translation": "сметь; осмеливаться",
+    "example": "How dare you speak to me like that?"
+  },
+  "dune": {
+    "word": "dune",
+    "pos": "сущ.",
+    "translation": "дюна, песчаный холм",
+    "example": "We climbed the highest dune to look around."
+  },
+  "footstep": {
+    "word": "footstep",
+    "pos": "сущ.",
+    "translation": "шаг; звук шагов",
+    "example": "I heard footsteps behind the door."
+  },
+  "guild": {
+    "word": "guild",
+    "pos": "сущ.",
+    "translation": "гильдия",
+    "example": "The guild controls all trade between the cities."
+  },
+  "highborn": {
+    "word": "highborn",
+    "pos": "прил., сущ.",
+    "translation": "знатный; человек знатного рода",
+    "example": "She was highborn, but she lived like a soldier."
+  },
+  "humiliate": {
+    "word": "humiliate",
+    "pos": "гл.",
+    "translation": "унижать",
+    "example": "He humiliated his rival in front of everyone."
+  },
+  "hunter-seeker": {
+    "word": "hunter-seeker",
+    "pos": "сущ.",
+    "translation": "охотник-искатель",
+    "note": "Маленький летающий отравленный дрон-убийца, которым управляет оператор поблизости.",
+    "example": "The hunter-seeker moved toward any sudden motion."
+  },
+  "jinni": {
+    "word": "jinn",
+    "pos": "сущ.",
+    "translation": "джинны",
+    "note": "Духи пустыни в поверьях фрименов. Обычное значение — джинн из восточных сказок.",
+    "example": "The old woman said the jinn live in the dunes."
+  },
+  "legion": {
+    "word": "legion",
+    "pos": "сущ.",
+    "translation": "легион; множество",
+    "example": "The legions marched toward the capital."
+  },
+  "maker": {
+    "word": "maker",
+    "pos": "сущ.",
+    "translation": "Создатель (песчаный червь)",
+    "note": "Так фримены почтительно называют песчаного червя. Обычное значение — создатель, производитель.",
+    "example": "A maker rose from the sand and the riders ran to meet it."
+  },
+  "mind-killer": {
+    "word": "mind-killer",
+    "pos": "сущ.",
+    "translation": "убийца разума",
+    "note": "Выражение из литании Бене Гессерит против страха: страх убивает способность думать.",
+    "example": "Panic is the mind-killer of every soldier."
+  },
+  "na-baron": {
+    "word": "na-baron",
+    "pos": "сущ.",
+    "translation": "на-барон (наследник барона)",
+    "note": "Титул назначенного наследника барона Харконнена.",
+    "example": "The servants bowed to the na-baron."
+  },
+  "nephew": {
+    "word": "nephew",
+    "pos": "сущ.",
+    "translation": "племянник",
+    "example": "My nephew is ten years old."
+  },
+  "obliteration": {
+    "word": "obliteration",
+    "pos": "сущ.",
+    "translation": "полное уничтожение",
+    "example": "The war ended in the obliteration of the city."
+  },
+  "off-world": {
+    "word": "off-world",
+    "pos": "нареч., прил.",
+    "translation": "на другую планету; с другой планеты",
+    "example": "They wanted to escape off-world."
+  },
+  "ornithopter": {
+    "word": "ornithopter",
+    "pos": "сущ.",
+    "translation": "орнитоптер, топтер",
+    "note": "Летательный аппарат с машущими крыльями, похожими на крылья стрекозы. Коротко — thopter.",
+    "example": "The ornithopter landed on the rocks."
+  },
+  "prevail": {
+    "word": "prevail",
+    "pos": "гл.",
+    "translation": "одержать верх; преобладать",
+    "example": "In the end, the truth will prevail."
+  },
+  "reload": {
+    "word": "reload",
+    "pos": "гл.",
+    "translation": "перезаряжать",
+    "example": "He hid behind the rock to reload."
+  },
+  "shatter": {
+    "word": "shatter",
+    "pos": "гл.",
+    "translation": "разбивать(ся) вдребезги",
+    "example": "The glass shattered on the floor."
+  },
+  "smuggler": {
+    "word": "smuggler",
+    "pos": "сущ.",
+    "translation": "контрабандист",
+    "example": "The smugglers knew every hidden road."
+  },
+  "spotter": {
+    "word": "spotter",
+    "pos": "сущ.",
+    "translation": "наблюдатель; самолёт-разведчик",
+    "example": "A spotter flew high above the workers."
+  },
+  "spy": {
+    "word": "spy",
+    "pos": "сущ., гл.",
+    "translation": "шпион; шпионить",
+    "example": "They caught a spy in the palace."
+  },
+  "troop": {
+    "word": "troop",
+    "pos": "сущ.",
+    "translation": "войска (troops); отряд",
+    "example": "The troops waited for the order to attack."
+  },
+  "vulnerable": {
+    "word": "vulnerable",
+    "pos": "прил.",
+    "translation": "уязвимый",
+    "example": "The city is vulnerable from the south."
+  },
+  "worship": {
+    "word": "worship",
+    "pos": "гл., сущ.",
+    "translation": "поклоняться; поклонение",
+    "example": "The villagers worship the old gods."
+  },
+  "alliance": {
+    "word": "alliance",
+    "pos": "сущ.",
+    "translation": "союз, альянс",
+    "example": "The two families formed an alliance."
+  },
+  "amtal": {
+    "word": "amtal",
+    "pos": "сущ.",
+    "translation": "амтал (поединок-испытание)",
+    "note": "Обычай фрименов: вызов на смертельный поединок, который проверяет силу.",
+    "example": "Under the amtal, only one fighter walks away."
+  },
+  "anchor": {
+    "word": "anchor",
+    "pos": "сущ.",
+    "translation": "якорь; крепление",
+    "example": "The boat stopped when they dropped the anchor."
+  },
+  "awake": {
+    "word": "awake",
+    "pos": "прил., гл.",
+    "translation": "бодрствующий, не спящий; просыпаться",
+    "example": "I was still awake at three in the morning."
+  },
+  "barely": {
+    "word": "barely",
+    "pos": "нареч.",
+    "translation": "едва; еле-еле",
+    "example": "I could barely see in the dark."
+  },
+  "bargain": {
+    "word": "bargain",
+    "pos": "сущ., гл.",
+    "translation": "сделка; торговаться",
+    "example": "They made a bargain to share the water."
+  },
+  "basin": {
+    "word": "basin",
+    "pos": "сущ.",
+    "translation": "котловина; бассейн (реки); таз",
+    "example": "The village lies in a dry basin between the mountains."
+  },
+  "battalion": {
+    "word": "battalion",
+    "pos": "сущ.",
+    "translation": "батальон",
+    "example": "Two battalions crossed the river at night."
+  },
+  "beside": {
+    "word": "beside",
+    "pos": "предлог",
+    "translation": "рядом с; кроме",
+    "example": "Sit beside me."
+  },
+  "betray": {
+    "word": "betray",
+    "pos": "гл.",
+    "translation": "предавать",
+    "example": "He would never betray his friends."
+  },
+  "bless": {
+    "word": "bless",
+    "pos": "гл.",
+    "translation": "благословлять",
+    "example": "The old priest blessed the children."
+  },
+  "chaos": {
+    "word": "chaos",
+    "pos": "сущ.",
+    "translation": "хаос",
+    "example": "After the storm, the city was in chaos."
+  },
+  "cruelty": {
+    "word": "cruelty",
+    "pos": "сущ.",
+    "translation": "жестокость",
+    "example": "Nobody forgot the cruelty of the old king."
+  },
+  "cultivate": {
+    "word": "cultivate",
+    "pos": "гл.",
+    "translation": "выращивать; развивать",
+    "example": "They cultivate rice on the hills."
+  },
+  "darling": {
+    "word": "darling",
+    "pos": "сущ.",
+    "translation": "дорогой, милый (обращение)",
+    "example": "Come here, darling."
+  },
+  "defiance": {
+    "word": "defiance",
+    "pos": "сущ.",
+    "translation": "открытое неповиновение; вызов",
+    "example": "She looked at him with defiance."
+  },
+  "deprive": {
+    "word": "deprive",
+    "pos": "гл.",
+    "translation": "лишать",
+    "example": "The war deprived them of their homes."
+  },
+  "dignity": {
+    "word": "dignity",
+    "pos": "сущ.",
+    "translation": "достоинство",
+    "example": "She accepted the defeat with dignity."
+  },
+  "distract": {
+    "word": "distract",
+    "pos": "гл.",
+    "translation": "отвлекать",
+    "example": "Don't distract the driver."
+  },
+  "dive": {
+    "word": "dive",
+    "pos": "гл., сущ.",
+    "translation": "нырять; прыжок в воду",
+    "example": "The boy dived into the lake."
+  },
+  "ecologist": {
+    "word": "ecologist",
+    "pos": "сущ.",
+    "translation": "эколог",
+    "example": "The ecologist studied plants in the desert."
+  },
+  "filmbook": {
+    "word": "filmbook",
+    "pos": "сущ.",
+    "translation": "фильмокнига",
+    "note": "Учебная запись в мире «Дюны», что-то вроде обучающего видео.",
+    "example": "He learned about the planet from old filmbooks."
+  },
+  "fool": {
+    "word": "fool",
+    "pos": "сущ., гл.",
+    "translation": "дурак; обманывать, одурачивать",
+    "example": "Don't be fooled by his smile."
+  },
+  "foreigner": {
+    "word": "foreigner",
+    "pos": "сущ.",
+    "translation": "иностранец; чужак",
+    "example": "Everyone in the village knew he was a foreigner."
+  },
+  "fragment": {
+    "word": "fragment",
+    "pos": "сущ.",
+    "translation": "фрагмент, обрывок",
+    "example": "I remember only fragments of the dream."
+  },
+  "fremkit": {
+    "word": "fremkit",
+    "pos": "сущ.",
+    "translation": "фримкит",
+    "note": "Набор фрименов для выживания в пустыне.",
+    "example": "There is water and a beacon in the fremkit."
+  },
+  "gag": {
+    "word": "gag",
+    "pos": "сущ.",
+    "translation": "кляп",
+    "example": "They removed the gag from his mouth."
+  },
+  "generator": {
+    "word": "generator",
+    "pos": "сущ.",
+    "translation": "генератор",
+    "example": "The generator gives power to the whole camp."
+  },
+  "grace": {
+    "word": "grace",
+    "pos": "сущ.",
+    "translation": "милость; изящество; Your Grace — ваша светлость",
+    "example": "Your Grace, the ship is ready."
+  },
+  "grip": {
+    "word": "grip",
+    "pos": "сущ., гл.",
+    "translation": "хватка; власть; крепко сжимать",
+    "example": "He kept a tight grip on the rope."
+  },
+  "harvester": {
+    "word": "harvester",
+    "pos": "сущ.",
+    "translation": "комбайн; уборочная машина",
+    "example": "The harvester worked through the night."
+  },
+  "herald": {
+    "word": "herald",
+    "pos": "сущ.",
+    "translation": "глашатай, вестник",
+    "example": "The herald announced the king's arrival."
+  },
+  "honourable": {
+    "word": "honourable",
+    "pos": "прил.",
+    "translation": "благородный; честный, почётный",
+    "example": "It was an honourable decision."
+  },
+  "humiliation": {
+    "word": "humiliation",
+    "pos": "сущ.",
+    "translation": "унижение",
+    "example": "He could not forget the humiliation."
+  },
+  "inherit": {
+    "word": "inherit",
+    "pos": "гл.",
+    "translation": "наследовать",
+    "example": "She inherited the house from her grandmother."
+  },
+  "initiate": {
+    "word": "initiate",
+    "pos": "гл.",
+    "translation": "начинать, запускать",
+    "example": "The pilot initiated the landing."
+  },
+  "integrity": {
+    "word": "integrity",
+    "pos": "сущ.",
+    "translation": "целостность; честность",
+    "example": "The engineers checked the integrity of the wall."
+  },
+  "jealous": {
+    "word": "jealous",
+    "pos": "прил.",
+    "translation": "ревнивый; завистливый",
+    "example": "He was jealous of his brother's success."
+  },
+  "kneel": {
+    "word": "kneel",
+    "pos": "гл.",
+    "translation": "вставать на колени",
+    "example": "Everyone knelt before the queen."
+  },
+  "landsraad": {
+    "word": "Landsraad",
+    "pos": "сущ.",
+    "translation": "Ландсраад",
+    "note": "Совет Великих домов Империума.",
+    "example": "The Duke wanted to speak before the Landsraad."
+  },
+  "mahdi": {
+    "word": "Mahdi",
+    "pos": "сущ.",
+    "translation": "Махди",
+    "note": "Мессия, который по пророчеству фрименов поведёт их к свободе.",
+    "example": "Some of the young warriors called him the Mahdi."
+  },
+  "moisture": {
+    "word": "moisture",
+    "pos": "сущ.",
+    "translation": "влага",
+    "example": "The plants collect moisture from the morning air."
+  },
+  "navigator": {
+    "word": "navigator",
+    "pos": "сущ.",
+    "translation": "навигатор, штурман",
+    "example": "The navigator found a safe route."
+  },
+  "non-believer": {
+    "word": "non-believer",
+    "pos": "сущ.",
+    "translation": "неверующий",
+    "example": "The preacher tried to convince the non-believers."
+  },
+  "orbit": {
+    "word": "orbit",
+    "pos": "сущ., гл.",
+    "translation": "орбита; вращаться по орбите",
+    "example": "The ship stayed in orbit around the planet."
+  },
+  "outsider": {
+    "word": "outsider",
+    "pos": "сущ.",
+    "translation": "чужак, посторонний",
+    "example": "The villagers did not trust outsiders."
+  },
+  "outworlder": {
+    "word": "outworlder",
+    "pos": "сущ.",
+    "translation": "чужак (пришелец с другой планеты)",
+    "note": "Так фримены называют всех, кто прилетел на Арракис извне.",
+    "example": "The Fremen did not trust the outworlder."
+  },
+  "palm": {
+    "word": "palm",
+    "pos": "сущ.",
+    "translation": "пальма; ладонь",
+    "example": "We rested under a palm tree."
+  },
+  "paracompass": {
+    "word": "paracompass",
+    "pos": "сущ.",
+    "translation": "паракомпас",
+    "note": "Компас для Арракиса: обычная стрелка там не указывает на север.",
+    "example": "Check the paracompass before you leave the rocks."
+  },
+  "perimeter": {
+    "word": "perimeter",
+    "pos": "сущ.",
+    "translation": "периметр; граница охраняемой зоны",
+    "example": "Guards walked along the perimeter of the camp."
+  },
+  "rhythmic": {
+    "word": "rhythmic",
+    "pos": "прил.",
+    "translation": "ритмичный",
+    "example": "I heard a rhythmic sound from the machine."
+  },
+  "sandstorm": {
+    "word": "sandstorm",
+    "pos": "сущ.",
+    "translation": "песчаная буря",
+    "example": "The sandstorm lasted for three days."
+  },
+  "scatter": {
+    "word": "scatter",
+    "pos": "гл.",
+    "translation": "разбрасывать; рассеиваться",
+    "example": "Seeds were scattered across the field."
+  },
+  "seal": {
+    "word": "seal",
+    "pos": "гл., сущ.",
+    "translation": "герметично закрывать; печать",
+    "example": "Seal the door before the storm."
+  },
+  "shadout": {
+    "word": "Shadout",
+    "pos": "сущ.",
+    "translation": "Шэдаут",
+    "note": "Почётное обращение у фрименов; дословно — «черпающая из колодца».",
+    "example": "The old servant was called Shadout by her people."
+  },
+  "sift": {
+    "word": "sift",
+    "pos": "гл.",
+    "translation": "просеивать; отбирать",
+    "example": "She sifted the flour into a bowl."
+  },
+  "solaris": {
+    "word": "solari",
+    "pos": "сущ.",
+    "translation": "солярий (деньги Империума)",
+    "note": "Денежная единица Империума; во множественном числе — solaris.",
+    "example": "The trip cost millions of solaris."
+  },
+  "squeeze": {
+    "word": "squeeze",
+    "pos": "гл.",
+    "translation": "сжимать; выжимать",
+    "example": "Squeeze the lemon over the fish."
+  },
+  "superstition": {
+    "word": "superstition",
+    "pos": "сущ.",
+    "translation": "суеверие",
+    "example": "It is only an old superstition."
+  },
+  "sweat": {
+    "word": "sweat",
+    "pos": "сущ., гл.",
+    "translation": "пот; потеть",
+    "example": "His shirt was wet with sweat."
+  },
+  "tame": {
+    "word": "tame",
+    "pos": "гл., прил.",
+    "translation": "укрощать, приручать; ручной",
+    "example": "It took years to tame the wild horse."
+  },
+  "trigger": {
+    "word": "trigger",
+    "pos": "гл., сущ.",
+    "translation": "вызывать, запускать; спусковой крючок",
+    "example": "One small mistake can trigger a war."
+  },
+  "underestimate": {
+    "word": "underestimate",
+    "pos": "гл.",
+    "translation": "недооценивать",
+    "example": "Never underestimate your enemy."
+  },
+  "uninhabitable": {
+    "word": "uninhabitable",
+    "pos": "прил.",
+    "translation": "непригодный для жизни",
+    "example": "The north of the island is uninhabitable."
+  },
+  "weakling": {
+    "word": "weakling",
+    "pos": "сущ.",
+    "translation": "слабак",
+    "example": "They called him a weakling, but he won the fight."
+  },
+  "yield": {
+    "word": "yield",
+    "pos": "гл.",
+    "translation": "сдаваться, уступать",
+    "example": "The soldiers refused to yield."
+  },
+  "abundance": {
+    "word": "abundance",
+    "pos": "сущ.",
+    "translation": "изобилие",
+    "example": "The valley had an abundance of fresh water."
+  },
+  "accent": {
+    "word": "accent",
+    "pos": "сущ.",
+    "translation": "акцент",
+    "example": "She speaks English with a strong accent."
+  },
+  "activate": {
+    "word": "activate",
+    "pos": "гл.",
+    "translation": "включать, активировать",
+    "example": "Press the red button to activate the alarm."
+  },
+  "agony": {
+    "word": "agony",
+    "pos": "сущ.",
+    "translation": "мучение, сильная боль",
+    "example": "He was in agony after the fall."
+  },
+  "airborne": {
+    "word": "airborne",
+    "pos": "прил.",
+    "translation": "в воздухе, в полёте",
+    "example": "The plane was airborne within minutes."
+  },
+  "alike": {
+    "word": "alike",
+    "pos": "нареч., прил.",
+    "translation": "одинаково; похожие",
+    "example": "Teachers and students alike enjoyed the trip."
+  },
+  "allergic": {
+    "word": "allergic",
+    "pos": "прил.",
+    "translation": "аллергический; с аллергией на",
+    "example": "I am allergic to cats."
+  },
+  "alongside": {
+    "word": "alongside",
+    "pos": "предлог, нареч.",
+    "translation": "рядом с; вместе с",
+    "example": "He fought alongside his brother."
+  },
+  "altitude": {
+    "word": "altitude",
+    "pos": "сущ.",
+    "translation": "высота (над уровнем моря)",
+    "example": "The plane flew at a low altitude."
+  },
+  "appoint": {
+    "word": "appoint",
+    "pos": "гл.",
+    "translation": "назначать (на должность)",
+    "example": "The king appointed a new governor."
+  },
+  "arsenal": {
+    "word": "arsenal",
+    "pos": "сущ.",
+    "translation": "арсенал, запас оружия",
+    "example": "The army had a huge arsenal."
+  },
+  "artillery": {
+    "word": "artillery",
+    "pos": "сущ.",
+    "translation": "артиллерия",
+    "example": "The artillery fired all night."
+  },
+  "assassin": {
+    "word": "assassin",
+    "pos": "сущ.",
+    "translation": "наёмный убийца",
+    "example": "An assassin was hiding in the palace."
+  },
+  "asset": {
+    "word": "asset",
+    "pos": "сущ.",
+    "translation": "ценный ресурс; актив",
+    "example": "Her language skills are a great asset to the team."
+  },
+  "attendance": {
+    "word": "attendance",
+    "pos": "сущ.",
+    "translation": "посещаемость; присутствие",
+    "example": "Attendance at the meeting is mandatory."
+  },
+  "avenge": {
+    "word": "avenge",
+    "pos": "гл.",
+    "translation": "мстить за",
+    "example": "He swore to avenge his father."
+  },
+  "await": {
+    "word": "await",
+    "pos": "гл.",
+    "translation": "ожидать",
+    "example": "We await your answer."
+  },
+  "awaken": {
+    "word": "awaken",
+    "pos": "гл.",
+    "translation": "пробуждать(ся)",
+    "example": "The noise awakened the whole house."
+  },
+  "backfire": {
+    "word": "backfire",
+    "pos": "гл.",
+    "translation": "обернуться против; дать обратный результат",
+    "example": "His plan backfired badly."
+  },
+  "bait": {
+    "word": "bait",
+    "pos": "сущ.",
+    "translation": "приманка",
+    "example": "The fish took the bait."
+  },
+  "banner": {
+    "word": "banner",
+    "pos": "сущ.",
+    "translation": "знамя; баннер",
+    "example": "The soldiers carried the family banner."
+  },
+  "bare": {
+    "word": "bare",
+    "pos": "прил.",
+    "translation": "голый; пустой",
+    "example": "He caught the snake with his bare hands."
+  },
+  "barren": {
+    "word": "barren",
+    "pos": "прил.",
+    "translation": "бесплодный; голый (о земле)",
+    "example": "Nothing grows on this barren land."
+  },
+  "beacon": {
+    "word": "beacon",
+    "pos": "сущ.",
+    "translation": "маяк; сигнальный передатчик",
+    "example": "The rescue team followed the beacon."
+  },
+  "beneath": {
+    "word": "beneath",
+    "pos": "предлог, нареч.",
+    "translation": "под; внизу",
+    "example": "There is water beneath the sand."
+  },
+  "besides": {
+    "word": "besides",
+    "pos": "нареч., предлог",
+    "translation": "кроме того; помимо",
+    "example": "It's too late. Besides, I'm tired."
+  },
+  "beware": {
+    "word": "beware",
+    "pos": "гл.",
+    "translation": "остерегаться",
+    "example": "Beware of the dog."
+  },
+  "bluff": {
+    "word": "bluff",
+    "pos": "гл., сущ.",
+    "translation": "блефовать; блеф",
+    "example": "I think he is bluffing."
+  },
+  "bow": {
+    "word": "bow",
+    "pos": "гл., сущ.",
+    "translation": "кланяться; поклон",
+    "example": "Everyone bowed when the queen entered."
+  },
+  "brace": {
+    "word": "brace",
+    "pos": "гл.",
+    "translation": "приготовиться (к удару); укреплять",
+    "example": "Brace yourselves for the landing."
+  },
+  "breathtaking": {
+    "word": "breathtaking",
+    "pos": "прил.",
+    "translation": "захватывающий дух",
+    "example": "The view from the top is breathtaking."
+  },
+  "brutal": {
+    "word": "brutal",
+    "pos": "прил.",
+    "translation": "жестокий, зверский",
+    "example": "It was a brutal attack."
+  },
+  "bug": {
+    "word": "bug",
+    "pos": "сущ.",
+    "translation": "жук, насекомое; ошибка в программе",
+    "example": "There is a bug on your shoulder."
+  },
+  "bull": {
+    "word": "bull",
+    "pos": "сущ.",
+    "translation": "бык",
+    "example": "The bull ran across the field."
+  },
+  "burden": {
+    "word": "burden",
+    "pos": "сущ.",
+    "translation": "бремя, ноша",
+    "example": "Power can be a heavy burden."
+  },
+  "certainty": {
+    "word": "certainty",
+    "pos": "сущ.",
+    "translation": "уверенность; несомненный факт",
+    "example": "I can say it with certainty."
+  },
+  "chakobsa": {
+    "word": "Chakobsa",
+    "pos": "сущ.",
+    "translation": "чакобса",
+    "note": "Древний язык, на котором говорят фримены.",
+    "example": "She answered him in Chakobsa."
+  },
+  "chase": {
+    "word": "chase",
+    "pos": "гл., сущ.",
+    "translation": "гнаться, преследовать; погоня",
+    "example": "The dog chased the cat up a tree."
+  },
+  "cliff": {
+    "word": "cliff",
+    "pos": "сущ.",
+    "translation": "утёс, обрыв",
+    "example": "The house stands on a cliff above the sea."
+  },
+  "cling": {
+    "word": "cling",
+    "pos": "гл.",
+    "translation": "цепляться",
+    "example": "The child clung to his mother."
+  },
+  "compass": {
+    "word": "compass",
+    "pos": "сущ.",
+    "translation": "компас",
+    "example": "We used a compass to find north."
+  },
+  "compel": {
+    "word": "compel",
+    "pos": "гл.",
+    "translation": "вынуждать, заставлять",
+    "example": "The rain compelled us to stay at home."
+  },
+  "conceal": {
+    "word": "conceal",
+    "pos": "гл.",
+    "translation": "скрывать, прятать",
+    "example": "She tried to conceal her fear."
+  },
+  "corpse": {
+    "word": "corpse",
+    "pos": "сущ.",
+    "translation": "труп",
+    "example": "They found a corpse in the river."
+  },
+  "counsel": {
+    "word": "counsel",
+    "pos": "гл., сущ.",
+    "translation": "советовать; совет",
+    "example": "The old man counselled patience."
+  },
+  "cripple": {
+    "word": "cripple",
+    "pos": "гл.",
+    "translation": "выводить из строя; калечить",
+    "example": "The storm crippled the power station."
+  },
+  "crush": {
+    "word": "crush",
+    "pos": "гл.",
+    "translation": "давить, раздавить; подавлять",
+    "example": "The army crushed the rebellion."
+  },
+  "crystal": {
+    "word": "crystal",
+    "pos": "сущ., прил.",
+    "translation": "кристалл, хрусталь; crystal clear — совершенно ясно",
+    "example": "The instructions were crystal clear."
+  },
+  "curious": {
+    "word": "curious",
+    "pos": "прил.",
+    "translation": "любопытный",
+    "example": "I am curious to know what happened."
+  },
+  "declaration": {
+    "word": "declaration",
+    "pos": "сущ.",
+    "translation": "объявление; декларация",
+    "example": "There was no declaration of war."
+  },
+  "decree": {
+    "word": "decree",
+    "pos": "сущ.",
+    "translation": "указ",
+    "example": "The king signed a new decree."
+  },
+  "dessert": {
+    "word": "dessert",
+    "pos": "сущ.",
+    "translation": "десерт",
+    "example": "We had ice cream for dessert."
+  },
+  "disrupt": {
+    "word": "disrupt",
+    "pos": "гл.",
+    "translation": "нарушать, срывать",
+    "example": "The strike disrupted all train services."
+  },
+  "doll": {
+    "word": "doll",
+    "pos": "сущ.",
+    "translation": "кукла",
+    "example": "The girl played with her doll."
+  },
+  "drown": {
+    "word": "drown",
+    "pos": "гл.",
+    "translation": "тонуть; топить",
+    "example": "He nearly drowned in the lake."
+  },
+  "embarrass": {
+    "word": "embarrass",
+    "pos": "гл.",
+    "translation": "ставить в неловкое положение; позорить",
+    "example": "Please don't embarrass me in front of my friends."
+  },
+  "empire": {
+    "word": "empire",
+    "pos": "сущ.",
+    "translation": "империя",
+    "example": "The empire lasted for a thousand years."
+  },
+  "empress": {
+    "word": "empress",
+    "pos": "сущ.",
+    "translation": "императрица",
+    "example": "The empress ruled after her husband died."
+  },
+  "envy": {
+    "word": "envy",
+    "pos": "гл., сущ.",
+    "translation": "завидовать; зависть",
+    "example": "Everyone envied his success."
+  },
+  "equivalent": {
+    "word": "equivalent",
+    "pos": "сущ., прил.",
+    "translation": "эквивалент; равноценный",
+    "example": "One cup is the equivalent of two glasses."
+  },
+  "escort": {
+    "word": "escort",
+    "pos": "сущ., гл.",
+    "translation": "охрана, сопровождение; сопровождать",
+    "example": "The ship travelled with an armed escort."
+  },
+  "evacuate": {
+    "word": "evacuate",
+    "pos": "гл.",
+    "translation": "эвакуировать(ся)",
+    "example": "The town was evacuated before the flood."
+  },
+  "exile": {
+    "word": "exile",
+    "pos": "сущ., гл.",
+    "translation": "изгнание, ссылка; изгонять",
+    "example": "The poet lived in exile for twenty years."
+  },
+  "exposure": {
+    "word": "exposure",
+    "pos": "сущ.",
+    "translation": "воздействие; облучение",
+    "example": "Long exposure to the sun can damage your skin."
+  },
+  "extension": {
+    "word": "extension",
+    "pos": "сущ.",
+    "translation": "продление; расширение; by extension — следовательно, также",
+    "example": "I asked for an extension of my visa."
+  },
+  "extract": {
+    "word": "extract",
+    "pos": "гл.",
+    "translation": "извлекать; эвакуировать",
+    "example": "The team was sent to extract the pilots."
+  },
+  "fade": {
+    "word": "fade",
+    "pos": "гл.",
+    "translation": "угасать, бледнеть",
+    "example": "The light was fading quickly."
+  },
+  "fanatic": {
+    "word": "fanatic",
+    "pos": "сущ.",
+    "translation": "фанатик",
+    "example": "He was described as a dangerous fanatic."
+  },
+  "fierce": {
+    "word": "fierce",
+    "pos": "прил.",
+    "translation": "свирепый; яростный",
+    "example": "They are fierce fighters."
+  },
+  "filter": {
+    "word": "filter",
+    "pos": "сущ., гл.",
+    "translation": "фильтр; фильтровать",
+    "example": "Change the water filter every month."
+  },
+  "filthy": {
+    "word": "filthy",
+    "pos": "прил.",
+    "translation": "грязный, мерзкий",
+    "example": "His boots were filthy after the walk."
+  },
+  "flatter": {
+    "word": "flatter",
+    "pos": "гл.",
+    "translation": "льстить; I'm flattered — мне лестно",
+    "example": "I'm flattered that you asked me."
+  },
+  "flesh": {
+    "word": "flesh",
+    "pos": "сущ.",
+    "translation": "плоть",
+    "example": "The knife cut through the flesh."
+  },
+  "follower": {
+    "word": "follower",
+    "pos": "сущ.",
+    "translation": "последователь",
+    "example": "The prophet had thousands of followers."
+  },
+  "forbid": {
+    "word": "forbid",
+    "pos": "гл.",
+    "translation": "запрещать",
+    "example": "My parents forbid me to go out at night."
+  },
+  "foresee": {
+    "word": "foresee",
+    "pos": "гл.",
+    "translation": "предвидеть",
+    "example": "Nobody could foresee the war."
+  },
+  "formidable": {
+    "word": "formidable",
+    "pos": "прил.",
+    "translation": "грозный; внушительный",
+    "example": "She is a formidable opponent."
+  },
+  "freak": {
+    "word": "freak",
+    "pos": "сущ.",
+    "translation": "урод; чудак",
+    "example": "The other kids treated him like a freak."
+  },
+  "galaxy": {
+    "word": "galaxy",
+    "pos": "сущ.",
+    "translation": "галактика",
+    "example": "There are billions of stars in our galaxy."
+  },
+  "genetic": {
+    "word": "genetic",
+    "pos": "прил.",
+    "translation": "генетический",
+    "example": "The disease is genetic."
+  },
+  "genius": {
+    "word": "genius",
+    "pos": "сущ.",
+    "translation": "гений",
+    "example": "He was a genius at mathematics."
+  },
+  "golden": {
+    "word": "golden",
+    "pos": "прил.",
+    "translation": "золотой",
+    "example": "She wore a golden ring."
+  },
+  "gom jabbar": {
+    "word": "gom jabbar",
+    "pos": "сущ.",
+    "translation": "гом джаббар",
+    "note": "Отравленная игла Бене Гессерит: ею проверяют, человек ли испытуемый, — способен ли он вытерпеть боль и не отдёрнуть руку.",
+    "example": "The old woman held the gom jabbar near his neck."
+  },
+  "grave": {
+    "word": "grave",
+    "pos": "прил., сущ.",
+    "translation": "серьёзный, тяжёлый; могила",
+    "example": "The city is in grave danger."
+  },
+  "hairy": {
+    "word": "hairy",
+    "pos": "прил.",
+    "translation": "волосатый, мохнатый",
+    "example": "A big hairy spider ran across the floor."
+  },
+  "harmless": {
+    "word": "harmless",
+    "pos": "прил.",
+    "translation": "безвредный, безобидный",
+    "example": "Don't worry, the snake is harmless."
+  },
+  "havoc": {
+    "word": "havoc",
+    "pos": "сущ.",
+    "translation": "хаос, разрушение (wreak havoc — сеять хаос)",
+    "example": "The storm caused havoc in the city."
+  },
+  "hazardous": {
+    "word": "hazardous",
+    "pos": "прил.",
+    "translation": "опасный",
+    "example": "Working in the mine is hazardous."
+  },
+  "heatstroke": {
+    "word": "heatstroke",
+    "pos": "сущ.",
+    "translation": "тепловой удар",
+    "example": "Drink water, or you will get heatstroke."
+  },
+  "heritage": {
+    "word": "heritage",
+    "pos": "сущ.",
+    "translation": "наследие",
+    "example": "The old town is part of our heritage."
+  },
+  "highness": {
+    "word": "highness",
+    "pos": "сущ.",
+    "translation": "высочество (Your Highness — ваше высочество)",
+    "example": "Your Highness, the car is waiting."
+  },
+  "hopeless": {
+    "word": "hopeless",
+    "pos": "прил.",
+    "translation": "безнадёжный",
+    "example": "The situation seemed hopeless."
+  },
+  "hostage": {
+    "word": "hostage",
+    "pos": "сущ.",
+    "translation": "заложник",
+    "example": "The rebels took three hostages."
+  },
+  "hostile": {
+    "word": "hostile",
+    "pos": "прил.",
+    "translation": "враждебный",
+    "example": "The local people were hostile to strangers."
+  },
+  "housekeeper": {
+    "word": "housekeeper",
+    "pos": "сущ.",
+    "translation": "экономка, домработница",
+    "example": "The housekeeper opened the door."
+  },
+  "hunter": {
+    "word": "hunter",
+    "pos": "сущ.",
+    "translation": "охотник",
+    "example": "The hunter waited quietly in the trees."
+  },
+  "ibad": {
+    "word": "Ibad",
+    "pos": "сущ.",
+    "translation": "Ибад (глаза Ибада)",
+    "note": "Глаза Ибада — синие глаза без белков у тех, кто долго потребляет пряность.",
+    "example": "Her blue eyes were the eyes of Ibad."
+  },
+  "idiot": {
+    "word": "idiot",
+    "pos": "сущ.",
+    "translation": "идиот",
+    "example": "I felt like an idiot."
+  },
+  "imitate": {
+    "word": "imitate",
+    "pos": "гл.",
+    "translation": "подражать, имитировать",
+    "example": "Children often imitate their parents."
+  },
+  "imminent": {
+    "word": "imminent",
+    "pos": "прил.",
+    "translation": "неизбежный; надвигающийся",
+    "example": "The soldiers knew an attack was imminent."
+  },
+  "impulse": {
+    "word": "impulse",
+    "pos": "сущ.",
+    "translation": "порыв, импульс",
+    "example": "I bought it on impulse."
+  },
+  "incoming": {
+    "word": "incoming",
+    "pos": "прил., междометие",
+    "translation": "входящий; приближающийся; «воздух!» (о летящем снаряде)",
+    "example": "Incoming! Everybody down!"
+  },
+  "inhabit": {
+    "word": "inhabit",
+    "pos": "гл.",
+    "translation": "населять, обитать",
+    "example": "Few animals inhabit this desert."
+  },
+  "insane": {
+    "word": "insane",
+    "pos": "прил.",
+    "translation": "безумный, сумасшедший",
+    "example": "Driving in this storm is insane."
+  },
+  "instant": {
+    "word": "instant",
+    "pos": "прил., сущ.",
+    "translation": "мгновенный; мгновение",
+    "example": "The medicine gives instant relief."
+  },
+  "intercept": {
+    "word": "intercept",
+    "pos": "гл.",
+    "translation": "перехватывать",
+    "example": "The police intercepted the message."
+  },
+  "invasion": {
+    "word": "invasion",
+    "pos": "сущ.",
+    "translation": "вторжение",
+    "example": "The invasion began at dawn."
+  },
+  "irrelevant": {
+    "word": "irrelevant",
+    "pos": "прил.",
+    "translation": "не относящийся к делу; неважный",
+    "example": "His age is irrelevant."
+  },
+  "jet": {
+    "word": "jet",
+    "pos": "сущ.",
+    "translation": "реактивный самолёт; струя",
+    "example": "A jet flew low over the town."
+  },
+  "kilo": {
+    "word": "kilo",
+    "pos": "сущ.",
+    "translation": "килограмм, кило",
+    "example": "This bag weighs ten kilos."
+  },
+  "lad": {
+    "word": "lad",
+    "pos": "сущ.",
+    "translation": "парень, паренёк",
+    "example": "He's a good lad."
+  },
+  "legacy": {
+    "word": "legacy",
+    "pos": "сущ.",
+    "translation": "наследие",
+    "example": "The library is his legacy to the town."
+  },
+  "legend": {
+    "word": "legend",
+    "pos": "сущ.",
+    "translation": "легенда",
+    "example": "According to legend, the castle is haunted."
+  },
+  "lethal": {
+    "word": "lethal",
+    "pos": "прил.",
+    "translation": "смертельный",
+    "example": "The poison is lethal in small doses."
+  },
+  "liberate": {
+    "word": "liberate",
+    "pos": "гл.",
+    "translation": "освобождать",
+    "example": "The army liberated the city."
+  },
+  "literally": {
+    "word": "literally",
+    "pos": "нареч.",
+    "translation": "буквально",
+    "example": "The room was literally full of books."
+  },
+  "lizard": {
+    "word": "lizard",
+    "pos": "сущ.",
+    "translation": "ящерица",
+    "example": "A lizard was sleeping on the warm rock."
+  },
+  "loyal": {
+    "word": "loyal",
+    "pos": "прил.",
+    "translation": "верный, преданный",
+    "example": "He has always been loyal to his friends."
+  },
+  "madman": {
+    "word": "madman",
+    "pos": "сущ.",
+    "translation": "безумец, сумасшедший",
+    "example": "He drove like a madman."
+  },
+  "mandatory": {
+    "word": "mandatory",
+    "pos": "прил.",
+    "translation": "обязательный",
+    "example": "Wearing a helmet is mandatory."
+  },
+  "mask": {
+    "word": "mask",
+    "pos": "сущ.",
+    "translation": "маска",
+    "example": "Put on your mask before you go outside."
+  },
+  "massacre": {
+    "word": "massacre",
+    "pos": "гл., сущ.",
+    "translation": "устроить резню; резня",
+    "example": "The villagers were massacred by the soldiers."
+  },
+  "maze": {
+    "word": "maze",
+    "pos": "сущ.",
+    "translation": "лабиринт",
+    "example": "We got lost in the maze of narrow streets."
+  },
+  "miracle": {
+    "word": "miracle",
+    "pos": "сущ.",
+    "translation": "чудо",
+    "example": "It's a miracle that nobody was hurt."
+  },
+  "mock": {
+    "word": "mock",
+    "pos": "гл.",
+    "translation": "насмехаться, издеваться",
+    "example": "Don't mock him, he is trying his best."
+  },
+  "motion": {
+    "word": "motion",
+    "pos": "сущ.",
+    "translation": "движение",
+    "example": "The camera reacts to any motion."
+  },
+  "motivate": {
+    "word": "motivate",
+    "pos": "гл.",
+    "translation": "побуждать, мотивировать",
+    "example": "She is motivated by a desire to help."
+  },
+  "nasty": {
+    "word": "nasty",
+    "pos": "прил.",
+    "translation": "противный, мерзкий; опасный",
+    "example": "That was a nasty cut."
+  },
+  "nearby": {
+    "word": "nearby",
+    "pos": "нареч., прил.",
+    "translation": "поблизости; соседний",
+    "example": "There is a shop nearby."
+  },
+  "necessity": {
+    "word": "necessity",
+    "pos": "сущ.",
+    "translation": "необходимость",
+    "example": "Water is a necessity, not a luxury."
+  },
+  "negotiate": {
+    "word": "negotiate",
+    "pos": "гл.",
+    "translation": "договариваться, вести переговоры",
+    "example": "They negotiated a new contract."
+  },
+  "newcomer": {
+    "word": "newcomer",
+    "pos": "сущ.",
+    "translation": "новичок, вновь прибывший",
+    "example": "The newcomers were given food and water."
+  },
+  "nightfall": {
+    "word": "nightfall",
+    "pos": "сущ.",
+    "translation": "сумерки, наступление ночи",
+    "example": "We must reach the camp before nightfall."
+  },
+  "operator": {
+    "word": "operator",
+    "pos": "сущ.",
+    "translation": "оператор (тот, кто управляет)",
+    "example": "The operator lost control of the drone."
+  },
+  "overnight": {
+    "word": "overnight",
+    "pos": "нареч.",
+    "translation": "за одну ночь; в течение ночи",
+    "example": "Everything changed overnight."
+  },
+  "oversee": {
+    "word": "oversee",
+    "pos": "гл.",
+    "translation": "надзирать, контролировать",
+    "example": "She oversees the work of the whole team."
+  },
+  "padishah": {
+    "word": "Padishah",
+    "pos": "сущ.",
+    "translation": "падишах",
+    "note": "Титул Императора Империума: Padishah Emperor.",
+    "example": "The Padishah Emperor sent his own troops."
+  },
+  "pardon": {
+    "word": "pardon",
+    "pos": "сущ.",
+    "translation": "прощение; I beg your pardon — простите, что вы сказали?",
+    "example": "I beg your pardon? I didn't hear you."
+  },
+  "penetrate": {
+    "word": "penetrate",
+    "pos": "гл.",
+    "translation": "проникать, пробивать",
+    "example": "The bullet could not penetrate the wall."
+  },
+  "pilgrim": {
+    "word": "pilgrim",
+    "pos": "сущ.",
+    "translation": "паломник",
+    "example": "Pilgrims came from all over the country."
+  },
+  "pistol": {
+    "word": "pistol",
+    "pos": "сущ.",
+    "translation": "пистолет",
+    "example": "He kept a pistol in his belt."
+  },
+  "pride": {
+    "word": "pride",
+    "pos": "сущ.",
+    "translation": "гордость; гордыня",
+    "example": "His pride would not let him say sorry."
+  },
+  "proceed": {
+    "word": "proceed",
+    "pos": "гл.",
+    "translation": "продолжать; двигаться дальше",
+    "example": "Please proceed to gate five."
+  },
+  "productive": {
+    "word": "productive",
+    "pos": "прил.",
+    "translation": "продуктивный, плодотворный",
+    "example": "It was a very productive meeting."
+  },
+  "profitable": {
+    "word": "profitable",
+    "pos": "прил.",
+    "translation": "прибыльный",
+    "example": "The business became profitable after two years."
+  },
+  "propaganda": {
+    "word": "propaganda",
+    "pos": "сущ.",
+    "translation": "пропаганда",
+    "example": "The newspapers were full of propaganda."
+  },
+  "protocol": {
+    "word": "protocol",
+    "pos": "сущ.",
+    "translation": "протокол; установленный порядок",
+    "example": "We must follow the safety protocol."
+  },
+  "radar": {
+    "word": "radar",
+    "pos": "сущ.",
+    "translation": "радар",
+    "example": "The ship appeared on the radar."
+  },
+  "ravage": {
+    "word": "ravage",
+    "pos": "гл.",
+    "translation": "опустошать, разорять",
+    "example": "War ravaged the country."
+  },
+  "restore": {
+    "word": "restore",
+    "pos": "гл.",
+    "translation": "восстанавливать",
+    "example": "They restored the old castle."
+  },
+  "retreat": {
+    "word": "retreat",
+    "pos": "сущ., гл.",
+    "translation": "отступление; отступать",
+    "example": "The army began its retreat."
+  },
+  "revelation": {
+    "word": "revelation",
+    "pos": "сущ.",
+    "translation": "откровение; разоблачение",
+    "example": "The news was a revelation to everyone."
+  },
+  "revenge": {
+    "word": "revenge",
+    "pos": "сущ.",
+    "translation": "месть",
+    "example": "He wanted revenge for his brother."
+  },
+  "rider": {
+    "word": "rider",
+    "pos": "сущ.",
+    "translation": "всадник, наездник",
+    "example": "The rider jumped from the horse."
+  },
+  "ridge": {
+    "word": "ridge",
+    "pos": "сущ.",
+    "translation": "гребень (горы, дюны), хребет",
+    "example": "We walked along the ridge of the hill."
+  },
+  "sabotage": {
+    "word": "sabotage",
+    "pos": "сущ., гл.",
+    "translation": "саботаж, диверсия; саботировать",
+    "example": "The fire was an act of sabotage."
+  },
+  "sacrifice": {
+    "word": "sacrifice",
+    "pos": "гл., сущ.",
+    "translation": "жертвовать; жертва",
+    "example": "She sacrificed her career for her family."
+  },
+  "sake": {
+    "word": "sake",
+    "pos": "сущ.",
+    "translation": "for the sake of — ради",
+    "example": "Do it for your mother's sake."
+  },
+  "sanctuary": {
+    "word": "sanctuary",
+    "pos": "сущ.",
+    "translation": "убежище; святилище",
+    "example": "The church gave them sanctuary."
+  },
+  "saviour": {
+    "word": "saviour",
+    "pos": "сущ.",
+    "translation": "спаситель",
+    "example": "The people saw him as their saviour."
+  },
+  "sayyadina": {
+    "word": "Sayyadina",
+    "pos": "сущ.",
+    "translation": "Сайядина (жрица фрименов)",
+    "note": "Женщина-жрица у фрименов, помощница Преподобной Матери.",
+    "example": "Nobody may challenge a Sayyadina."
+  },
+  "scar": {
+    "word": "scar",
+    "pos": "сущ.",
+    "translation": "шрам",
+    "example": "He has a scar on his cheek."
+  },
+  "scout": {
+    "word": "scout",
+    "pos": "сущ., гл.",
+    "translation": "разведчик; разведывать",
+    "example": "They sent a scout ahead of the army."
+  },
+  "shambles": {
+    "word": "shambles",
+    "pos": "сущ.",
+    "translation": "разруха, бардак (in shambles — в полном беспорядке)",
+    "example": "After the party, the house was a shambles."
+  },
+  "skull": {
+    "word": "skull",
+    "pos": "сущ.",
+    "translation": "череп",
+    "example": "They found a skull in the cave."
+  },
+  "somehow": {
+    "word": "somehow",
+    "pos": "нареч.",
+    "translation": "как-то, каким-то образом",
+    "example": "We'll get there somehow."
+  },
+  "sorrow": {
+    "word": "sorrow",
+    "pos": "сущ.",
+    "translation": "скорбь, печаль",
+    "example": "Her eyes were full of sorrow."
+  },
+  "spare": {
+    "word": "spare",
+    "pos": "гл., прил.",
+    "translation": "пощадить; уделить; запасной",
+    "example": "Please spare my children."
+  },
+  "spoil": {
+    "word": "spoil",
+    "pos": "гл.",
+    "translation": "портить; баловать",
+    "example": "Don't let the rain spoil your holiday."
+  },
+  "squander": {
+    "word": "squander",
+    "pos": "гл.",
+    "translation": "растрачивать впустую",
+    "example": "He squandered all his money."
+  },
+  "stain": {
+    "word": "stain",
+    "pos": "гл., сущ.",
+    "translation": "пачкать, пятнать; пятно",
+    "example": "Coffee stained his white shirt."
+  },
+  "starve": {
+    "word": "starve",
+    "pos": "гл.",
+    "translation": "голодать; морить голодом",
+    "example": "Thousands of people starved during the war."
+  },
+  "steer": {
+    "word": "steer",
+    "pos": "гл.",
+    "translation": "направлять; управлять (рулём)",
+    "example": "She steered the boat toward the shore."
+  },
+  "strangle": {
+    "word": "strangle",
+    "pos": "гл.",
+    "translation": "душить",
+    "example": "High taxes strangled the small businesses."
+  },
+  "strategic": {
+    "word": "strategic",
+    "pos": "прил.",
+    "translation": "стратегический",
+    "example": "The bridge has strategic importance."
+  },
+  "suck": {
+    "word": "suck",
+    "pos": "гл.",
+    "translation": "сосать; всасывать",
+    "example": "The baby was sucking milk from a bottle."
+  },
+  "sunrise": {
+    "word": "sunrise",
+    "pos": "сущ.",
+    "translation": "восход солнца",
+    "example": "We left the camp at sunrise."
+  },
+  "supervise": {
+    "word": "supervise",
+    "pos": "гл.",
+    "translation": "наблюдать, руководить",
+    "example": "A teacher supervises the children at lunch."
+  },
+  "surrender": {
+    "word": "surrender",
+    "pos": "гл., сущ.",
+    "translation": "сдаваться; отдавать; капитуляция",
+    "example": "The soldiers refused to surrender."
+  },
+  "survivor": {
+    "word": "survivor",
+    "pos": "сущ.",
+    "translation": "выживший",
+    "example": "There were only five survivors."
+  },
+  "sword": {
+    "word": "sword",
+    "pos": "сущ.",
+    "translation": "меч",
+    "example": "The knight drew his sword."
+  },
+  "tap": {
+    "word": "tap",
+    "pos": "гл.",
+    "translation": "использовать (ресурс); постукивать",
+    "example": "We need to tap the power of the river."
+  },
+  "temple": {
+    "word": "temple",
+    "pos": "сущ.",
+    "translation": "храм",
+    "example": "The old temple stands on a hill."
+  },
+  "terminate": {
+    "word": "terminate",
+    "pos": "гл.",
+    "translation": "прекращать; уничтожать",
+    "example": "The contract was terminated."
+  },
+  "thirst": {
+    "word": "thirst",
+    "pos": "сущ.",
+    "translation": "жажда",
+    "example": "They nearly died of thirst."
+  },
+  "tighten": {
+    "word": "tighten",
+    "pos": "гл.",
+    "translation": "затягивать, усиливать",
+    "example": "Tighten the rope before we leave."
+  },
+  "trace": {
+    "word": "trace",
+    "pos": "сущ., гл.",
+    "translation": "след; отслеживать",
+    "example": "They disappeared without a trace."
+  },
+  "traitor": {
+    "word": "traitor",
+    "pos": "сущ.",
+    "translation": "предатель",
+    "example": "Nobody knew who the traitor was."
+  },
+  "trap": {
+    "word": "trap",
+    "pos": "сущ., гл.",
+    "translation": "ловушка, капкан; поймать в ловушку",
+    "example": "The fox was caught in a trap."
+  },
+  "treacherous": {
+    "word": "treacherous",
+    "pos": "прил.",
+    "translation": "коварный; опасный",
+    "example": "The mountain roads are treacherous in winter."
+  },
+  "treasure": {
+    "word": "treasure",
+    "pos": "сущ.",
+    "translation": "сокровище",
+    "example": "They searched the island for treasure."
+  },
+  "truthsayer": {
+    "word": "Truthsayer",
+    "pos": "сущ.",
+    "translation": "Вещающая Истину",
+    "note": "Сестра Бене Гессерит, которая определяет, лжёт ли человек.",
+    "example": "The Emperor never met a guest without his Truthsayer."
+  },
+  "ultimate": {
+    "word": "ultimate",
+    "pos": "прил.",
+    "translation": "наивысший; окончательный",
+    "example": "Freedom is the ultimate goal."
+  },
+  "unlock": {
+    "word": "unlock",
+    "pos": "гл.",
+    "translation": "открывать (замок); раскрывать",
+    "example": "She unlocked the door with a small key."
+  },
+  "unreliable": {
+    "word": "unreliable",
+    "pos": "прил.",
+    "translation": "ненадёжный",
+    "example": "The old car is unreliable."
+  },
+  "venture": {
+    "word": "venture",
+    "pos": "гл., сущ.",
+    "translation": "отважиться пойти; рискованное предприятие",
+    "example": "Few people venture into the forest at night."
+  },
+  "violate": {
+    "word": "violate",
+    "pos": "гл.",
+    "translation": "нарушать",
+    "example": "They violated the agreement."
+  },
+  "warfare": {
+    "word": "warfare",
+    "pos": "сущ.",
+    "translation": "война, военные действия",
+    "example": "Modern warfare uses drones."
+  },
+  "warship": {
+    "word": "warship",
+    "pos": "сущ.",
+    "translation": "военный корабль",
+    "example": "Three warships entered the harbour."
+  },
+  "weaken": {
+    "word": "weaken",
+    "pos": "гл.",
+    "translation": "ослаблять",
+    "example": "The illness weakened him."
+  },
+  "weird": {
+    "word": "weird",
+    "pos": "прил.",
+    "translation": "странный",
+    "example": "I had a weird dream last night."
+  },
+  "weirding": {
+    "word": "weirding",
+    "pos": "прил.",
+    "translation": "колдовской (weirding way — колдовской путь)",
+    "note": "Боевое искусство Бене Гессерит; фримены считают его колдовством.",
+    "example": "She fought in the weirding way."
+  },
+  "windtrap": {
+    "word": "windtrap",
+    "pos": "сущ.",
+    "translation": "ветровая ловушка (влагоуловитель)",
+    "note": "Устройство, которое собирает влагу из воздуха.",
+    "example": "The windtrap gives the village a little water every day."
+  },
+  "witch": {
+    "word": "witch",
+    "pos": "сущ.",
+    "translation": "ведьма",
+    "example": "In the story, a witch lived in the forest."
+  }
+}

@@ -41,7 +41,7 @@ export function getTopicName(topic: string | undefined): string {
 /** Sort the catalog once; the scheduler still prioritizes due reviews and skips known cards. */
 export function orderWordsForStudy(words: readonly Word[]): Word[] {
   return [...words].sort((a, b) =>
-    levelOrder.indexOf(a.level) - levelOrder.indexOf(b.level)
+    levelOrder.indexOf(a.level ?? '') - levelOrder.indexOf(b.level ?? '')
     || (topicOrder.get(a.topic ?? '') ?? TOPICS.length) - (topicOrder.get(b.topic ?? '') ?? TOPICS.length)
     || a.word.localeCompare(b.word, 'en')
     || a.id.localeCompare(b.id, 'en'),

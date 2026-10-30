@@ -1,4 +1,5 @@
-import type { AppState, CardProgress, Level, Rating, StudyStats, Word } from './types.ts';
+import type { AppState, CardProgress, Film, Level, Rating, StudyStats, Word } from './types.ts';
+import { getActiveFilm } from './films.ts';
 import { MAX_COUNTER, MAX_INTERVAL, MAX_TIMESTAMP, timestamp, validCard } from './validation.ts';
 
 export const DAY_MS = 86_400_000;
@@ -17,6 +18,7 @@ export function defaultState(): AppState {
       direction: 'en-ru',
       autoSpeak: false,
       theme: 'system',
+      film: null,
     },
   };
 }
@@ -99,21 +101,42 @@ export function addExtraNewWords(state: AppState, count: number, now: number): A
   return { ...state, dailyExtra: { day, count: total } };
 }
 
-export function getStudyQueue(words: Word[], state: AppState, now: number): Word[] {
+/** Cards that may be studied: selected Oxford levels plus every card of the active film mode. */
+export function getAvailableWords(words: readonly Word[], state: AppState, films: readonly Film[] = []): Word[] {
+  return availableWords(words, state, getActiveFilm(films, state));
+}
+
+function availableWords(words: readonly Word[], state: AppState, film: Film | undefined): Word[] {
   const levels = new Set(state.settings.levels);
-  const available = words.filter((word) => levels.has(word.level));
+  const mode = new Set(film?.entries.map((entry) => entry.id));
+  return [...words.filter((word) => (word.level && levels.has(word.level)) || mode.has(word.id)), ...(film?.cards ?? [])];
+}
+
+/** Unstarted cards in study order: the active film mode first (most used first), then Oxford by level and topic. */
+export function getNewWords(words: readonly Word[], state: AppState, films: readonly Film[] = []): Word[] {
+  const film = getActiveFilm(films, state);
+  const available = availableWords(words, state, film);
+  const byId = new Map(available.map((word) => [word.id, word]));
+  const mode = (film?.entries ?? []).map((entry) => byId.get(entry.id))
+    .filter((word): word is Word => !!word && !state.cards[word.id]);
+  const inMode = new Set(mode.map((word) => word.id));
+  const levels = new Set(state.settings.levels);
+  return [...mode, ...words.filter((word) => word.level && levels.has(word.level) && !state.cards[word.id] && !inMode.has(word.id))];
+}
+
+export function getStudyQueue(words: readonly Word[], state: AppState, now: number, films: readonly Film[] = []): Word[] {
+  const available = availableWords(words, state, getActiveFilm(films, state));
   const due = available.filter((word) => state.cards[word.id]?.due <= now)
     .sort((a, b) => state.cards[a.id]!.due - state.cards[b.id]!.due || a.id.localeCompare(b.id));
   const today = localDayKey(now);
   const newToday = new Set(state.reviews.filter((review) => review.isNew && review.at <= now && localDayKey(review.at) === today)
     .map((review) => review.wordId));
   const remaining = Math.max(0, getDailyNewLimit(state, now) - newToday.size);
-  const newWords = available.filter((word) => !state.cards[word.id]).slice(0, remaining);
-  return [...due, ...newWords];
+  return [...due, ...getNewWords(words, state, films).slice(0, remaining)];
 }
 
-export function getStats(words: Word[], state: AppState, now: number): StudyStats {
-  const queue = getStudyQueue(words, state, now);
+export function getStats(words: Word[], state: AppState, now: number, films: readonly Film[] = []): StudyStats {
+  const queue = getStudyQueue(words, state, now, films);
   const knownIds = new Set(words.map((word) => word.id));
   const cards = Object.entries(state.cards).filter(([id]) => knownIds.has(id)).map(([, card]) => card);
   const learned = cards.filter((card) => card.state === 'review' && card.interval >= 21).length;

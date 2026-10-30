@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { TOPICS } from '../src/lib/topics.ts';
@@ -73,6 +73,49 @@ export function validateTopicAssignments(words, assignments) {
   return { errors, report: { assigned: Object.keys(assignments).length, topics: counts } };
 }
 
+const filmCardFields = new Set(['id', 'word', 'translation', 'pos', 'example', 'note', 'kind']);
+const isCount = value => Number.isInteger(value) && value >= 0;
+
+/** A film mode: its new cards plus entries that point to Oxford or film cards with per-part counts. */
+export function validateFilm(film, words) {
+  const errors = [];
+  if (!film || typeof film !== 'object' || Array.isArray(film)) return { errors: ['Набор фильма должен быть объектом.'], report: null };
+  const label = `Фильм ${film.id}`;
+  if (!isText(film.id) || !isText(film.title)) errors.push(`${label}: нужны id и title.`);
+  const parts = Array.isArray(film.parts) ? film.parts.length : 0;
+  if (!parts || !film.parts.every(part => isText(part?.id) && isText(part?.title))) errors.push(`${label}: части должны иметь id и title.`);
+  const oxford = new Set(words.map(word => word.id));
+  const cards = new Set();
+  const counts = { word: 0, term: 0 };
+  for (const card of Array.isArray(film.cards) ? film.cards : []) {
+    const name = `${label}, карточка ${card?.word ?? card?.id}`;
+    for (const field of ['id', 'word', 'translation', 'pos', 'example', 'kind']) {
+      if (!isText(card?.[field])) errors.push(`${name}: поле ${field} должно быть непустой строкой.`);
+    }
+    for (const field of Object.keys(card ?? {})) if (!filmCardFields.has(field)) errors.push(`${name}: неизвестное поле ${field}.`);
+    if (!Object.hasOwn(counts, card?.kind)) errors.push(`${name}: kind — word или term.`);
+    else counts[card.kind]++;
+    if ((card?.kind === 'term') !== isText(card?.note)) errors.push(`${name}: пояснение есть только у термина и обязательно для него.`);
+    if (isText(card?.translation) && !/\p{Script=Cyrillic}/u.test(card.translation)) errors.push(`${name}: перевод не содержит кириллицы.`);
+    if (cards.has(card?.id) || oxford.has(card?.id)) errors.push(`${name}: id повторяется или совпадает с карточкой Oxford.`);
+    cards.add(card?.id);
+  }
+  const entries = new Set();
+  for (const entry of Array.isArray(film.entries) ? film.entries : []) {
+    const name = `${label}, запись ${entry?.id}`;
+    if (!oxford.has(entry?.id) && !cards.has(entry?.id)) errors.push(`${name}: неизвестная карточка.`);
+    if (entries.has(entry?.id)) errors.push(`${name}: карточка повторяется.`);
+    entries.add(entry?.id);
+    for (const field of ['uses', 'weight']) {
+      const value = entry?.[field];
+      if (!Array.isArray(value) || value.length !== parts || !value.every(isCount)) errors.push(`${name}: ${field} — по неотрицательному целому на каждую часть.`);
+    }
+    if (Array.isArray(entry?.uses) && !entry.uses.some(count => count > 0)) errors.push(`${name}: слово не встречается в фильме.`);
+  }
+  for (const id of cards) if (!entries.has(id)) errors.push(`${label}: карточка ${id} не входит в записи мода.`);
+  return { errors, report: { entries: entries.size, oxford: entries.size - cards.size, ...counts } };
+}
+
 async function main() {
   const path = process.argv[2] ? resolve(process.argv[2]) : fileURLToPath(new URL('../src/data/oxford3000.json', import.meta.url));
   try {
@@ -93,6 +136,14 @@ async function main() {
     console.log(`Различных написаний: ${report.uniqueSpellings}. Повторяющиеся написания допустимы для отдельных значений.`);
     console.log(`Карточек с примерами: ${report.examples}. Все переводы непустые и содержат кириллицу.`);
     console.log(`Темы: ${topics.report.assigned} назначений, ${TOPICS.length} тематических групп.`);
+    const filmsDir = new URL('../src/data/films/', import.meta.url);
+    for (const file of (await readdir(filmsDir)).filter(name => name.endsWith('.json')).sort()) {
+      const film = JSON.parse(await readFile(new URL(file, filmsDir), 'utf8'));
+      const checked = validateFilm(film, words);
+      if (checked.errors.length) throw new Error(checked.errors.slice(0, 25).join('\n'));
+      const { entries, oxford, word, term } = checked.report;
+      console.log(`Фильм «${film.title}»: ${entries} карточек в моде — Oxford ${oxford}, новых слов ${word}, терминов ${term}.`);
+    }
     console.log('Структура данных проверена. Лингвистическая точность переводов этой проверкой не оценивается.');
   } catch (error) {
     console.error(`Не удалось проверить словарь: ${error instanceof Error ? error.message : String(error)}`);

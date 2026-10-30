@@ -11,6 +11,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
+  Clapperboard,
   Clock3,
   ExternalLink,
   Flame,
@@ -26,10 +27,13 @@ import {
 } from "lucide-react";
 import vocabulary from "./data/oxford3000.json";
 import topicAssignments from "./data/word-topics.json";
+import duneFilm from "./data/films/dune.json";
 import {
   addExtraNewWords,
   defaultState,
+  getAvailableWords,
   getDailyNewLimit,
+  getNewWords,
   getStats,
   getStudyQueue,
   scheduleCard,
@@ -39,15 +43,20 @@ import { createSpeechController } from "./lib/speech";
 import { createBufferedSpeechController } from "./lib/buffered-speech";
 import { applyTheme, SYSTEM_THEME_QUERY } from "./lib/theme";
 import { getTopicName, orderWordsForStudy } from "./lib/topics";
+import { getActiveFilm, getFilmProgress, getVisibleFilmCards, loadFilm, percent } from "./lib/films";
 import type { SpeechController, SpeechStatus } from "./lib/speech";
-import type { AppState, Level, Rating, Settings, Word } from "./lib/types";
+import type { AppState, Film, Level, Rating, Settings, Word } from "./lib/types";
 
 const words: Word[] = (vocabulary as Word[]).map((word) => ({
   ...word,
   topic: (topicAssignments as Record<string, string>)[word.id],
 }));
 const isDesktop = window.location.protocol === "oxford:";
-const validIds = new Set(words.map((word) => word.id));
+const films: Film[] = [loadFilm(duneFilm as Parameters<typeof loadFilm>[0])];
+// Film cards stay valid in saved progress even while their mode is off.
+const validIds = new Set([...words, ...films.flatMap((film) => film.cards)].map((word) => word.id));
+const filmTitles = new Map(films.map((film) => [film.id, film.title]));
+const filmTermLabels: Record<string, string> = { dune: "Термин Дюны" };
 const levels: Level[] = ["A1", "A2", "B1", "B2"];
 const studyWords = orderWordsForStudy(words);
 const levelNames = {
@@ -91,6 +100,15 @@ function dateLabel(time: number) {
     day: "numeric",
     month: "long",
   });
+}
+/** Film cards have no CEFR level: they show the film or the film's term label instead. */
+function badgeOf(word: Word) {
+  if (word.level) return word.level;
+  const title = filmTitles.get(word.film ?? "") ?? "";
+  return word.kind === "term" ? filmTermLabels[word.film ?? ""] ?? `Термин: ${title}` : title;
+}
+function collectionOf(word: Word) {
+  return word.film ? `Мод «${filmTitles.get(word.film)}»` : getTopicName(word.topic);
 }
 function dictionaryUrl(word: Word) {
   return `https://dictionary.cambridge.org/dictionary/english-russian/${encodeURIComponent(
@@ -144,11 +162,11 @@ export default function App() {
   const importRef = useRef<HTMLInputElement>(null);
   const speech = useRef<(SpeechController & { prepare?: (text: string) => void }) | null>(null);
   const queue = useMemo(
-    () => getStudyQueue(studyWords, state, now),
+    () => getStudyQueue(studyWords, state, now, films),
     [state, now],
   );
   const current = queue.find((word) => word.id === activeId) ?? queue[0];
-  const stats = useMemo(() => getStats(words, state, now), [state, now]);
+  const stats = useMemo(() => getStats(words, state, now, films), [state, now]);
   const reverse = state.settings.direction === "ru-en";
   const today = dayKey(now);
   const todayNew = new Set(
@@ -156,11 +174,13 @@ export default function App() {
       .filter((review) => review.isNew && review.at <= now && dayKey(review.at) === today)
       .map((review) => review.wordId),
   ).size;
-  const dailyNewLimit = getDailyNewLimit(state, now);
-  const extraWordsCount = Math.min(
-    10,
-    words.filter((word) => state.settings.levels.includes(word.level) && !state.cards[word.id]).length,
+  const activeFilm = getActiveFilm(films, state);
+  const filmProgress = useMemo(
+    () => (activeFilm ? getFilmProgress(activeFilm, state) : null),
+    [activeFilm, state],
   );
+  const dailyNewLimit = getDailyNewLimit(state, now);
+  const extraWordsCount = Math.min(10, getNewWords(studyWords, state, films).length);
   const dailyProgress =
     dailyNewLimit === 0
       ? 0
@@ -387,7 +407,7 @@ export default function App() {
   async function studyMoreToday() {
     const at = Date.now();
     // Refresh first if a repetition became due or a new calendar day started.
-    if (getStudyQueue(studyWords, state, at).length > 0) {
+    if (getStudyQueue(studyWords, state, at, films).length > 0) {
       setNow(at);
       return;
     }
@@ -437,9 +457,17 @@ export default function App() {
     return () => window.removeEventListener("keydown", onKey);
   });
 
+  // New film cards join the dictionary only while their mode is on.
+  const libraryWords = useMemo(() => {
+    const filmCards = getVisibleFilmCards(films, state);
+    return filmCards.length
+      ? [...words, ...filmCards].sort((a, b) => a.word.localeCompare(b.word, "en"))
+      : words;
+  }, [activeFilm]);
+  const levelFilter = libraryLevel === "film" && !activeFilm ? "all" : libraryLevel;
   const filteredWords = useMemo(
     () =>
-      words.filter((word) => {
+      libraryWords.filter((word) => {
         const progress = state.cards[word.id];
         const matchesStatus =
           libraryStatus === "all" ||
@@ -448,13 +476,15 @@ export default function App() {
           (libraryStatus === "started" && !!progress);
         return (
           matchesStatus &&
-          (libraryLevel === "all" || word.level === libraryLevel) &&
+          (levelFilter === "all" ||
+            word.level === levelFilter ||
+            (levelFilter === "film" && !!word.film)) &&
           `${word.word} ${word.translation}`
             .toLocaleLowerCase()
             .includes(query.trim().toLocaleLowerCase())
         );
       }),
-    [query, libraryLevel, libraryStatus, state.cards, now],
+    [libraryWords, query, levelFilter, libraryStatus, state.cards, now],
   );
   const pageCount = Math.max(1, Math.ceil(filteredWords.length / 30));
   const safePage = Math.min(libraryPage, pageCount - 1);
@@ -468,8 +498,7 @@ export default function App() {
     };
   });
   const maxCount = Math.max(5, ...week.map((day) => day.count));
-  const nextDue = words
-    .filter((word) => state.settings.levels.includes(word.level))
+  const nextDue = getAvailableWords(words, state, films)
     .map((word) => state.cards[word.id])
     .filter((card) => card?.due > now)
     .sort((a, b) => a.due - b.due)[0]?.due;
@@ -681,6 +710,22 @@ export default function App() {
                 </div>
               </div>
             </section>
+            {activeFilm && filmProgress && (
+              <section className="film-strip" aria-label={`Мод «${activeFilm.title}»`}>
+                <span className="film-strip-title">
+                  <Clapperboard size={16} />
+                  {activeFilm.title}
+                </span>
+                <span className="film-strip-values">
+                  {percent(filmProgress.words)}% слов
+                  <span className="middle-dot">·</span>
+                  {percent(filmProgress.speech)}% речи
+                </span>
+                <div className="progress-track" title={`Изучено ${filmProgress.words.learned} из ${filmProgress.words.total} слов`}>
+                  <div style={{ width: `${percent(filmProgress.words)}%` }} />
+                </div>
+              </section>
+            )}
             <div className="study-layout">
               <section className="practice-section">
                 <div className="section-title">
@@ -696,11 +741,11 @@ export default function App() {
                       key={current.id}
                     >
                       <div className="card-top">
-                        <span className="card-collection card-topic" title={`Тема: ${getTopicName(current.topic)}`}>
+                        <span className="card-collection card-topic" title={current.film ? collectionOf(current) : `Тема: ${getTopicName(current.topic)}`}>
                           <span className="tiny-dot" />
-                          {getTopicName(current.topic)}
+                          {collectionOf(current)}
                         </span>
-                        <span className="level-badge">{current.level}</span>
+                        <span className={`level-badge${current.film ? " film-badge" : ""}`}>{badgeOf(current)}</span>
                       </div>
                       <div className="card-word-area">
                         <span className="word-label">
@@ -734,6 +779,7 @@ export default function App() {
                             <h3>
                               {reverse ? current.word : current.translation}
                             </h3>
+                            {current.note && <p className="term-note">{current.note}</p>}
                             {current.example && (
                               <p className="example">{current.example}</p>
                             )}
@@ -975,7 +1021,7 @@ export default function App() {
                 </p>
               </div>
               <span className="large-count">
-                {words.length.toLocaleString("ru-RU")}
+                {libraryWords.length.toLocaleString("ru-RU")}
                 <small>карточек для роста</small>
               </span>
             </section>
@@ -1010,13 +1056,13 @@ export default function App() {
             </div>
             <div className="filter-row">
               <div className="level-filters">
-                {["all", ...levels].map((level) => (
+                {["all", ...levels, ...(activeFilm ? ["film"] : [])].map((level) => (
                   <button
                     key={level}
-                    className={libraryLevel === level ? "selected" : ""}
+                    className={levelFilter === level ? "selected" : ""}
                     onClick={() => setLibraryLevel(level)}
                   >
-                    {level === "all" ? "Все уровни" : level}
+                    {level === "all" ? "Все уровни" : level === "film" ? activeFilm?.title : level}
                   </button>
                 ))}
               </div>
@@ -1043,7 +1089,7 @@ export default function App() {
                     </span>
                     <span className="row-translation">{word.translation}</span>
                     <span>
-                      <span className="level-badge">{word.level}</span>
+                      <span className={`level-badge${word.film ? " film-badge" : ""}`}>{badgeOf(word)}</span>
                     </span>
                     <span
                       className={`word-status ${state.cards[word.id] ? "started" : ""}`}
@@ -1146,6 +1192,60 @@ export default function App() {
                 </div>
               </div>
             </section>
+            {activeFilm && filmProgress && (
+              <section className="panel film-panel">
+                <div className="section-title">
+                  <h2>
+                    <Clapperboard size={18} />
+                    Мод «{activeFilm.title}»
+                  </h2>
+                </div>
+                <p className="panel-description">
+                  Слова — доля изученных слов фильма. Речь — доля всего, что
+                  звучит в фильме: частые слова весят больше. Изученным
+                  считается слово, на котором последний ответ — «Помню» или
+                  «Легко».
+                </p>
+                <div className="film-parts">
+                  {[
+                    { title: "Обе части", film: "Весь мод", words: filmProgress.words, speech: filmProgress.speech },
+                    ...filmProgress.parts.map((part, index) => ({ ...part, film: activeFilm.parts[index].film })),
+                  ].map((part) => (
+                    <div className="film-part" key={part.title}>
+                      <strong>{part.title}</strong>
+                      <small>{part.film}</small>
+                      <div className="film-metric">
+                        <span>Слова</span>
+                        <b>{percent(part.words)}%</b>
+                      </div>
+                      <div className="progress-track">
+                        <div style={{ width: `${percent(part.words)}%` }} />
+                      </div>
+                      <small>
+                        {part.words.learned} из {part.words.total}
+                      </small>
+                      <div className="film-metric">
+                        <span>Речь</span>
+                        <b>{percent(part.speech)}%</b>
+                      </div>
+                      <div className="progress-track">
+                        <div style={{ width: `${percent(part.speech)}%` }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="chart-footer">
+                  <span>
+                    Не начато слов мода
+                    <strong>{activeFilm.entries.filter((entry) => !state.cards[entry.id]).length}</strong>
+                  </span>
+                  <span>
+                    из них новых слов и терминов
+                    <strong>{filmProgress.newNotStarted}</strong>
+                  </span>
+                </div>
+              </section>
+            )}
             <div className="stats-layout">
               <section className="panel weekly-panel">
                 <div className="section-title">
@@ -1330,6 +1430,32 @@ export default function App() {
                       </button>
                     ))}
                   </div>
+                </div>
+                <div className="setting-row">
+                  <div>
+                    <label htmlFor="film-mode">Мод фильма</label>
+                    <p>
+                      Новые слова фильма идут первыми, уровни на них не влияют.
+                      Без мода новые слова фильма на паузе, их прогресс сохраняется.
+                    </p>
+                  </div>
+                  <select
+                    id="film-mode"
+                    value={state.settings.film ?? ""}
+                    disabled={saving}
+                    onChange={(event) => {
+                      setActiveId(null);
+                      setRevealed(false);
+                      updateSettings({ film: event.target.value || null });
+                    }}
+                  >
+                    <option value="">Без мода</option>
+                    {films.map((film) => (
+                      <option key={film.id} value={film.id}>
+                        {film.title}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="setting-row vertical">
                   <div>
@@ -1528,7 +1654,7 @@ export default function App() {
         </button>
         {detail && (
           <>
-            <span className="level-badge">{detail.level}</span>
+            <span className={`level-badge${detail.film ? " film-badge" : ""}`}>{badgeOf(detail)}</span>
             <h2>{detail.word}</h2>
             <span className="part-of-speech">{detail.pos}</span>
             <button
@@ -1541,12 +1667,15 @@ export default function App() {
               <AudioLines size={20} />
             </button>
             <h3>{detail.translation}</h3>
+            {detail.note && <p className="term-note">{detail.note}</p>}
             {detail.example && <p className="example">{detail.example}</p>}
             {detail.exampleTranslation && (
               <p className="example-translation">{detail.exampleTranslation}</p>
             )}
             <div className="detail-progress">
-              <span className="detail-topic">Тема: {getTopicName(detail.topic)}</span>
+              <span className="detail-topic">
+                {detail.film ? collectionOf(detail) : `Тема: ${getTopicName(detail.topic)}`}
+              </span>
               <span>{statusOf(detail)}</span>
               {state.cards[detail.id] && (
                 <span>Повторить: {dateLabel(state.cards[detail.id].due)}</span>
@@ -1562,7 +1691,9 @@ export default function App() {
               <ExternalLink size={14} />
             </a>
             <p className="small-note">
-              Перевод из стороннего набора. При сомнениях сверьтесь со словарём.
+              {detail.film
+                ? "Перевод и пример подготовлены для мода фильма. При сомнениях сверьтесь со словарём."
+                : "Перевод из стороннего набора. При сомнениях сверьтесь со словарём."}
             </p>
           </>
         )}

@@ -3258,3 +3258,149 @@ h1 > span {
     border-color: var(--paper);
   }
 }
+
+/* Film mode: compact line on «Практика», block on «Прогресс», labels instead of CEFR levels. */
+.film-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: -12px 0 24px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  font-size: 12px;
+}
+.film-strip-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 550;
+  color: #627e50;
+}
+.film-strip-values {
+  color: #718363;
+  white-space: nowrap;
+}
+.film-strip .progress-track {
+  flex: 1;
+  min-width: 80px;
+}
+.desktop-app .film-strip {
+  margin-top: -8px;
+}
+.film-badge {
+  white-space: nowrap;
+  background: #f0edf8;
+  border-color: #e4def0;
+  color: #7f6c9c;
+}
+.term-note {
+  max-width: 460px;
+  margin: 10px auto 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #7f6c9c;
+  text-align: center;
+}
+.detail-dialog > .term-note {
+  margin: 10px 0 0;
+  text-align: left;
+  color: #7f6c9c;
+}
+.film-panel {
+  margin-bottom: 20px;
+}
+.film-panel h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.film-panel h2 svg {
+  color: #8c9f7f;
+}
+.film-panel .panel-description {
+  margin-top: 0;
+}
+.film-parts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 22px 0 20px;
+}
+.film-part {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+}
+.film-part > strong {
+  font-size: 13px;
+  font-weight: 550;
+}
+.film-part > small {
+  font-size: 10px;
+  color: #8b977f;
+}
+.film-part > small:nth-of-type(1) {
+  margin-bottom: 6px;
+}
+.film-metric {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #7e8f70;
+}
+.film-metric b {
+  font-size: 20px;
+  font-weight: 550;
+  letter-spacing: -0.5px;
+  color: #60794d;
+}
+@media (max-width: 720px) {
+  .film-strip {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    margin-top: 0;
+  }
+  .film-strip .progress-track {
+    flex-basis: 100%;
+  }
+  .film-parts {
+    grid-template-columns: 1fr;
+  }
+  .word-row .film-badge {
+    white-space: normal;
+    padding: 4px 3px;
+    font-size: 7px;
+    line-height: 1.2;
+    text-align: center;
+  }
+}
+
+:root[data-theme="dark"] :is(.film-strip, .film-panel) {
+  background: var(--paper);
+  border-color: var(--border);
+}
+:root[data-theme="dark"] .film-strip-title,
+:root[data-theme="dark"] .film-metric b {
+  color: var(--sage-ink);
+}
+:root[data-theme="dark"] :is(.film-strip-values, .film-metric, .film-part > small, .film-panel h2 svg) {
+  color: var(--sage-muted);
+}
+:root[data-theme="dark"] .film-part {
+  border-color: var(--border);
+}
+:root[data-theme="dark"] .level-badge.film-badge {
+  background: var(--lavender-surface);
+  border-color: var(--lavender-border);
+  color: var(--lavender-ink);
+}
+:root[data-theme="dark"] .term-note {
+  color: var(--lavender-muted);
+}
