@@ -510,7 +510,7 @@ export default function App() {
       ...state,
       cards: {
         ...state.cards,
-        [current.id]: scheduleCard(state.cards[current.id], rating, at),
+        [current.id]: scheduleCard(state.cards[current.id], rating, at, current.id),
       },
       reviews: [
         ...state.reviews,
@@ -683,7 +683,7 @@ export default function App() {
   });
   const hintParts = current ? exampleParts(current) : null;
   const ratingIntervals = current && !drill
-    ? ratings.map((rating) => intervalLabel(scheduleCard(state.cards[current.id], rating, now).interval))
+    ? ratings.map((rating) => intervalLabel(scheduleCard(state.cards[current.id], rating, now, current.id).interval))
     : [];
   const currentHistory = current ? historyOf(state, current.id).slice(-4) : [];
 
@@ -750,7 +750,7 @@ export default function App() {
 
   function renderFilmMenu(anchor: "chip" | "card") {
     if (filmMenu !== anchor) return null;
-    const row = (item: FilmReadiness, note: string, selected = false) => (
+    const row = (item: FilmReadiness, selected = false) => (
       <button
         key={item.film.id}
         className={`menu-item${selected ? " selected" : ""}`}
@@ -758,64 +758,72 @@ export default function App() {
         onClick={() => (selected ? setFilmMenu(null) : selectFilm(item.film.id))}
       >
         <Poster film={item.film} className="menu-thumb" />
-        <span>
+        <span className="menu-text">
           <strong>{item.film.title}</strong>
-          <small>{note}</small>
+          <small>
+            Изучено {item.words}% слов · понятно {item.speech}% речи
+          </small>
+          <span className="progress-track film-track">
+            <span style={{ width: `${item.words}%` }} />
+          </span>
         </span>
-        {selected && <Check size={16} />}
+        {selected ? <Check size={18} /> : <span className="menu-action">Включить</span>}
       </button>
     );
+    const rotating = readiness.length - (activeFilm ? 1 : 0) > suggestions.length;
     return (
       <div className={`film-menu film-menu-${anchor}`} role="menu">
-        <h6>СЕЙЧАС</h6>
+        <div className="menu-head">
+          <strong>Мод фильма</strong>
+          <p>Слова выбранного фильма идут первыми среди новых. Прогресс по словам при смене фильма сохраняется.</p>
+        </div>
+        <h6>Сейчас</h6>
         {activeReadiness ? (
-          row(activeReadiness, `${activeReadiness.words}% слов · ${activeReadiness.speech}% речи`, true)
+          row(activeReadiness, true)
         ) : (
           <button className="menu-item selected" onClick={() => setFilmMenu(null)}>
             <span className="menu-thumb menu-icon">
-              <Layers size={15} />
+              <Layers size={20} />
             </span>
-            <span>
+            <span className="menu-text">
               <strong>Без мода</strong>
-              <small>Oxford 3000 по уровням и темам</small>
+              <small>Новые слова — по уровням Oxford 3000</small>
             </span>
-            <Check size={16} />
+            <Check size={18} />
           </button>
         )}
         {suggestions.length > 0 && (
           <>
             <h6>
-              БЛИЖЕ К ПРОСМОТРУ
-              {readiness.length - (activeFilm ? 1 : 0) > suggestions.length && " · СМЕНЯТСЯ ЗАВТРА"}
+              Ближе всего к просмотру
+              {rotating && <span> · подборка меняется каждый день</span>}
             </h6>
-            {suggestions.map((item) =>
-              row(item, `понятно ${item.speech}% речи · ${item.remaining} ${quantity(item.remaining, "слово", "слова", "слов")} выучить`),
-            )}
+            {suggestions.map((item) => row(item))}
           </>
         )}
         <hr />
         {activeFilm && (
           <button className="menu-item" disabled={saving} onClick={() => selectFilm("")}>
             <span className="menu-thumb menu-icon">
-              <Layers size={15} />
+              <Layers size={20} />
             </span>
-            <span>
-              <strong>Без мода</strong>
-              <small>Oxford 3000 по уровням и темам</small>
+            <span className="menu-text">
+              <strong>Выключить мод</strong>
+              <small>Новые слова — снова по уровням Oxford 3000</small>
             </span>
           </button>
         )}
         <button className="menu-item" onClick={openFilmPicker}>
           <span className="menu-thumb menu-icon">
-            <Search size={15} />
+            <Search size={20} />
           </span>
-          <span>
-            <strong>Другие фильмы</strong>
+          <span className="menu-text">
+            <strong>Все фильмы</strong>
             <small>
-              {films.length} {quantity(films.length, "фильм", "фильма", "фильмов")}, поиск и сортировка
+              {films.length} {quantity(films.length, "фильм", "фильма", "фильмов")}: поиск, сортировка, начатые
             </small>
           </span>
-          <ArrowRight size={15} />
+          <ArrowRight size={18} />
         </button>
       </div>
     );
@@ -1046,20 +1054,18 @@ export default function App() {
     if (stats.started === 0 && day.answers === 0) {
       return (
         <div className="panel done-panel">
-          <div className="done-top">
+          <div className="done-center">
             <span className="done-icon">
               <BookOpen size={26} />
             </span>
-            <div>
-              <h2>Выберите слова для старта</h2>
-              <p>Включите уровни или новые слова в настройках, чтобы начать.</p>
+            <h2>Выберите слова для старта</h2>
+            <p>Включите уровни или новые слова в настройках, чтобы начать.</p>
+            <div className="done-buttons">
+              <button className="primary-button" onClick={() => setPage("settings")}>
+                Открыть настройки
+                <ArrowRight size={16} />
+              </button>
             </div>
-          </div>
-          <div className="done-actions">
-            <button className="primary-button" onClick={() => setPage("settings")}>
-              Открыть настройки
-              <ArrowRight size={16} />
-            </button>
           </div>
         </div>
       );
@@ -1072,78 +1078,38 @@ export default function App() {
           : "Все повторения сделаны, дневная цель по новым словам выполнена.";
     return (
       <div className="panel done-panel">
-        <div className="done-top">
+        <div className="done-center">
           <span className="done-icon">
             <Check size={26} />
           </span>
-          <div>
-            <h2>Готово на сегодня</h2>
-            <p>{note}</p>
-          </div>
-        </div>
-        {day.answers > 0 && (
-          <div className="kpis">
-            <div>
-              <span>Карточек</span>
-              <strong>{day.answers}</strong>
-            </div>
-            <div>
-              <span>Время</span>
-              <strong>{day.minutes} мин</strong>
-            </div>
-            <div>
-              <span>Вспомнили</span>
-              <strong>{day.recalled}%</strong>
-            </div>
-            <div>
-              <span>Новых слов</span>
-              <strong>+{day.newWords}</strong>
-            </div>
-          </div>
-        )}
-        {day.hardWords.length > 0 && (
-          <div className="hard-list">
-            <h4>
-              Трудные сегодня{" "}
+          <h2>Готово на сегодня</h2>
+          <p>{note}</p>
+          {day.answers > 0 && (
+            <div className="done-stats">
               <span>
-                · {day.hardWords.length} {quantity(day.hardWords.length, "слово", "слова", "слов")}
+                <b>{day.answers}</b>
+                {quantity(day.answers, "карточка", "карточки", "карточек")}
               </span>
-            </h4>
-            {day.hardWords.slice(0, 6).map((item) => {
-              const word = cardsById.get(item.wordId);
-              if (!word) return null;
-              return (
-                <div className="hard-row" key={item.wordId}>
-                  <span className="hard-word">{word.word}</span>
-                  <span className="hard-translation">{word.translation}</span>
-                  <span className={`pill ${item.again ? "pill-again" : "pill-hard"}`}>
-                    {item.again ? `Не помню${item.again > 1 ? ` ×${item.again}` : ""}` : "Сложно"}
-                  </span>
-                </div>
-              );
-            })}
-            {day.hardWords.length > 6 && (
-              <p className="hard-more">
-                и ещё {day.hardWords.length - 6} {quantity(day.hardWords.length - 6, "слово", "слова", "слов")}
-              </p>
-            )}
-          </div>
-        )}
-        <div className="done-actions">
-          {nextDue && (
-            <p className="next-line">
-              <Clock3 size={15} />
-              Следующее повторение — <strong>{momentLabel(nextDue, now)}</strong>
-              {forecast[1] > 0 && (
-                <>
-                  , всего завтра <strong>{forecast[1]}</strong>
-                </>
-              )}
-            </p>
+              <span>
+                <b>{day.minutes}</b>мин
+              </span>
+              <span>
+                <b>{day.recalled}%</b>вспомнили
+              </span>
+              <span>
+                <b>+{day.newWords}</b>
+                {quantity(day.newWords, "новое слово", "новых слова", "новых слов")}
+              </span>
+            </div>
           )}
           <div className="done-buttons">
             {extraWordsCount > 0 && (
-              <button className="primary-button" disabled={saving || !!storageError} onClick={studyMoreToday}>
+              <button
+                className="primary-button"
+                disabled={saving || !!storageError}
+                title="Только на сегодня, дневной лимит не изменится"
+                onClick={studyMoreToday}
+              >
                 Ещё {extraWordsCount} {quantity(extraWordsCount, "слово", "слова", "слов")} на сегодня
                 <ArrowRight size={16} />
               </button>
@@ -1151,80 +1117,95 @@ export default function App() {
             {day.hardWords.length > 0 && (
               <button
                 className="secondary-button"
+                title="Слова с ответами «Не помню» и «Сложно» за сегодня; расписание не меняется"
                 onClick={() => {
                   const ids = day.hardWords.map((item) => item.wordId).filter((id) => cardsById.has(id));
                   setDrill({ ids, total: ids.length, revealed: false });
                 }}
               >
                 <Repeat2 size={16} />
-                Трудные ещё раз
-              </button>
-            )}
-            {undoState && (
-              <button className="text-button" disabled={saving} onClick={undo}>
-                <RotateCcw size={15} />
-                Отменить оценку
+                Трудные ещё раз · {day.hardWords.length}
               </button>
             )}
           </div>
-          {extraWordsCount > 0 && <p className="extra-today-note">Дополнительные слова — только на сегодня, дневной лимит не изменится.</p>}
+          {nextDue && (
+            <p className="next-line">
+              <Clock3 size={14} />
+              Следующее повторение — {momentLabel(nextDue, now)}
+              {forecast[1] > 0 && `, завтра всего ${forecast[1]}`}
+            </p>
+          )}
+          {undoState && (
+            <button className="text-button" disabled={saving} onClick={undo}>
+              <RotateCcw size={14} />
+              Отменить последнюю оценку
+            </button>
+          )}
         </div>
       </div>
     );
   }
 
-  function renderFilmCard() {
+  function renderFilmCards() {
+    // The current or last studied film first, then the films closest to watching; two at most.
+    const sideFilms = [
+      ...(shownFilm ? [shownFilm] : []),
+      ...suggestions.filter((item) => item.film.id !== shownFilm?.film.id),
+    ].slice(0, 2);
     return (
-      <div className="menu-anchor">
-        {shownFilm ? (
-          <div className="panel film-card">
-            <Poster film={shownFilm.film} className="film-art" />
-            <div className="film-body">
-              <div className="film-title">
-                <strong>
-                  {shownFilm.film.title}
-                  {!activeFilm && <small>на паузе</small>}
-                </strong>
-                <button
-                  className={`link-button film-menu-trigger${filmMenu === "card" ? " pressed" : ""}`}
-                  aria-expanded={filmMenu === "card"}
-                  onClick={() => setFilmMenu(filmMenu === "card" ? null : "card")}
-                >
-                  Выбрать фильм
-                  <ChevronDown size={13} />
-                </button>
-              </div>
-              <span className="film-numbers">
-                Изучено {shownFilm.words}% слов · понятно {shownFilm.speech}% речи
+      <section className="film-section" aria-label="Мод фильма">
+        <div className="film-section-head menu-anchor">
+          <h4>Мод фильма</h4>
+          <button
+            className={`link-button film-menu-trigger${filmMenu === "card" ? " pressed" : ""}`}
+            aria-expanded={filmMenu === "card"}
+            onClick={() => setFilmMenu(filmMenu === "card" ? null : "card")}
+          >
+            Выбрать фильм
+            <ChevronDown size={13} />
+          </button>
+          {renderFilmMenu("card")}
+        </div>
+        {sideFilms.map((item) => {
+          const active = item.film.id === activeFilm?.id;
+          const body = (
+            <>
+              <Poster film={item.film} className="film-art" />
+              <span className="film-body">
+                <span className="film-title">
+                  <strong>{item.film.title}</strong>
+                  {active && (
+                    <span className="film-on">
+                      <Check size={13} />
+                      включён
+                    </span>
+                  )}
+                </span>
+                {/* Learned Oxford words count too, so a film can be partly known before its mode is on. */}
+                <span className="film-numbers">
+                  Изучено {item.words}% слов · понятно {item.speech}% речи
+                </span>
+                <span className="progress-track film-track" title={`Изучено ${item.words}% слов фильма`}>
+                  <span style={{ width: `${item.words}%` }} />
+                </span>
               </span>
-              <div className="progress-track film-track" title={`Изучено ${shownFilm.words}% слов`}>
-                <div style={{ width: `${shownFilm.words}%` }} />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="panel film-card film-card-empty">
-            <span className="film-empty-icon">
-              <Clapperboard size={20} />
-            </span>
-            <div className="film-body">
-              <div className="film-title">
-                <strong>Мод фильма</strong>
-                <button
-                  className={`link-button film-menu-trigger${filmMenu === "card" ? " pressed" : ""}`}
-                  aria-expanded={filmMenu === "card"}
-                  onClick={() => setFilmMenu(filmMenu === "card" ? null : "card")}
-                >
-                  Выбрать фильм
-                  <ChevronDown size={13} />
-                </button>
-              </div>
-              <span className="film-numbers">Слова выбранного фильма пойдут первыми</span>
-            </div>
-          </div>
-        )}
-        {renderFilmMenu("card")}
-      </div>
+            </>
+          );
+          // A second click on the selected film turns the mode off.
+          return (
+            <button
+              className={`panel film-card film-card-button${active ? " selected" : ""}`}
+              key={item.film.id}
+              disabled={saving}
+              aria-pressed={active}
+              title={active ? `Выключить мод «${item.film.title}»` : `Включить мод «${item.film.title}»`}
+              onClick={() => selectFilm(active ? "" : item.film.id)}
+            >
+              {body}
+            </button>
+          );
+        })}
+      </section>
     );
   }
 
@@ -1291,13 +1272,13 @@ export default function App() {
         </section>
         <aside className="study-aside">
           {renderToday()}
-          {renderFilmCard()}
           <div className="panel tomorrow">
             <CalendarDays size={16} />
             <span>
               Завтра <strong>{forecast[1]}</strong> {quantity(forecast[1], "повторение", "повторения", "повторений")}
             </span>
           </div>
+          {renderFilmCards()}
         </aside>
       </div>
     );
@@ -2078,16 +2059,8 @@ export default function App() {
 
   return (
     <div className={`app-shell page-${page}${isDesktop ? " desktop-app" : ""}${focusMode && page === "study" ? " is-focus" : ""}`}>
-      {isDesktop && (
-        <div className="window-titlebar">
-          <span className="window-titlebar-brand">
-            <Layers size={16} />
-            Oxford Cards
-          </span>
-          <span className="window-titlebar-divider" />
-          <span className="window-titlebar-page">{pageNames[page]}</span>
-        </div>
-      )}
+      {/* Drag area of the desktop window; the brand and the page name are already in the sidebar. */}
+      {isDesktop && <div className="window-titlebar" aria-hidden="true" />}
       <aside className="sidebar">
         <a
           className="brand"
