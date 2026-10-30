@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { addExtraNewWords, DAY_MS, defaultState, getDailyNewLimit, getStats, getStudyQueue, localDayKey, MAX_DAILY_EXTRA, MINUTE_MS, scheduleCard } from '../src/lib/scheduler.ts';
+import { addExtraNewWords, DAY_MS, defaultState, getDailyNewLimit, getStats, getStudyQueue, localDayKey, MAX_DAILY_EXTRA, MINUTE_MS, scheduleCard, studyDayStart } from '../src/lib/scheduler.ts';
 import type { AppState, CardProgress, Word } from '../src/lib/types.ts';
 
 const NOW = new Date(2026, 9, 25, 12, 0, 0).getTime();
@@ -18,7 +18,7 @@ function matureCard(at = NOW - DAY_MS): CardProgress {
 test('Good follows one day, six days and then the previous ease factor', () => {
   const first = scheduleCard(undefined, 'good', NOW);
   assert.equal(first.interval, 1);
-  assert.equal(first.due, NOW + DAY_MS);
+  assert.equal(first.due, new Date(2026, 9, 26, 4).getTime());
   const second = scheduleCard(first, 'good', first.due);
   assert.equal(second.interval, 6);
   const third = scheduleCard(second, 'good', second.due);
@@ -81,11 +81,11 @@ test('Easy starts at four days; Hard/Easy retain their mature-card intervals', (
 test('Overdue cards are scheduled relative to the actual review time', () => {
   const card = matureCard(NOW - 20 * DAY_MS);
   const updated = scheduleCard(card, 'good', NOW);
-  assert.equal(updated.due, NOW + 75 * DAY_MS);
+  assert.equal(updated.due, new Date(2026, 9, 25 + 75, 4).getTime());
 });
 
 test('Repeated failure never makes ease negative; long intervals are bounded', () => {
-  let card = scheduleCard(undefined, 'again', NOW);
+  let card = scheduleCard(matureCard(), 'again', NOW);
   for (let i = 0; i < 50; i++) card = scheduleCard(card, 'again', card.due);
   assert.equal(card.ease, 1.3);
   const long = { ...matureCard(), interval: 36_500, ease: 5 };
@@ -238,4 +238,46 @@ test('Easy is always longer than Good, including the six-day second review', () 
   const second = scheduleCard(undefined, 'good', NOW);
   assert.equal(scheduleCard(second, 'good', second.due).interval, 6);
   assert.equal(scheduleCard(second, 'easy', second.due).interval, 7);
+});
+
+test('Misses before the first recall keep the ease; misses after it lower the ease', () => {
+  let card = scheduleCard(undefined, 'again', NOW);
+  card = scheduleCard(card, 'again', card.due);
+  assert.equal(card.ease, 2.5);
+  const recalled = scheduleCard(card, 'good', card.due);
+  assert.equal(recalled.ease, 2.5);
+  assert.equal(scheduleCard(recalled, 'again', recalled.due).ease, 1.96);
+});
+
+test('After the first Hard hour, Good takes one day and then six days', () => {
+  const hard = scheduleCard(undefined, 'hard', NOW);
+  const good = scheduleCard(hard, 'good', hard.due);
+  assert.equal(good.interval, 1);
+  assert.equal(scheduleCard(good, 'good', good.due).interval, 6);
+  assert.equal(scheduleCard(hard, 'easy', hard.due).interval, 4);
+});
+
+test('Day intervals are due at 04:00 of a study day; late-night answers belong to the evening before', () => {
+  const evening = new Date(2026, 9, 31, 23).getTime();
+  const night = new Date(2026, 10, 1, 2).getTime();
+  assert.equal(studyDayStart(night), new Date(2026, 9, 31, 4).getTime());
+  assert.equal(scheduleCard(undefined, 'good', evening).due, new Date(2026, 10, 1, 4).getTime());
+  assert.equal(scheduleCard(undefined, 'good', night).due, new Date(2026, 10, 1, 4).getTime());
+  assert.equal(scheduleCard(undefined, 'hard', night).due, night + 60 * MINUTE_MS);
+});
+
+test('Intervals from three days spread by the card id, the same for the same answer', () => {
+  const card = { ...matureCard(), interval: 40, ease: 2.5 };
+  const intervals = Array.from({ length: 200 }, (_, i) => scheduleCard(card, 'good', NOW, `card-${i}`).interval);
+  assert.ok(intervals.every((interval) => interval >= 95 && interval <= 105), String(intervals));
+  assert.ok(new Set(intervals).size > 5);
+  assert.equal(scheduleCard(card, 'good', NOW, 'x').interval, scheduleCard(card, 'good', NOW + MINUTE_MS, 'x').interval);
+  const second = scheduleCard(undefined, 'good', NOW, 'x');
+  assert.equal(second.interval, 1, 'short steps are not spread');
+  const fourDays = new Set(Array.from({ length: 100 }, (_, i) => scheduleCard(undefined, 'easy', NOW, `n-${i}`).interval));
+  assert.deepEqual([...fourDays].sort(), [3, 4, 5]);
+  for (let i = 0; i < 100; i++) {
+    const [hard, good, easy] = (['hard', 'good', 'easy'] as const).map((rating) => scheduleCard(card, rating, NOW, `o-${i}`).interval);
+    assert.ok(hard <= good && good < easy, `${hard} ${good} ${easy}`);
+  }
 });
