@@ -298,6 +298,15 @@ kbd {
   color: var(--on-accent);
   font-weight: 600;
 }
+.side-path {
+  display: block;
+  width: calc(100% - 8px);
+  text-align: left;
+}
+.side-path:hover {
+  border-color: var(--stage-2);
+  background: var(--surface-hover);
+}
 .side-head {
   display: flex;
   justify-content: space-between;
@@ -306,29 +315,80 @@ kbd {
   font-size: 12.5px;
 }
 .side-head strong {
-  color: var(--ink);
-  font-size: 15px;
+  color: var(--green);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
 }
-.side-block .progress-track {
-  margin-top: 8px;
-  height: 5px;
+.mini-path {
+  position: relative;
+  display: block;
+  height: 34px;
+  margin: 12px 8px 0;
 }
-.side-block .progress-track > div {
-  background: var(--stage-3);
+.mini-path-line {
+  position: absolute;
+  inset: 5px 0 auto;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--stage-0);
 }
-.side-levels {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px 12px;
-  margin-top: 10px;
+.mini-path-line i {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--stage-4), var(--stage-3));
+}
+.mini-stop {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transform: translateX(-50%);
+  color: var(--muted-2);
+  font-size: 10.5px;
+  font-weight: 500;
+}
+.mini-stop i {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--stage-0);
+  border-radius: 50%;
+  background: var(--paper);
+}
+.mini-stop.done {
+  color: var(--muted);
+}
+.mini-stop.done i {
+  border-color: var(--stage-4);
+  background: var(--stage-4);
+}
+.mini-stop.now {
+  color: var(--green);
+  font-weight: 700;
+}
+.mini-stop.now i {
+  border-color: var(--stage-3);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--stage-3) 25%, transparent);
+}
+.mini-stop.finish i {
+  border-style: dashed;
+  border-color: var(--muted-2);
+}
+.mini-stop.finish.done i {
+  border-style: solid;
+  border-color: var(--stage-4);
+  background: var(--stage-4);
+}
+.side-next {
+  display: block;
+  margin-top: 6px;
   color: var(--muted);
   font-size: 12px;
 }
-.side-levels span {
-  display: flex;
-  justify-content: space-between;
-}
-.side-levels b {
+.side-next b {
   color: var(--ink);
   font-weight: 600;
 }
@@ -680,19 +740,6 @@ kbd {
 }
 .memory-4 i {
   background: var(--stage-4);
-}
-.stage-bar {
-  display: flex;
-  gap: 2px;
-  height: 30px;
-  border-radius: 8px;
-  background: var(--stage-0);
-  overflow: hidden;
-}
-.stage-bar i,
-.stage b i {
-  display: block;
-  height: 100%;
 }
 .stage-new {
   background: var(--stage-0);
@@ -1674,230 +1721,237 @@ kbd {
 }
 
 /* ---------- progress ---------- */
-.kpi-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 14px;
+.main-content > .progress-page {
+  max-width: 900px;
 }
-.kpi-row .panel {
-  padding: 14px 18px;
+.progress-page {
+  min-height: calc(100vh - 68px);
+  display: flex;
+  flex-direction: column;
 }
-.kpi-row span {
+.desktop-app .progress-page {
+  min-height: calc(100vh - 42px - 64px);
+}
+.progress-tabs {
+  align-self: center;
+  width: 300px;
+}
+.progress-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 28px 40px;
+}
+.progress-head {
+  text-align: center;
+}
+.progress-head small {
   color: var(--muted);
   font-size: 12.5px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
 }
-.kpi-row strong {
+.progress-head h1 {
+  margin-top: 4px;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+}
+.progress-head p {
+  margin-top: 6px;
+  color: var(--secondary-ink);
+}
+.level-path {
+  position: relative;
+  height: 130px;
+  margin: 58px 64px 46px;
+}
+.path-line {
+  position: absolute;
+  inset: 40px 0 auto;
+  height: 8px;
+  border-radius: 99px;
+  background: var(--stage-0);
+}
+.path-line i {
   display: block;
-  margin-top: 2px;
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--stage-4), var(--stage-3));
+}
+.path-stop {
+  position: absolute;
+  top: 0;
+  width: 140px;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.path-dot {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--stage-0);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--muted-2);
+  font-size: 22px;
+  font-weight: 700;
+}
+.path-stop.done .path-dot {
+  border-color: var(--stage-4);
+  background: var(--stage-4);
+  color: var(--on-accent);
+}
+.path-stop.now .path-dot {
+  border-color: var(--stage-3);
+  color: var(--green);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--stage-3) 22%, transparent);
+}
+.path-stop.now .path-dot::after {
+  content: "вы здесь";
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: var(--green);
+  color: var(--on-accent);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.path-stop.finish .path-dot {
+  border-style: dashed;
+  font-size: 15px;
+}
+.path-stop.finish.done .path-dot {
+  border-style: solid;
+}
+.path-stop b {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.path-stop small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.progress-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+.progress-row .panel {
+  padding: 16px 18px;
+}
+.progress-next b {
+  font-size: 16px;
+  font-weight: 600;
+}
+.progress-next p {
+  margin: 3px 0 12px;
+  color: var(--muted);
+}
+.progress-next .progress-track {
+  height: 8px;
+}
+.progress-mini strong {
+  display: block;
   font-size: 26px;
   font-weight: 600;
   letter-spacing: -0.6px;
 }
-.kpi-row strong small {
+.progress-mini span {
   color: var(--muted);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0;
+  font-size: 12.5px;
 }
-.kpi-row em {
-  display: block;
-  color: var(--muted-2);
-  font-size: 12px;
-  font-style: normal;
+.progress-mini .week i {
+  height: 22px;
 }
-.stats-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  gap: 14px;
-  align-items: start;
-}
-.stats-grid .panel,
-.film-panel {
-  padding: 18px 20px;
-}
-.stats-side {
+.film-progress-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
+  margin-top: 32px;
 }
-.stages {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  margin-top: 14px;
-}
-.stage b {
+.film-progress {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
-  font-weight: 600;
-}
-.stage b i {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-}
-.stage b i.stage-new {
-  box-shadow: inset 0 0 0 1px var(--border);
-}
-.stage strong {
-  display: block;
-  margin: 2px 0;
-  font-size: 19px;
-  letter-spacing: -0.4px;
-}
-.stage p {
-  color: var(--muted);
-  font-size: 11.5px;
-  line-height: 1.4;
-}
-.level-rows {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-}
-.level-row {
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr) 84px;
-  align-items: center;
-  gap: 12px;
-  padding: 6px 0;
-  font-size: 13px;
-}
-.level-row b {
-  font-size: 12.5px;
-  font-weight: 600;
-}
-.level-row .stage-bar {
-  height: 10px;
-  border-radius: 4px;
-  gap: 1px;
-}
-.level-row em {
-  color: var(--muted);
-  font-size: 12.5px;
-  font-style: normal;
-  text-align: right;
-}
-.film-row b {
-  color: var(--film);
-}
-.film-panel {
-  margin-bottom: 14px;
-}
-.film-parts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-}
-.film-part {
+  gap: 18px;
   padding: 14px;
-  border-radius: 12px;
-  background: var(--canvas);
 }
-.film-part > strong {
-  display: block;
+.film-progress.active {
+  border-color: var(--green);
+  box-shadow: 0 0 0 1px var(--green), var(--shadow);
 }
-.film-part > small {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
+.film-progress-poster {
+  width: 168px;
+  height: 104px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  object-fit: cover;
 }
-.film-metric {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0 4px;
-  font-size: 12.5px;
-}
-.film-metric b {
-  font-weight: 600;
-}
-.film-part .progress-track > div {
-  background: var(--film-track);
-}
-.forecast {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  height: 160px;
-  margin-top: 10px;
-}
-.forecast-day {
+.film-progress-body {
   flex: 1;
-  height: 100%;
+  min-width: 0;
+}
+.film-progress-title {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  gap: 4px;
-  color: var(--muted);
-  font-size: 10.5px;
+  gap: 10px;
 }
-.forecast-day i {
-  display: block;
-  width: 100%;
-  border-radius: 4px 4px 2px 2px;
-  background: var(--stage-2);
-}
-.forecast-day small {
-  color: var(--muted-2);
-}
-.forecast-day.today i {
-  background: var(--green);
-}
-.forecast-day.peak i {
-  background: var(--peak);
-}
-.forecast-day.peak > span {
-  color: var(--film);
+.film-progress-title b {
+  font-size: 16px;
   font-weight: 600;
 }
-.note-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 12px;
-  padding: 7px 10px;
-  border-radius: 8px;
-  background: var(--amber-bg);
-  color: var(--amber);
+.film-progress-main {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 4px;
+}
+.film-progress-main strong {
+  color: var(--film);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+.film-progress-main span {
+  color: var(--muted);
   font-size: 12.5px;
-  line-height: 1.4;
 }
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  margin-top: 10px;
+.film-progress .progress-track {
+  margin-top: 6px;
+  height: 6px;
 }
-.calendar span {
-  color: var(--muted-2);
-  font-size: 10.5px;
-  text-align: center;
+.film-progress-parts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12.5px;
 }
-.calendar i {
-  display: block;
-  height: 20px;
-  border-radius: 5px;
-  background: var(--stage-0);
+.film-progress-parts b {
+  color: var(--ink);
+  font-weight: 600;
 }
-.calendar i.heat-1 {
-  background: var(--stage-2);
+.film-progress-action {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--green);
+  font-weight: 600;
 }
-.calendar i.heat-2 {
-  background: var(--stage-3);
-}
-.calendar i.heat-3 {
-  background: var(--stage-4);
-}
-.calendar i.future {
-  background: transparent;
-  box-shadow: inset 0 0 0 1px var(--border);
-}
-.calendar-note {
-  margin: 10px 0 0;
+.film-progress-action:hover {
+  background: var(--surface-hover);
 }
 
 /* ---------- settings ---------- */
@@ -2353,9 +2407,6 @@ kbd {
     top: 58px;
     max-height: none;
   }
-  .stats-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 @media (max-width: 1000px) {
   :root {
@@ -2381,14 +2432,28 @@ kbd {
     bottom: auto;
     right: 0;
   }
-  .kpi-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .stages {
-    grid-template-columns: repeat(3, 1fr);
-  }
   .settings-layout {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .level-path {
+    margin-inline: 40px;
+  }
+  .path-stop {
+    width: 104px;
+  }
+  .path-dot {
+    width: 68px;
+    height: 68px;
+    font-size: 18px;
+  }
+  .path-line {
+    top: 30px;
+  }
+  .progress-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .progress-next {
+    grid-column: 1 / -1;
   }
   .table-head,
   .word-row {
@@ -2502,11 +2567,39 @@ kbd {
   .filter-separator {
     display: none;
   }
-  .kpi-row {
-    grid-template-columns: repeat(2, 1fr);
+  .progress-page {
+    min-height: 0;
   }
-  .stages {
-    grid-template-columns: repeat(2, 1fr);
+  .level-path {
+    margin-inline: 24px;
+    height: 90px;
+  }
+  .path-stop {
+    width: 56px;
+  }
+  .path-dot {
+    width: 48px;
+    height: 48px;
+    font-size: 15px;
+  }
+  .path-line {
+    top: 20px;
+  }
+  .path-stop b {
+    display: none;
+  }
+  .path-stop.finish .path-dot {
+    font-size: 11px;
+  }
+  .progress-row {
+    grid-template-columns: 1fr;
+  }
+  .film-progress {
+    flex-wrap: wrap;
+  }
+  .film-progress-poster {
+    width: 100%;
+    height: 120px;
   }
   .settings-levels {
     grid-template-columns: 1fr;

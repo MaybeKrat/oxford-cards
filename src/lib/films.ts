@@ -40,14 +40,18 @@ function lastRatings(state: AppState): Map<string, Rating> {
 }
 
 /** A card counts as learned while its latest answer is «Помню» or «Легко». */
-export function getFilmProgress(film: Film, state: AppState): FilmProgress {
+export function learnedCheck(state: AppState): (id: string) => boolean {
   const ratings = lastRatings(state);
-  const learned = (id: string) => {
+  return (id) => {
     const rating = ratings.get(id);
     // Progress without history (an old manual backup) falls back to the scheduled state.
     if (!rating) return state.cards[id]?.state === 'review';
     return rating === 'good' || rating === 'easy';
   };
+}
+
+export function getFilmProgress(film: Film, state: AppState): FilmProgress {
+  const learned = learnedCheck(state);
   const share = (part?: number) => {
     const words = { learned: 0, total: 0 };
     const speech = { learned: 0, total: 0 };

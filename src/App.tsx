@@ -23,7 +23,9 @@ import {
   RotateCcw,
   Search,
   Settings2,
+  Target,
   TrendingUp,
+  Trophy,
   Volume2,
   VolumeX,
   X,
@@ -48,13 +50,12 @@ import { createBufferedSpeechController } from "./lib/buffered-speech";
 import { loadRecording, voices } from "./lib/voices";
 import { applyTheme, SYSTEM_THEME_QUERY } from "./lib/theme";
 import { getTopicName, orderWordsForStudy, TOPICS } from "./lib/topics";
-import { getActiveFilm, getFilmProgress, getVisibleFilmCards, percent } from "./lib/films";
+import { getActiveFilm, getFilmProgress, getVisibleFilmCards, learnedCheck, percent } from "./lib/films";
 import {
   answersByDay,
   countStages,
   dailySuggestions,
   filmReadiness,
-  firstMasteryDate,
   historyOf,
   reviewForecast,
   secondsPerCard,
@@ -100,13 +101,6 @@ const stageNames: Record<Stage, string> = {
   familiar: "Знакомые",
   confident: "Уверенно",
   mastered: "Закреплено",
-};
-const stageNotes: Record<Stage, string> = {
-  new: "ещё не открывали",
-  learning: "интервал меньше дня",
-  familiar: "1–6 дней",
-  confident: "7–20 дней",
-  mastered: "от 21 дня",
 };
 /** Filled segments of the four-step memory meter. */
 const stageLevel: Record<Stage, number> = { new: 0, learning: 1, familiar: 2, confident: 3, mastered: 4 };
@@ -200,22 +194,6 @@ function MemoryMeter({ stage }: { stage: Stage }) {
   );
 }
 
-function StageBar({ counts, total }: { counts: Partial<Record<Stage, number>>; total: number }) {
-  return (
-    <span className="stage-bar">
-      {[...STAGES].reverse().map((stage) =>
-        counts[stage] ? (
-          <i
-            key={stage}
-            className={`stage-${stage}`}
-            style={{ width: `${(counts[stage]! / Math.max(1, total)) * 100}%` }}
-          />
-        ) : null,
-      )}
-    </span>
-  );
-}
-
 function Poster({ film, className = "" }: { film: Film; className?: string }) {
   const src = filmPosters[film.id];
   return src ? (
@@ -232,6 +210,7 @@ export default function App() {
   const [state, setState] = useState(initial.state);
   const [storageError, setStorageError] = useState(initial.error);
   const [page, setPage] = useState<Page>("study");
+  const [progressTab, setProgressTab] = useState<"oxford" | "films">("oxford");
   const [now, setNow] = useState(Date.now());
   const [revealed, setRevealed] = useState(false);
   const [hint, setHint] = useState(false);
@@ -681,6 +660,19 @@ export default function App() {
       started: levelWords.filter((word) => state.cards[word.id]).length,
     };
   });
+  // The current level is the first one with words not started yet.
+  const currentLevel = levelTotals.find(({ words: levelWords, started }) => started < levelWords.length);
+  // Each level's stop sits where its words start on the 3000-word line.
+  let pathOffset = 0;
+  const levelStops = levelTotals.map((level) => {
+    const at = pathOffset / words.length;
+    pathOffset += level.words.length;
+    return { ...level, at, done: level.started === level.words.length };
+  });
+  const oxfordLearned = useMemo(() => {
+    const learned = learnedCheck(state);
+    return words.filter((word) => learned(word.id)).length;
+  }, [state]);
   const hintParts = current ? exampleParts(current) : null;
   const ratingIntervals = current && !drill
     ? ratings.map((rating) => intervalLabel(scheduleCard(state.cards[current.id], rating, now, current.id).interval))
@@ -1502,232 +1494,195 @@ export default function App() {
 
   function renderStats() {
     const stages = countStages(words, state);
-    const masteredFrom = stages.mastered === 0 ? firstMasteryDate(words, state) : undefined;
-    const filmStages = countStages(filmCards, state);
-    const filmStarted = filmCards.length - filmStages.new;
-    const firstAnswer = state.reviews.reduce((min, review) => Math.min(min, review.at), Infinity);
+    const strong = stages.confident + stages.mastered;
     const weekAgo = new Date(now);
     weekAgo.setHours(0, 0, 0, 0);
     weekAgo.setDate(weekAgo.getDate() - 6);
     const recent = state.reviews.filter((review) => review.at >= weekAgo.getTime() && review.at <= now);
-    const peak = forecast.reduce((best, count, index) => (count > forecast[best] ? index : best), 0);
-    const maxForecast = Math.max(5, ...forecast);
-    // From the week of the first answer, at most the last eight weeks.
-    const firstWeek = new Date(Number.isFinite(firstAnswer) ? firstAnswer : now);
-    firstWeek.setHours(12, 0, 0, 0);
-    firstWeek.setDate(firstWeek.getDate() - ((firstWeek.getDay() + 6) % 7));
-    const calendarWeeks = Math.min(8, Math.round((weekStart.getTime() - firstWeek.getTime()) / (7 * 86_400_000)) + 1);
-    const calendarStart = new Date(weekStart);
-    calendarStart.setDate(calendarStart.getDate() - 7 * (calendarWeeks - 1));
-    const calendar = Array.from({ length: calendarWeeks * 7 }, (_, index) => {
-      const date = new Date(calendarStart);
-      date.setDate(calendarStart.getDate() + index);
-      const key = localDayKey(date.getTime());
-      return { date, count: dayCounts.get(key) ?? 0, future: key > todayKey };
-    });
-    const busiest = calendar.reduce((best, cell) => (cell.count > best.count ? cell : best), calendar[0]);
-    const heat = (count: number) =>
-      count === 0 ? 0 : count < busiest.count / 3 ? 1 : count < (busiest.count * 2) / 3 ? 2 : 3;
+    const number = (n: number) => n.toLocaleString("ru-RU");
+    // The next round number: started words while some are left, then words that hold for a week.
+    const counted = oxfordStarted < words.length ? oxfordStarted : strong;
+    const target = Math.min(words.length, (Math.floor(counted / 100) + 1) * 100);
+    const left = target - counted;
+    const days = state.settings.dailyNewLimit ? Math.ceil(left / state.settings.dailyNewLimit) : 0;
+    const filmRows = readiness
+      .map((item) => ({ ...item, parts: getFilmProgress(item.film, state).parts }))
+      .sort(
+        (x, y) => Number(y.film.id === activeFilm?.id) - Number(x.film.id === activeFilm?.id) || y.speech - x.speech,
+      );
+    const filmsStarted = readiness.filter((item) => item.started).length;
+    const filmWordsStarted = filmCards.filter((card) => state.cards[card.id]).length;
     return (
-      <>
-        <div className="page-head">
-          <h1>Прогресс</h1>
-          {state.reviews.length > 0 && (
-            <span>
-              с {dateLabel(firstAnswer)} · {state.reviews.length.toLocaleString("ru-RU")}{" "}
-              {quantity(state.reviews.length, "ответ", "ответа", "ответов")}
-            </span>
-          )}
+      <div className="progress-page">
+        <div className="segmented progress-tabs" role="tablist">
+          <button
+            role="tab"
+            aria-selected={progressTab === "oxford"}
+            className={progressTab === "oxford" ? "selected" : ""}
+            onClick={() => setProgressTab("oxford")}
+          >
+            Oxford 3000
+          </button>
+          <button
+            role="tab"
+            aria-selected={progressTab === "films"}
+            className={progressTab === "films" ? "selected" : ""}
+            onClick={() => setProgressTab("films")}
+          >
+            Фильмы
+          </button>
         </div>
-        <div className="kpi-row">
-          <div className="panel">
-            <span>Слов начато</span>
-            <strong>
-              {(oxfordStarted + filmStarted).toLocaleString("ru-RU")} <small>/ {words.length.toLocaleString("ru-RU")}</small>
-            </strong>
-            <em>{filmStarted ? "Oxford 3000 и фильмы" : "Oxford 3000"}</em>
-          </div>
-          <div className="panel">
-            <span>Уверенно и закреплено</span>
-            <strong>{stages.confident + stages.mastered}</strong>
-            <em>интервал от 7 дней</em>
-          </div>
-          <div className="panel">
-            <span>Вспоминаете</span>
-            <strong>{recent.length ? `${successShare(recent)}%` : "—"}</strong>
-            <em>«Помню» и «Легко» за 7 дней</em>
-          </div>
-          <div className="panel">
-            <span>Серия</span>
-            <strong>
-              {stats.streak} <small>{quantity(stats.streak, "день", "дня", "дней")}</small>
-            </strong>
-            <em>{stats.streak ? "занимались каждый день" : "сегодня ещё не занимались"}</em>
-          </div>
-        </div>
-        {activeFilm && filmProgress && (
-          <section className="panel film-panel">
-            <div className="panel-head">
-              <h3>
-                <Clapperboard size={17} />
-                Мод «{activeFilm.title}»
-              </h3>
-              <span>
-                не начато слов мода: {activeFilm.entries.filter((entry) => !state.cards[entry.id]).length}, из них новых
-                слов и терминов: {filmProgress.newNotStarted}
-              </span>
-            </div>
-            <p className="panel-description">
-              Слова — доля изученных слов фильма. Речь — доля всего, что звучит в фильме: частые слова весят больше.
-              Изученным считается слово, на котором последний ответ — «Помню» или «Легко».
-            </p>
-            <div className="film-parts">
-              {[
-                { title: "Обе части", film: "Весь мод", words: filmProgress.words, speech: filmProgress.speech },
-                ...filmProgress.parts.map((part, index) => ({ ...part, film: activeFilm.parts[index].film })),
-              ].map((part) => (
-                <div className="film-part" key={part.title}>
-                  <strong>{part.title}</strong>
-                  <small>{part.film}</small>
-                  <div className="film-metric">
-                    <span>Слова</span>
-                    <b>{percent(part.words)}%</b>
-                  </div>
-                  <div className="progress-track">
-                    <div style={{ width: `${percent(part.words)}%` }} />
-                  </div>
-                  <small>
-                    {part.words.learned} из {part.words.total}
-                  </small>
-                  <div className="film-metric">
-                    <span>Речь</span>
-                    <b>{percent(part.speech)}%</b>
-                  </div>
-                  <div className="progress-track">
-                    <div style={{ width: `${percent(part.speech)}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-        <div className="stats-grid">
-          <section className="panel">
-            <div className="panel-head">
-              <h3>Как держатся слова</h3>
-              <span>{words.length.toLocaleString("ru-RU")} слов Oxford</span>
-            </div>
-            <p className="panel-description">
-              Стадия — по тому, через сколько дней слово придёт на повторение. Чем дольше интервал, тем прочнее память.
-            </p>
-            <StageBar counts={stages} total={words.length} />
-            <div className="stages">
-              {STAGES.map((stage) => (
-                <div className="stage" key={stage}>
-                  <b>
-                    <i className={`stage-${stage}`} />
-                    {stageNames[stage]}
-                  </b>
-                  <strong>{stages[stage].toLocaleString("ru-RU")}</strong>
-                  <p>
-                    {stageNotes[stage]}
-                    {stage === "mastered" && masteredFrom && `; первые — около ${dateLabel(masteredFrom)}`}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="level-rows">
-              {levelTotals.map(({ level, words: levelWords, started }) => (
-                <div className="level-row" key={level} title={levelNames[level]}>
-                  <b>{level}</b>
-                  <StageBar counts={countStages(levelWords, state)} total={levelWords.length} />
-                  <em>
-                    {started} / {levelWords.length}
-                  </em>
-                </div>
-              ))}
-              {(activeFilm || filmStarted > 0) && (
-                <div className="level-row film-row" title="Новые слова и термины всех фильмов, не входящие в Oxford 3000">
-                  <b>Фильмы</b>
-                  <StageBar counts={filmStages} total={filmCards.length} />
-                  <em>
-                    {filmStarted} / {filmCards.length}
-                  </em>
-                </div>
-              )}
-            </div>
-          </section>
-          <div className="stats-side">
-            <section className="panel">
-              <div className="panel-head">
-                <h3>Повторения впереди</h3>
-                <span>14 дней</span>
-              </div>
-              <div
-                className="forecast"
-                role="img"
-                aria-label={forecast
-                  .map((count, index) => {
-                    const date = new Date(now);
-                    date.setDate(date.getDate() + index);
-                    return `${dateLabel(date.getTime())}: ${count}`;
-                  })
-                  .join("; ")}
-              >
-                {forecast.map((count, index) => {
-                  const date = new Date(now);
-                  date.setDate(date.getDate() + index);
-                  return (
-                    <div
-                      key={index}
-                      className={`forecast-day${index === 0 ? " today" : ""}${index === peak && index > 0 && count > forecast[0] ? " peak" : ""}`}
-                    >
-                      <span>{count}</span>
-                      <i style={{ height: `${Math.max(2, (count / maxForecast) * 100)}%` }} />
-                      <small>{weekdays[(date.getDay() + 6) % 7]}</small>
-                    </div>
-                  );
-                })}
-              </div>
-              {peak > 0 && forecast[peak] > forecast[0] && (
-                <p className="note-pill">
-                  <CalendarDays size={14} />
-                  {dateLabel(new Date(now).setDate(new Date(now).getDate() + peak))} — {forecast[peak]}{" "}
-                  {quantity(forecast[peak], "повторение", "повторения", "повторений")}: больше всего за две недели
-                </p>
-              )}
-            </section>
-            <section className="panel">
-              <div className="panel-head">
-                <h3>Занятия</h3>
-                <span>
-                  {calendarWeeks} {quantity(calendarWeeks, "неделя", "недели", "недель")}
-                </span>
-              </div>
-              <div className="calendar" role="img" aria-label="Ответы по дням">
-                {weekdays.map((name) => (
-                  <span key={name}>{name}</span>
-                ))}
-                {calendar.map((cell) => (
-                  <i
-                    key={cell.date.getTime()}
-                    className={cell.future ? "future" : `heat-${heat(cell.count)}`}
-                    title={`${dateLabel(cell.date.getTime())}: ${cell.count} ${quantity(cell.count, "ответ", "ответа", "ответов")}`}
-                  />
-                ))}
-              </div>
-              <p className="panel-description calendar-note">
-                Цвет — сколько ответов за день.
-                {busiest.count > 0 &&
-                  ` Больше всего — ${busiest.count} ${quantity(busiest.count, "ответ", "ответа", "ответов")}, ${dateLabel(busiest.date.getTime())}.`}
+        {progressTab === "oxford" ? (
+          <div className="progress-body">
+            <section className="progress-head">
+              <small>{currentLevel ? "Ваш уровень" : "Oxford 3000"}</small>
+              <h1>{currentLevel ? `${currentLevel.level} · ${levelNames[currentLevel.level]}` : "Все слова начаты"}</h1>
+              <p>
+                {number(oxfordStarted)} {quantity(oxfordStarted, "слово", "слова", "слов")} начато · {number(strong)} из
+                них держатся неделю и дольше
               </p>
             </section>
+            <div
+              className="level-path"
+              role="img"
+              aria-label={levelStops.map((stop) => `${stop.level}: ${stop.started} из ${stop.words.length}`).join("; ")}
+            >
+              <div className="path-line">
+                <i style={{ width: `${(oxfordStarted / words.length) * 100}%` }} />
+              </div>
+              {levelStops.map((stop) => (
+                <div
+                  key={stop.level}
+                  className={`path-stop${stop.done ? " done" : ""}${stop.level === currentLevel?.level ? " now" : ""}`}
+                  style={{ left: `${stop.at * 100}%` }}
+                >
+                  <span className="path-dot">{stop.level}</span>
+                  <b>{levelNames[stop.level]}</b>
+                  <small>
+                    {stop.started} из {stop.words.length}
+                    {stop.done && " ✓"}
+                  </small>
+                </div>
+              ))}
+              <div className={`path-stop finish${currentLevel ? "" : " done"}`} style={{ left: "100%" }}>
+                <span className="path-dot">{number(words.length)}</span>
+                <b>Oxford 3000</b>
+                <small>весь список</small>
+              </div>
+            </div>
+            <div className="progress-row">
+              <div className="panel progress-next">
+                {counted < words.length ? (
+                  <>
+                    <b>
+                      Следующая остановка — {number(target)}{" "}
+                      {oxfordStarted < words.length ? "слов" : "слов держатся неделю"}
+                    </b>
+                    <p>
+                      {oxfordStarted < words.length
+                        ? `ещё ${number(left)} ${quantity(left, "новое слово", "новых слова", "новых слов")}${
+                            days === 1
+                              ? ", это один день занятий"
+                              : days > 1
+                                ? `, около ${days} ${quantity(days, "дня", "дней", "дней")} занятий`
+                                : ""
+                          }`
+                        : `ещё ${number(left)}`}
+                    </p>
+                    <div className="progress-track">
+                      <div style={{ width: `${counted - (target - 100)}%` }} />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <b>Все 3 000 слов держатся неделю и дольше</b>
+                    <p>Продолжайте повторения, чтобы они не забылись</p>
+                  </>
+                )}
+              </div>
+              <div className="panel progress-mini">
+                <strong>
+                  {stats.streak} {quantity(stats.streak, "день", "дня", "дней")}
+                </strong>
+                <span>{stats.streak ? "подряд без пропусков" : "начните серию сегодня"}</span>
+                <div className="week">
+                  {thisWeek.map((item) => (
+                    <i key={item.name} className={item.today ? "today" : item.active ? "on" : ""} title={item.name}>
+                      {item.name[0].toUpperCase()}
+                    </i>
+                  ))}
+                </div>
+              </div>
+              <div className="panel progress-mini">
+                <strong>{recent.length ? `${successShare(recent)}%` : "—"}</strong>
+                <span>вспоминаете за неделю</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </>
+        ) : (
+          <div className="progress-body">
+            <section className="progress-head">
+              <small>Фильмы</small>
+              <h1>
+                {filmRows[0] && filmRows[0].speech > 0
+                  ? `«${filmRows[0].film.title}» · понятно ${filmRows[0].speech}% речи`
+                  : "Фильмы ещё не начаты"}
+              </h1>
+              <p>
+                начато {filmsStarted} из {films.length} {quantity(films.length, "фильма", "фильмов", "фильмов")} ·{" "}
+                {number(filmWordsStarted)} {quantity(filmWordsStarted, "новое слово", "новых слова", "новых слов")} и
+                терминов в работе
+              </p>
+            </section>
+            <div className="film-progress-list">
+              {filmRows.map((item) => (
+                <div
+                  className={`panel film-progress${item.film.id === activeFilm?.id ? " active" : ""}`}
+                  key={item.film.id}
+                >
+                  <Poster film={item.film} className="film-progress-poster" />
+                  <div className="film-progress-body">
+                    <div className="film-progress-title">
+                      <b>{item.film.title}</b>
+                      {item.film.id === activeFilm?.id && (
+                        <span className="film-on">
+                          <Check size={13} />
+                          включён
+                        </span>
+                      )}
+                    </div>
+                    <div className="film-progress-main">
+                      <strong>{item.speech}%</strong>
+                      <span>
+                        речи понятно · изучено {item.words}% слов, осталось {number(item.remaining)}
+                      </span>
+                    </div>
+                    <div className="progress-track film-track">
+                      <span style={{ width: `${item.speech}%` }} />
+                    </div>
+                    {item.parts.length > 1 && (
+                      <div className="film-progress-parts">
+                        {item.parts.map((part, index) => (
+                          <span key={part.title}>
+                            {item.film.parts[index].film}: <b>{percent(part.speech)}%</b>
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  {item.film.id !== activeFilm?.id && (
+                    <button className="film-progress-action" disabled={saving} onClick={() => selectFilm(item.film.id)}>
+                      Включить
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     );
   }
-
   function renderSettings() {
     return (
       <>
@@ -2116,23 +2071,40 @@ export default function App() {
             ))}
           </div>
         </div>
-        <div className="side-block">
-          <div className="side-head">
-            <span>Oxford 3000</span>
-            <strong>{Math.floor((oxfordStarted / words.length) * 100)}%</strong>
-          </div>
-          <div className="progress-track">
-            <div style={{ width: `${(oxfordStarted / words.length) * 100}%` }} />
-          </div>
-          <div className="side-levels">
-            {levelTotals.map(({ level, words: levelWords, started }) => (
-              <span key={level}>
-                {level}
-                <b>{Math.floor((started / levelWords.length) * 100)}%</b>
+        <button
+          className="side-block side-path"
+          title="Открыть прогресс"
+          onClick={() => {
+            setProgressTab("oxford");
+            setPage("stats");
+          }}
+        >
+          <span className="side-head">
+            <span>{currentLevel ? "Ваш уровень" : "Oxford 3000"}</span>
+            <strong>{currentLevel ? currentLevel.level : "все начаты"}</strong>
+          </span>
+          <span className="mini-path" aria-hidden="true">
+            <span className="mini-path-line">
+              <i style={{ width: `${(oxfordStarted / words.length) * 100}%` }} />
+            </span>
+            {levelStops.map((stop) => (
+              <span
+                key={stop.level}
+                className={`mini-stop${stop.done ? " done" : ""}${stop.level === currentLevel?.level ? " now" : ""}`}
+                style={{ left: `${stop.at * 100}%` }}
+              >
+                <i />
+                {stop.level}
               </span>
             ))}
-          </div>
-        </div>
+            <span className={`mini-stop finish${currentLevel ? "" : " done"}`} style={{ left: "100%" }}>
+              <i />
+            </span>
+          </span>
+          <span className="side-next">
+            изучено <b>{oxfordLearned.toLocaleString("ru-RU")}</b> из {words.length.toLocaleString("ru-RU")} слов
+          </span>
+        </button>
         <div className="sidebar-bottom">
           <button
             className={`nav-item ${page === "settings" ? "active" : ""}`}
